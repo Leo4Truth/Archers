@@ -6,8 +6,9 @@ function Archer(spriteTexture) {
 
     this.mArcher = new SpriteAnimateRenderable(spriteTexture);
     this.mArcher.setColor([1, 1, 1, 0]);
-    this.mArcher.getXform().setPosition(80, 40);
-    this.mArcher.getXform().setSize(16, 20);
+    this.mArcher.getXform().setPosition(20, 60);
+    this.mArcher.getXform().setSize(2, 8);
+    this.mArcher.getXform().setRotationInRad(-Math.PI / 4);
     this.mArcher.setElementPixelPositions(0, 240, 0, 360);
     this.mArcher.setSpriteSequence(128, 0, 80, 90, 5, 0);
     this.mArcher.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateRight);
@@ -15,11 +16,12 @@ function Archer(spriteTexture) {
     GameObject.call(this, this.mArcher);
 
     this.mArrow = null;
-    
-    var r = new RigidRectangle(this.getXform(), 16, 20);
+
+    var r = new RigidCircle(this.getXform(), 2, 8);
     this.setRigidBody(r);
+    this.getRigidBody().setVelocity(5, 5);
     //this.toggleDrawRenderable();
-    //this.toggleDrawRigidShape();
+    this.toggleDrawRigidShape();
 }
 gEngine.Core.inheritPrototype(Archer, WASDObj);
 
@@ -28,18 +30,18 @@ Archer.prototype.update = function () {
         this.mArcher.updateAnimation();
     }
 
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Space)) {
-        this.mArrow = new Renderable();
-        this.mArrow.setColor([1, 0, 0, 0]);
-        this.mArrow.getXform().setPosition(this.mArcher.getXform().getXPos() + 5, this.mArcher.getXform().getYPos() + 5);
-        this.mArrow.getXform().setSize(5, 5);
-        GameObject.call(this, this.mArrow);
-    }
 
-    if (this.mArrow != null)
-        this.mArrow.update();
+    var vec = this.getRigidBody().getVelocity();
+    var speed = Math.sqrt(vec[0] * vec[0] + vec[1] * vec[1]);
+    var rad = -Math.acos(vec[1] / speed);
+    console.log("vec: " + vec);
+    console.log("speed: " + speed);
+    console.log("rad: " + rad);
+    //this.getRigidBody().setRotationInRad(rad)
+    this.mArcher.getXform().setRotationInRad(rad);
 
     GameObject.prototype.update.call(this);
+
 };
 
 Archer.prototype.keyControl = function () {

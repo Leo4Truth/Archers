@@ -92,18 +92,23 @@
         <script type="text/javascript" src="src/Engine/RigidShapes/RigidRectangleCircle_Collision.js"></script>
         <script type="text/javascript" src="src/Engine/RigidShapes/RigidRectangle_Collision.js"></script>
         <!-- Client game code -->
+        <!--
         <script type="text/javascript" src="src/MyGame/PrototypeGame.js"></script>
         <script type="text/javascript" src="src/MyGame/Objects/WASDObj.js"></script>
         <script type="text/javascript" src="src/MyGame/Objects/Archer.js"></script>
         <script type="text/javascript" src= "src/MyGame/Objects/Arrow.js"></script>
-        
+        -->
+
+        <script type="text/javascript" src="src/Game/Scenes/SceneA.js"></script>
+        <script type="text/javascript" src="src/Game/Objects/Arrow.js"></script>
+
         <link rel="stylesheet" type="text/css" href="LoadingIcons.css">
         
     </head>
 
     <body onload="
-        var prototypeGame = new PrototypeGame();
-        gEngine.Core.initializeEngineCore('GLCanvas', prototypeGame);
+        var sceneA = new SceneA();
+        gEngine.Core.initializeEngineCore('GLCanvas', sceneA);
      ">
         <div id="LoadingIconParent" style="width: 800px; height:600px;">
             <canvas id="GLCanvas">

@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 function PrototypeGame() {
     this.kArcherSprite = "assets/ManShoot_Sprite.png";
@@ -45,14 +45,12 @@ PrototypeGame.prototype.initialize = function () {
 
     this.mArcher = new Archer(this.kArcherSprite);
     this.mAllObjs = new GameObjectSet();
-    this.createBounds();
+    //this.createBounds();
 
     this.mAllObjs.addToSet(this.mArcher);
 };
 
 PrototypeGame.prototype.update = function () {
-    if (this.mArcher.mArrow != null)
-        this.mAllObjs.addToSet(this.mArcher.mArrow);
     this.mArcher.keyControl();
     this.mAllObjs.update(this.mCamera);
     gEngine.Physics.processCollision(this.mAllObjs, this.mCollisionInfos);
@@ -64,7 +62,7 @@ PrototypeGame.prototype.draw = function () {
 
     this.mCamera.setupViewProjection();
 
-    this.mTarget.draw(this.mCamera);
+    //this.mTarget.draw(this.mCamera);
     this.mAllObjs.draw(this.mCamera);
     this.mCollisionInfos = []; 
 };
