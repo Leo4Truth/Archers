@@ -1,6 +1,14 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function Arrow(posX, posY, vX, vY, spriteTexture) {
+Arrow.eArrowState = Object.freeze({
+    eFlying: 0,
+    eHit: 1,
+    eMiss: 2
+});
+
+function Arrow(posX, posY, vX, vY, spriteTexture, aAllObjs) {
+    this.mAllObjs = aAllObjs;
+
     this.kVelocity = [vX, vY];
     this.kSpeed = Math.sqrt(this.kVelocity[0] * this.kVelocity[0] + this.kVelocity[1] * this.kVelocity[1]);
     this.kRotationInRad = null;
@@ -10,14 +18,13 @@ function Arrow(posX, posY, vX, vY, spriteTexture) {
     else {
         this.kRotationInRad = Math.acos(this.kVelocity[1] / this.kSpeed);
     }
-    console.log(this.kRotationInRad);
 
     this.mArrow = new SpriteAnimateRenderable(spriteTexture);
     this.mArrow.setColor([1, 1, 1, 0]);
     this.mArrow.getXform().setPosition(posX, posY);
     this.mArrow.getXform().setSize(2, 8);
     this.mArrow.getXform().setRotationInRad(this.kRotationInRad);
-    this.mArrow.setElementPixelPositions(0, 2, 0, 8);
+    //this.mArrow.setElementPixelPositions(0, 2, 0, 8);
     this.mArrow.setSpriteSequence(32, 0, 10, 32, 3, 0);
     this.mArrow.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateRight);
     this.mArrow.setAnimationSpeed(10);
@@ -27,14 +34,21 @@ function Arrow(posX, posY, vX, vY, spriteTexture) {
     this.setRigidBody(r);
     this.getRigidBody().setVelocity(vX, vY);
 
+    this.mExpired = false;
+    this.mParticles = null;
+    this.mTargetHit = null;
+
+    this.mHitObject = null;
+    this.mTouchPos = vec2.fromValues(0, 0);
+
     this.toggleDrawRigidShape(); // Draw RigidShape
 }
-
 gEngine.Core.inheritPrototype(Arrow, GameObject);
 
-Arrow.prototype.update = function (dyes, aCamera) {
+Arrow.prototype.update = function () {
+    GameObject.prototype.update.call(this);
+
     this.kVelocity = this.getRigidBody().getVelocity();
-    console.log("Velocity: " + this.kVelocity);
     this.kSpeed = Math.sqrt(this.kVelocity[0] * this.kVelocity[0] + this.kVelocity[1] * this.kVelocity[1]);
     this.kRotationInRad = null;
     if (this.kVelocity[0] > 0) {
@@ -55,5 +69,9 @@ Arrow.prototype.update = function (dyes, aCamera) {
     }
     this.mArrow.getXform().setRotationInRad(this.kRotationInRad);
     this.mArrow.updateAnimation();
-    GameObject.prototype.update.call(this);
+
+    /*
+    var i;
+    for (i = 0; i < this.)
+    */
 };
