@@ -57,6 +57,10 @@ Renderable.prototype.update = function () {};
  */
 Renderable.prototype.getXform = function () { return this.mXform; };
 
+Renderable.prototype.setXform = function (xform) {
+    this.mXform = xform;
+};
+
 /**
  * Sets the Color of the Renderable.
  * @memberOf Renderable

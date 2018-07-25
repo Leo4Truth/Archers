@@ -2,10 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc354de6-6a2c-4d54-88a1-1312f5ddad7f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public_html/src/Game/Objects/LifePotion.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public_html/assets/arrows.rar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public_html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public_html/src/Engine/Core/Engine_Input.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Engine/Core/Engine_Input.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public_html/src/Engine/GameObjects/GameObject.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Engine/GameObjects/GameObject.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public_html/src/Engine/Renderables/Renderable.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Engine/Renderables/Renderable.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public_html/src/Game/Objects/Archer.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public_html/src/Game/Objects/Arrow.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/Objects/Arrow.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public_html/src/Game/Objects/LifePotion.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/Objects/LifePotion.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public_html/src/Game/Scenes/SceneA.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/Scenes/SceneA.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -27,27 +32,27 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="html" value="3" />
-          <entry key="js" value="68" />
+          <entry key="html" value="4" />
+          <entry key="js" value="85" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="HTML" value="3" />
-          <entry key="JavaScript" value="68" />
+          <entry key="HTML" value="4" />
+          <entry key="JavaScript" value="85" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="48" />
-          <entry key="js" value="10116" />
+          <entry key="html" value="54" />
+          <entry key="js" value="14721" />
           <entry key="txt" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="48" />
-          <entry key="JavaScript" value="10116" />
+          <entry key="HTML" value="54" />
+          <entry key="JavaScript" value="14721" />
           <entry key="PLAIN_TEXT" value="18" />
         </counts>
       </usages-collector>
@@ -59,17 +64,28 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Arrow.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="484">
-              <caret line="75" column="6" selection-start-line="75" selection-start-column="6" selection-end-line="75" selection-end-column="6" />
+            <state relative-caret-position="594">
+              <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/LifePotion.js">
+        <entry file="file://$PROJECT_DIR$/public_html/src/Engine/RigidShapes/RigidCircle.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="4" column="35" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
+            <state relative-caret-position="-264">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public_html/src/Engine/RigidShapes/RigidShape.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4466">
+              <caret line="203" column="45" selection-start-line="203" selection-start-column="45" selection-end-line="203" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -78,25 +94,16 @@
         <entry file="file://$PROJECT_DIR$/public_html/src/Game/Scenes/SceneA.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="330">
-              <caret line="64" column="113" selection-start-line="64" selection-start-column="113" selection-end-line="64" selection-end-column="113" />
+              <caret line="87" column="55" lean-forward="true" selection-start-line="87" selection-start-column="55" selection-end-line="87" selection-end-column="55" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public_html/src/Engine/RigidShapes/RigidShape.js">
+        <entry file="file://$PROJECT_DIR$/public_html/src/Engine/GameObjects/GameObjectSet.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27">
-              <caret line="203" column="45" selection-start-line="203" selection-start-column="45" selection-end-line="203" selection-end-column="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public_html/src/Engine/RigidShapes/RigidCircle_Collision.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-88">
-              <caret line="13" column="12" lean-forward="true" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
+            <state relative-caret-position="264">
+              <caret line="78" column="44" selection-start-line="78" selection-start-column="44" selection-end-line="78" selection-end-column="44" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -105,9 +112,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public_html/src/Engine/RigidShapes/RigidRectangle_Collision.js">
+        <entry file="file://$PROJECT_DIR$/public_html/src/Engine/Renderables/SpriteRenderable.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="308">
+              <caret line="68" column="23" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="23" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -116,10 +124,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public_html/src/Engine/RigidShapes/RigidRectangleCircle_Collision.js">
+        <entry file="file://$PROJECT_DIR$/public_html/src/Engine/Renderables/Renderable.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-550">
-              <caret line="41" column="50" selection-start-line="41" selection-start-column="50" selection-end-line="41" selection-end-column="50" />
+            <state relative-caret-position="66">
+              <caret line="58" selection-start-line="58" selection-end-line="58" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -128,10 +136,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public_html/src/MyGame/MyGame_Bounds.js">
+        <entry file="file://$PROJECT_DIR$/public_html/src/Engine/GameObjects/GameObject.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+            <state relative-caret-position="924">
+              <caret line="89" selection-start-line="89" selection-end-line="89" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -140,10 +148,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public_html/src/Engine/Core/Engine_Physics.js">
+        <entry file="file://$PROJECT_DIR$/public_html/src/Engine/Shadows/ShadowReceiver.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="179" column="59" selection-start-line="179" selection-start-column="46" selection-end-line="179" selection-end-column="59" />
+            <state relative-caret-position="-66">
+              <caret line="15" selection-start-line="15" selection-end-line="15" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public_html/src/Engine/Core/Engine_Input.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1224">
+              <caret line="276" selection-start-line="276" selection-end-line="276" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -169,6 +189,7 @@
       <find>collisionInfo</find>
       <find>Test</find>
       <find>Collision</find>
+      <find>IsKeyReleased</find>
     </findStrings>
     <replaceStrings>
       <replace>SceneA</replace>
@@ -188,16 +209,21 @@
         <option value="$PROJECT_DIR$/public_html/src/Archers/Objects/Archer.js" />
         <option value="$PROJECT_DIR$/public_html/src/MyGame/Objects/WASDObj.js" />
         <option value="$PROJECT_DIR$/public_html/src/MyGame/Objects/Arrow.js" />
-        <option value="$PROJECT_DIR$/public_html/src/Game/Objects/Archer.js" />
         <option value="$PROJECT_DIR$/public_html/src/MyGame/PrototypeGame.js" />
         <option value="$PROJECT_DIR$/public_html/src/MyGame/Objects/Archer.js" />
         <option value="$PROJECT_DIR$/public_html/src/Engine/Core/Engine_Physics.js" />
         <option value="$PROJECT_DIR$/public_html/src/Game/Objects/StillObj.js" />
-        <option value="$PROJECT_DIR$/public_html/src/Engine/GameObjects/GameObject.js" />
-        <option value="$PROJECT_DIR$/public_html/index.html" />
         <option value="$PROJECT_DIR$/public_html/src/Game/Objects/LifePotion.js" />
-        <option value="$PROJECT_DIR$/public_html/src/Game/Scenes/SceneA.js" />
+        <option value="$PROJECT_DIR$/public_html/src/Game/Objects/Archer_Male.js" />
+        <option value="$PROJECT_DIR$/public_html/index.html" />
+        <option value="$PROJECT_DIR$/public_html/src/Engine/Core/Engine_Input.js" />
+        <option value="$PROJECT_DIR$/public_html/src/Game/Objects/ArcherMale.js" />
+        <option value="$PROJECT_DIR$/public_html/src/Engine/GameObjects/GameObject.js" />
+        <option value="$PROJECT_DIR$/public_html/src/Engine/Renderables/Renderable.js" />
         <option value="$PROJECT_DIR$/public_html/src/Game/Objects/Arrow.js" />
+        <option value="$PROJECT_DIR$/public_html/src/Game/Objects/Archer.js" />
+        <option value="$PROJECT_DIR$/public_html/src/Engine/GameObjects/GameObjectSet.js" />
+        <option value="$PROJECT_DIR$/public_html/src/Game/Scenes/SceneA.js" />
       </list>
     </option>
   </component>
@@ -230,6 +256,19 @@
               <item name="Archers" type="b2602c69:ProjectViewProjectNode" />
               <item name="Archers" type="462c0819:PsiDirectoryNode" />
               <item name="public_html" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Archers" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Archers" type="462c0819:PsiDirectoryNode" />
+              <item name="public_html" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Archers" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Archers" type="462c0819:PsiDirectoryNode" />
+              <item name="public_html" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="arrows" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Archers" type="b2602c69:ProjectViewProjectNode" />
@@ -275,6 +314,14 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Engine" type="462c0819:PsiDirectoryNode" />
               <item name="RigidShapes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Archers" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Archers" type="462c0819:PsiDirectoryNode" />
+              <item name="public_html" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Engine" type="462c0819:PsiDirectoryNode" />
+              <item name="Shadows" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Archers" type="b2602c69:ProjectViewProjectNode" />
@@ -374,7 +421,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1532395569051</updated>
-      <workItem from="1532395570413" duration="35136000" />
+      <workItem from="1532395570413" duration="54614000" />
     </task>
     <task id="LOCAL-00001" summary="Arrow Complete">
       <created>1532423895961</created>
@@ -383,53 +430,41 @@
       <option name="project" value="LOCAL" />
       <updated>1532423895961</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Arrow Complete">
+      <created>1532442873190</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1532442873190</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35136000" />
+    <option name="totallyTimeSpent" value="54614000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" sideWeight="0.49947312" visible="true" weight="0.32939914" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" sideWeight="0.50052685" side_tool="true" visible="true" weight="0.32939914" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.40021458" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout>
-    <layout-to-restore>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.24973656" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="1" />
-      <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="3" />
+      <window_info anchor="bottom" id="Terminal" order="0" sideWeight="0.49894625" weight="0.32939914" />
+      <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.50052685" side_tool="true" visible="true" weight="0.40021458" />
+      <window_info anchor="bottom" id="Version Control" order="2" sideWeight="0.49947312" weight="0.32939914" />
+      <window_info anchor="bottom" id="Docker" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" />
       <window_info anchor="bottom" id="Run" order="6" />
-      <window_info anchor="bottom" id="Debug" order="7" visible="true" weight="0.40021458" />
+      <window_info anchor="bottom" id="Debug" order="7" sideWeight="0.49947312" visible="true" weight="0.40021458" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout-to-restore>
+    </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -446,15 +481,6 @@
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public_html/src/Engine/Core/Engine_Input.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5060">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/MovingObj.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -470,15 +496,6 @@
     <entry file="file://$PROJECT_DIR$/public_html/src/Engine/Renderables/SpriteRenderable_PixelCollision.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-132">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public_html/src/Engine/Renderables/SpriteRenderable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-528">
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
@@ -519,15 +536,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="596">
           <caret line="46" column="24" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public_html/src/Engine/RigidShapes/RigidCircle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
@@ -581,51 +589,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public_html/src/Engine/GameObjects/GameObjectSet.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1650">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public_html/src/Engine/GameObjects/GameObject.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="110" column="2" selection-start-line="110" selection-start-column="2" selection-end-line="110" selection-end-column="2" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public_html/src/Engine/Renderables/Renderable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1188">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public_html/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="103" column="72" selection-start-line="103" selection-start-column="72" selection-end-line="103" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public_html/src/MyGame/MyGame.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="130" column="5" lean-forward="true" selection-start-line="130" selection-start-column="5" selection-end-line="130" selection-end-column="5" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public_html/src/Engine/GameObjects/GameObject_PixelCollision.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
@@ -656,16 +619,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public_html/src/MyGame/MyGame_Bounds.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public_html/src/Engine/RigidShapes/RigidRectangle_Collision.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -685,23 +638,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public_html/src/Engine/RigidShapes/RigidShape.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="203" column="45" selection-start-line="203" selection-start-column="45" selection-end-line="203" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public_html/src/Engine/RigidShapes/RigidCircle_Collision.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-88">
-          <caret line="13" column="12" lean-forward="true" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public_html/src/MyGame/Objects/Arrow.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
@@ -711,22 +647,152 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/LifePotion.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="4" column="35" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
+        <state relative-caret-position="440">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/src/MyGame/MyGame_Bounds.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="75" column="15" selection-start-line="75" selection-start-column="15" selection-end-line="75" selection-end-column="15" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="102" column="67" selection-start-line="102" selection-start-column="67" selection-end-line="102" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/src/MyGame/MyGame.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-660">
+          <caret line="17" column="46" lean-forward="true" selection-start-line="17" selection-start-column="46" selection-end-line="17" selection-end-column="46" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/src/Engine/Core/Engine_Input.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1224">
+          <caret line="276" selection-start-line="276" selection-end-line="276" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/src/Engine/Shadows/ShadowReceiver.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-66">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/src/Engine/GameObjects/GameObject.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="924">
+          <caret line="89" selection-start-line="89" selection-end-line="89" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/src/Engine/Renderables/TextureRenderable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="55" column="32" lean-forward="true" selection-start-line="55" selection-start-column="32" selection-end-line="55" selection-end-column="32" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/src/Engine/Renderables/SpriteRenderable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="68" column="23" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="23" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/src/Engine/RigidShapes/RigidCircle_Collision.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="1" column="28" lean-forward="true" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/src/Engine/Renderables/Renderable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="58" selection-start-line="58" selection-end-line="58" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/src/Engine/RigidShapes/RigidCircle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-264">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/src/Engine/RigidShapes/RigidShape.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4466">
+          <caret line="203" column="45" selection-start-line="203" selection-start-column="45" selection-end-line="203" selection-end-column="45" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Arrow.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="75" column="6" selection-start-line="75" selection-start-column="6" selection-end-line="75" selection-end-column="6" />
+        <state relative-caret-position="594">
+          <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Archer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1782">
+          <caret line="96" column="38" lean-forward="true" selection-start-line="96" selection-start-column="38" selection-end-line="96" selection-end-column="38" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/src/Engine/GameObjects/GameObjectSet.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="78" column="44" selection-start-line="78" selection-start-column="44" selection-end-line="78" selection-end-column="44" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public_html/src/Game/Scenes/SceneA.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
-          <caret line="64" column="113" selection-start-line="64" selection-start-column="113" selection-end-line="64" selection-end-column="113" />
+          <caret line="87" column="55" lean-forward="true" selection-start-line="87" selection-start-column="55" selection-end-line="87" selection-end-column="55" />
         </state>
       </provider>
     </entry>

@@ -36,10 +36,6 @@ function Arrow(posX, posY, vX, vY, spriteTexture, aAllObjs) {
 
     this.mExpired = false;
     this.mParticles = null;
-    this.mTargetHit = null;
-
-    this.mHitObject = null;
-    this.mTouchPos = vec2.fromValues(0, 0);
 
     this.toggleDrawRigidShape(); // Draw RigidShape
 }
@@ -48,6 +44,7 @@ gEngine.Core.inheritPrototype(Arrow, GameObject);
 Arrow.prototype.update = function () {
     GameObject.prototype.update.call(this);
 
+    /* Update Flying Direction */
     this.kVelocity = this.getRigidBody().getVelocity();
     this.kSpeed = Math.sqrt(this.kVelocity[0] * this.kVelocity[0] + this.kVelocity[1] * this.kVelocity[1]);
     this.kRotationInRad = null;
@@ -70,8 +67,14 @@ Arrow.prototype.update = function () {
     this.mArrow.getXform().setRotationInRad(this.kRotationInRad);
     this.mArrow.updateAnimation();
 
-    /*
+    /* Check Collision */
     var i;
-    for (i = 0; i < this.)
-    */
+    for (i = 0; i < this.mAllObjs.size(); i++) {
+        var obj = this.mAllObjs.getObjectAt(i);
+        var collisionInfo = new CollisionInfo();
+        if (obj !== this && this.getRigidBody().collisionTest(obj.getRigidBody(), collisionInfo)) {
+            this.mAllObjs.removeFromSet(obj);
+            this.mAllObjs.removeFromSet(this);
+        }
+    }
 };

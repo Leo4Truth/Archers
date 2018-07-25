@@ -95,6 +95,8 @@ gEngine.Input = (function () {
     var mIsKeyPressed = [];
     // Click events: once an event is set, it will remain there until polled
     var mIsKeyClicked = [];
+    // Release events: once an event is set, it will remain there until polled
+    var mIsKeyReleased = [];
 
 
     // Support mouse
@@ -189,6 +191,7 @@ gEngine.Input = (function () {
         var i;
         for (i = 0; i < kKeys.LastKeyCode; i++) {
             mIsKeyClicked[i] = (!mKeyPreviousState[i]) && mIsKeyPressed[i];
+            mIsKeyReleased[i] = mKeyPreviousState[i] && (!mIsKeyPressed[i]);
             mKeyPreviousState[i] = mIsKeyPressed[i];
         }
         for (i = 0; i < 3; i++) {
@@ -219,6 +222,16 @@ gEngine.Input = (function () {
     };
 
     /**
+     * returns if key is released.
+     * @memberOf gEngine.Input
+     * @param {Number|keys} keyCode - key to check for releaseed state.
+     * @returns {Boolean} true if key is released
+     */
+    var isKeyReleased = function (keyCode) {
+        return (mIsKeyReleased[keyCode]);
+    };
+
+    /**
      * returns if button is pressed.
      * @memberOf gEngine.Input
      * @param {Number|mouseButton} button - button to check for pressed state.
@@ -237,7 +250,7 @@ gEngine.Input = (function () {
     var isButtonClicked = function (button) {
         return mIsButtonClicked[button];
     };
-    
+
     /**
      * Returns mouse X position.
      * @memberOf gEngine.Input
@@ -259,7 +272,9 @@ gEngine.Input = (function () {
         // keyboard support
         isKeyPressed: isKeyPressed,
         isKeyClicked: isKeyClicked,
+        isKeyReleased: isKeyReleased,
         keys: kKeys,
+
 
         // Mouse support
         isButtonPressed: isButtonPressed,

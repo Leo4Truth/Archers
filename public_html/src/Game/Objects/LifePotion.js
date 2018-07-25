@@ -2,7 +2,7 @@
 
 function LifePotion(posX, posY, texture) {
     this.mLifePotion = new TextureRenderable(texture);
-    this.mLifePotion.setColor([0, 1, 0, 1]);
+    this.mLifePotion.setColor([1, 1, 1, 0]);
     this.mLifePotion.getXform().setPosition(posX, posY);
     this.mLifePotion.getXform().setSize(10, 10);
 

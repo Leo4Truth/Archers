@@ -76,14 +76,20 @@ GameObject.prototype.getCurrentFrontDir = function () { return this.mCurrentFron
  */
 GameObject.prototype.getRenderable = function () { return this.mRenderComponent; };
 
+GameObject.prototype.setRenderable = function (renderable) {
+    this.mRenderComponent = renderable;
+};
+
 GameObject.prototype.setRigidBody = function (r) {
     this.mRigidBody = r;
 };
 GameObject.prototype.getRigidBody = function () { return this.mRigidBody; };
-GameObject.prototype.toggleDrawRenderable = function() { 
-    this.mDrawRenderable = !this.mDrawRenderable; };
-GameObject.prototype.toggleDrawRigidShape = function() { 
-    this.mDrawRigidShape = !this.mDrawRigidShape; };
+GameObject.prototype.toggleDrawRenderable = function() {
+    this.mDrawRenderable = !this.mDrawRenderable;
+};
+GameObject.prototype.toggleDrawRigidShape = function() {
+    this.mDrawRigidShape = !this.mDrawRigidShape;
+};
 
 GameObject.prototype.update = function () {
     // simple default behavior
