@@ -6,20 +6,21 @@ ShootController.eDirection = Object.freeze({
 });
 
 function ShootController(posX, posY, frontDir, texture) {
-    TextureRenderable.call(this, texture);
+    SpriteRenderable.call(this, texture);
 
     this.mVisible = true;
     this.mCurrentFrontDir = frontDir;
 
     this.setColor([1, 1, 1, 0]);
     this.getXform().setPosition(posX, posY);
-    this.getXform().setSize(32, 4);
+    this.getXform().setSize(24, 4);
+    this.setElementPixelPositions(512, 2048, 0, 256);
     if (this.mCurrentFrontDir[0] === ShootController.eDirection.eLeft[0])
         this.getXform().setRotationInRad(Math.PI);
     else if (this.mCurrentFrontDir[0] === ShootController.eDirection.eRight[0])
         this.getXform().setRotationInRad(0);
 }
-gEngine.Core.inheritPrototype(ShootController, TextureRenderable);
+gEngine.Core.inheritPrototype(ShootController, SpriteRenderable);
 
 ShootController.prototype.setRotationInRad = function(rad) {
     this.getXform().setRotationInRad(rad);
@@ -44,7 +45,7 @@ ShootController.prototype.update = function(frontDir) {
 
 ShootController.prototype.draw = function(aCamera) {
     if (this.isVisible()) {
-        TextureRenderable.prototype.draw.call(this, aCamera);
+        SpriteRenderable.prototype.draw.call(this, aCamera);
     }
 }
 
@@ -76,4 +77,22 @@ ShootController.prototype.keyControl = function () {
         }
         this.getXform().setRotationInRad(rotationInRad);
     }
+
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Z)) {
+        var size = [this.getXform().getSize()[0] - 1.2, this.getXform().getSize()[1] - 0.2];
+        if (size[0] < 18) {
+            size[0] = 18;
+            size[1] = 3;
+        }
+        this.getXform().setSize(size[0], size[1]);
+    }
+    else if (gEngine.Input.isKeyPressed(gEngine.Input.keys.X)) {
+        var size = [this.getXform().getSize()[0] + 1.2, this.getXform().getSize()[1] + 0.2];
+        if (size[0] > 36) {
+            size[0] = 36;
+            size[1] = 6;
+        }
+        this.getXform().setSize(size[0], size[1]);
+    }
+    console.log(this.getXform().getSize());
 }
