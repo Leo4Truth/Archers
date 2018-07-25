@@ -19,6 +19,7 @@ Archer.eDirection = Object.freeze({
     eLeft: new vec2.fromValues(-1, 0),
     eRight: new vec2.fromValues(1, 0),
 });
+<<<<<<< HEAD
 
 function Archer(atX, atY, atW, atH, textures, 
         arrow, arrowTexture, 
@@ -29,7 +30,10 @@ function Archer(atX, atY, atW, atH, textures,
     this.mObjstacles = aObstacle;
     this.mDestroyable = aDestroyable;
     this.mVelocity = new vec2.fromValues(0,0);
+=======
+>>>>>>> faf615dc60acda114664ed21d4b7a3e634bed52e
 
+function Archer(atX, atY, atW, atH, textures) {
     // Animation Members
     this.mStandLeft = new SpriteRenderable(textures.file_stand_left);
     this.mStandLeft.setColor([1, 1, 1, 0]);
@@ -79,7 +83,11 @@ function Archer(atX, atY, atW, atH, textures,
     GameObject.call(this, this.mStandRight);
     this.eCurrentState = Archer.eArcherState.eStandRight;
     this.setCurrentFrontDir(Archer.eDirection.eRight);
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> faf615dc60acda114664ed21d4b7a3e634bed52e
     //Physics
     var r;
     r = new RigidRectangle(this.getXform(), atW - 4, atH - 4);
@@ -204,7 +212,6 @@ Archer.prototype.keyControl = function () {
                 this.eCurrentState = Archer.eArcherState.eWalkLeft;
                 this.setCurrentFrontDir(Archer.eDirection.eLeft);
             }
-
             break;
         }
         case Archer.eArcherState.eWalkLeft: {
@@ -230,7 +237,10 @@ Archer.prototype.keyControl = function () {
             break;
         }
     }
+<<<<<<< HEAD
     //console.log(this.eCurrentState);
+=======
+>>>>>>> faf615dc60acda114664ed21d4b7a3e634bed52e
 
     // move
     var xform = this.getXform();

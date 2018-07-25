@@ -65,6 +65,10 @@ GameObject.prototype.setCurrentFrontDir = function (f) {
     vec2.normalize(norm, f);
     this.mCurrentFrontDir = norm;
 };
+<<<<<<< HEAD
+=======
+
+>>>>>>> faf615dc60acda114664ed21d4b7a3e634bed52e
 
 /**
  * Return the front vector of the GameObject
