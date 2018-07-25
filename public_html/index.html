@@ -98,7 +98,9 @@
         <script type="text/javascript" src="src/MyGame/Objects/Archer.js"></script>
         <script type="text/javascript" src= "src/MyGame/Objects/Arrow.js"></script>
         -->
-
+        <script type="text/javascript" src="src/Game/Scenes/MyMenu.js"></script>
+        <script type="text/javascript" src="src/Game/Objects/LevelBackground.js"></script>
+        
         <script type="text/javascript" src="src/Game/Scenes/SceneA.js"></script>
         <script type="text/javascript" src="src/Game/Objects/Archer.js"></script>
         <script type="text/javascript" src="src/Game/Objects/Arrow.js"></script>
@@ -110,8 +112,8 @@
     </head>
 
     <body onload="
-        var sceneA = new SceneA();
-        gEngine.Core.initializeEngineCore('GLCanvas', sceneA);
+        var menu = new MyMenu(); //var sceneA = new SceneA();
+        gEngine.Core.initializeEngineCore('GLCanvas', menu);
      ">
         <div id="LoadingIconParent" style="width: 800px; height:600px;">
             <canvas id="GLCanvas">
