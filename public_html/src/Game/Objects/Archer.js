@@ -15,9 +15,12 @@ Archer.eArcherState = Object.freeze({
     eShootRight: 5
 });
 
-function Archer(atX, atY, atW, atH, textures) {
-    this.eCurrentState = Archer.eArcherState.eStandLeft;
+Archer.eDirection = Object.freeze({
+    eLeft: new vec2.fromValues(-1, 0),
+    eRight: new vec2.fromValues(1, 0),
+});
 
+function Archer(atX, atY, atW, atH, textures) {
     // Animation Members
     this.mStandLeft = new SpriteRenderable(textures.file_stand_left);
     this.mStandLeft.setColor([1, 1, 1, 0]);
@@ -64,7 +67,9 @@ function Archer(atX, atY, atW, atH, textures) {
     this.mShootRight.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateLeft);
     this.mShootRight.setAnimationSpeed(30);
 
-    GameObject.call(this, this.mStandLeft);
+    GameObject.call(this, this.mStandRight);
+    this.eCurrentState = Archer.eArcherState.eStandRight;
+    this.setCurrentFrontDir(Archer.eDirection.eRight);
 
     //Physics
     var r;
@@ -126,60 +131,70 @@ Archer.prototype.keyControl = function () {
         case Archer.eArcherState.eShootLeft: {
             if (!gEngine.Input.isKeyPressed(gEngine.Input.keys.Space)) {
                 this.eCurrentState = Archer.eArcherState.eStandLeft;
+                this.setCurrentFrontDir(Archer.eDirection.eLeft);
             }
             break;
         }
         case Archer.eArcherState.eShootRight: {
             if (!gEngine.Input.isKeyPressed(gEngine.Input.keys.Space)) {
                 this.eCurrentState = Archer.eArcherState.eStandRight;
+                this.setCurrentFrontDir(Archer.eDirection.eRight);
             }
             break;
         }
         case Archer.eArcherState.eStandLeft: {
             if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Space)) {
                 this.eCurrentState = Archer.eArcherState.eShootLeft;
+                this.setCurrentFrontDir(Archer.eDirection.eLeft);
             }
             else if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
                 this.eCurrentState = Archer.eArcherState.eWalkLeft;
+                this.setCurrentFrontDir(Archer.eDirection.eLeft);
             }
             else if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
                 this.eCurrentState = Archer.eArcherState.eWalkRight;
+                this.setCurrentFrontDir(Archer.eDirection.eRight);
             }
             break;
         }
         case Archer.eArcherState.eStandRight: {
             if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Space)) {
                 this.eCurrentState = Archer.eArcherState.eShootRight;
+                this.setCurrentFrontDir(Archer.eDirection.eRight);
             }
             else if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
                 this.eCurrentState = Archer.eArcherState.eWalkRight;
+                this.setCurrentFrontDir(Archer.eDirection.eRight);
             }
             else if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
                 this.eCurrentState = Archer.eArcherState.eWalkLeft;
+                this.setCurrentFrontDir(Archer.eDirection.eLeft);
             }
-
             break;
         }
         case Archer.eArcherState.eWalkLeft: {
             if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Space)) {
                 this.eCurrentState = Archer.eArcherState.eShootLeft;
+                this.setCurrentFrontDir(Archer.eDirection.eLeft);
             }
             else if (!gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
                 this.eCurrentState = Archer.eArcherState.eStandLeft;
+                this.setCurrentFrontDir(Archer.eDirection.eLeft);
             }
             break;
         }
         case Archer.eArcherState.eWalkRight: {
             if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Space)) {
                 this.eCurrentState = Archer.eArcherState.eShootRight;
+                this.setCurrentFrontDir(Archer.eDirection.eRight);
             }
             else if (!gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
                 this.eCurrentState = Archer.eArcherState.eStandRight;
+                this.setCurrentFrontDir(Archer.eDirection.eRight);
             }
             break;
         }
     }
-    console.log(this.eCurrentState);
 
     // move
     var xform = this.getXform();

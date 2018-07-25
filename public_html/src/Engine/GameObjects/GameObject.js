@@ -59,7 +59,12 @@ GameObject.prototype.setVisibility = function (f) { this.mVisible = f; };
  */
 GameObject.prototype.isVisible = function () { return this.mVisible; };
 
-GameObject.prototype.setCurrentFrontDir = function (f) { vec2.normalize(this.mCurrentFrontDir, f); };
+GameObject.prototype.setCurrentFrontDir = function (f) {
+    /*vec2.normalize(this.mCurrentFrontDir, f);*/
+    var norm = new vec2.fromValues(0, 1);
+    vec2.normalize(norm, f);
+    this.mCurrentFrontDir = norm;
+};
 
 
 /**

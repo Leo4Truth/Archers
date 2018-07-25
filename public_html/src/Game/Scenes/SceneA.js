@@ -11,6 +11,7 @@ function SceneA() {
         file_shoot_left: "assets/archerNew/shoot_left.png",
         file_shoot_right: "assets/archerNew/shoot_right.png"
     };
+    this.kShootDirectionArrow = "assets/UI/UI_arrow.png";
 
     this.kPlatformTexture = "assets/platform.png";
     this.kWallTexture = "assets/wall.png";
@@ -31,6 +32,7 @@ gEngine.Core.inheritPrototype(SceneA, Scene);
 SceneA.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kArrowSprite);
     gEngine.Textures.loadTexture(this.kLifePotionTexture);
+    gEngine.Textures.loadTexture(this.kShootDirectionArrow);
 
     gEngine.Textures.loadTexture(this.kArcherMaleTextures.file_stand_left);
     gEngine.Textures.loadTexture(this.kArcherMaleTextures.file_stand_right);
@@ -47,6 +49,7 @@ SceneA.prototype.loadScene = function () {
 SceneA.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kArrowSprite);
     gEngine.Textures.unloadTexture(this.kLifePotionTexture);
+    gEngine.Textures.unloadTexture(this.kShootDirectionArrow);
 
     gEngine.Textures.unloadTexture(this.kArcherMaleTextures.file_stand_left);
     gEngine.Textures.unloadTexture(this.kArcherMaleTextures.file_stand_right);
@@ -77,7 +80,8 @@ SceneA.prototype.initialize = function () {
     this.createBounds();
     this.mArcherMale = new Archer(20, 40, 12, 14, this.kArcherMaleTextures, this.mAllObjs);
     this.mArrow = new Arrow(20, 60, 10, 15, this.kArrowSprite, this.mAllObjs);
-    this.mLifePotion = new LifePotion(50, 80, this.kLifePotionTexture);
+    this.mLifePotion = new LifePotion(50, 10, this.kLifePotionTexture);
+    this.mShootController = new ShootController(20, 40, this.mArcherMale.getCurrentFrontDir(), this.kShootDirectionArrow);
     this.mAllObjs.addToSet(this.mArcherMale);
     this.mAllObjs.addToSet(this.mArrow);
     this.mAllObjs.addToSet(this.mLifePotion);
@@ -85,6 +89,9 @@ SceneA.prototype.initialize = function () {
 
 SceneA.prototype.update = function () {
     this.mAllObjs.update(this.mCamera);
+    var archerPos = this.mArcherMale.getXform().getPosition();
+    this.mShootController.getXform().setPosition(archerPos[0], archerPos[1]);
+    this.mShootController.update(this.mArcherMale.getCurrentFrontDir());
     gEngine.Physics.processCollision(this.mAllObjs, this.mCollisionInfos);
 };
 
@@ -95,6 +102,8 @@ SceneA.prototype.draw = function () {
     this.mCamera.setupViewProjection();
 
     this.mAllObjs.draw(this.mCamera);
+
+    this.mShootController.draw(this.mCamera);
     this.mCollisionInfos = [];
 };
 
