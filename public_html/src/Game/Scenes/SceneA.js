@@ -99,19 +99,12 @@ SceneA.prototype.initialize = function () {
     this.mDestroyable = new GameObjectSet();
 
     this.createBounds();
-<<<<<<< HEAD
     this.mArcherMale = new Archer(20, 40, 12, 14, this.kArcherMaleTextures,
                                     this.mArrow, this.kArrowSprite,
                                     this.mAllObjs, this.mAllObstacles, this.mDestroyable);
     this.mAnotherArcher = new Archer(40, 50, 12, 14, this.kArcherMaleTextures,
                                     this.mArrow, this.kArrowSprite,
                                     this.mAllObjs, this.mAllObstacles, this.mDestroyable);    
-=======
-    this.mArcherMale = new Archer(20, 40, 12, 14, this.kArcherMaleTextures, this.mAllObjs);
-    this.mArrow = new Arrow(20, 60, 10, 15, this.kArrowSprite, this.mAllObjs);
-    this.mLifePotion = new LifePotion(50, 10, this.kLifePotionTexture);
-    this.mShootController = new ShootController(20, 40, this.mArcherMale.getCurrentFrontDir(), this.kShootDirectionArrow);
->>>>>>> faf615dc60acda114664ed21d4b7a3e634bed52e
     this.mAllObjs.addToSet(this.mArcherMale);
     this.mAllObjs.addToSet(this.mAnotherArcher);
     this.mDestroyable.addToSet(this.mArcherMale);
@@ -153,9 +146,6 @@ SceneA.prototype.update = function () {
     this.mCurrentObject .getRigidBody().userSetsState();
     
     this.mAllObjs.update(this.mCamera);
-    var archerPos = this.mArcherMale.getXform().getPosition();
-    this.mShootController.getXform().setPosition(archerPos[0], archerPos[1]);
-    this.mShootController.update(this.mArcherMale.getCurrentFrontDir());
     gEngine.Physics.processCollision(this.mAllObjs, this.mCollisionInfos);
     
     //Time control part
@@ -183,8 +173,6 @@ SceneA.prototype.draw = function () {
     this.mShootController.draw(this.mCamera);
     
     this.mAllObjs.draw(this.mCamera);
-
-    this.mShootController.draw(this.mCamera);
     this.mCollisionInfos = [];
 };
 
