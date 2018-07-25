@@ -15,8 +15,20 @@ Archer.eArcherState = Object.freeze({
     eShootRight: 5
 });
 
-function Archer(atX, atY, atW, atH, textures) {
-    this.eCurrentState = Archer.eArcherState.eStandLeft;
+Archer.eDirection = Object.freeze({
+    eLeft: new vec2.fromValues(-1, 0),
+    eRight: new vec2.fromValues(1, 0),
+});
+
+function Archer(atX, atY, atW, atH, textures, 
+        arrow, arrowTexture, 
+        allObject, aObstacle, aDestroyable) {
+    this.mArrow = arrow;
+    this.arrowTexture = arrowTexture;
+    this.mAllObjs = allObject;
+    this.mObjstacles = aObstacle;
+    this.mDestroyable = aDestroyable;
+    this.mVelocity = new vec2.fromValues(0,0);
 
     // Animation Members
     this.mStandLeft = new SpriteRenderable(textures.file_stand_left);
@@ -64,8 +76,10 @@ function Archer(atX, atY, atW, atH, textures) {
     this.mShootRight.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateLeft);
     this.mShootRight.setAnimationSpeed(30);
 
-    GameObject.call(this, this.mStandLeft);
-
+    GameObject.call(this, this.mStandRight);
+    this.eCurrentState = Archer.eArcherState.eStandRight;
+    this.setCurrentFrontDir(Archer.eDirection.eRight);
+    
     //Physics
     var r;
     r = new RigidRectangle(this.getXform(), atW - 4, atH - 4);
@@ -77,7 +91,7 @@ function Archer(atX, atY, atW, atH, textures) {
 gEngine.Core.inheritPrototype(Archer, GameObject);
 
 Archer.prototype.update = function (aCamera) {
-    this.keyControl();
+    //this.keyControl();
 
     var xform = this.getRenderable().getXform();
     this.mStandLeft.setXform(xform);
@@ -121,65 +135,102 @@ Archer.prototype.draw = function (aCamera) {
 
 var kWASDDelta = 0.3;
 Archer.prototype.keyControl = function () {
+    //Shoot the arrow
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) {
+        
+        var archerX, archerY;
+        var tempVec = this.getXform().getPosition();
+        archerX = tempVec[0];
+        archerY = tempVec[1];
+        
+        //var velocity = this.mShootController.getVelocity();
+        //console.log(velocity);
+        if(this.eCurrentState === Archer.eArcherState.eShootLeft
+            || this.eCurrentState === Archer.eArcherState.eStandLeft
+            || this.eCurrentState === Archer.eArcherState.eWalkdLeft)
+            this.mArrow = new Arrow(archerX - 5, archerY, this.mVelocity[0], this.mVelocity[1], this.arrowTexture, 
+                                this.mAllObjs, this.mObjstacles, this.mDestroyable,
+                                this);
+        else if(this.eCurrentState === Archer.eArcherState.eShootRight
+            || this.eCurrentState === Archer.eArcherState.eStandRight
+            || this.eCurrentState === Archer.eArcherState.eWalkdRight)
+            this.mArrow = new Arrow(archerX + 5, archerY, this.mVelocity[0], this.mVelocity[1], this.arrowTexture, 
+                                this.mAllObjs, this.mObjstacles, this.mDestroyable,
+                                this);
+        this.mAllObjs.addToSet(this.mArrow);
+    }
+    
     // Finite State Machine
     switch (this.eCurrentState) {
         case Archer.eArcherState.eShootLeft: {
-            if (!gEngine.Input.isKeyPressed(gEngine.Input.keys.Space)) {
+            if (!gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
                 this.eCurrentState = Archer.eArcherState.eStandLeft;
+                this.setCurrentFrontDir(Archer.eDirection.eLeft);
             }
             break;
         }
         case Archer.eArcherState.eShootRight: {
-            if (!gEngine.Input.isKeyPressed(gEngine.Input.keys.Space)) {
+            if (!gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
                 this.eCurrentState = Archer.eArcherState.eStandRight;
+                this.setCurrentFrontDir(Archer.eDirection.eRight);
             }
             break;
         }
         case Archer.eArcherState.eStandLeft: {
-            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Space)) {
+            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
                 this.eCurrentState = Archer.eArcherState.eShootLeft;
+                this.setCurrentFrontDir(Archer.eDirection.eLeft);
             }
             else if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
                 this.eCurrentState = Archer.eArcherState.eWalkLeft;
+                this.setCurrentFrontDir(Archer.eDirection.eLeft);
             }
             else if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
                 this.eCurrentState = Archer.eArcherState.eWalkRight;
+                this.setCurrentFrontDir(Archer.eDirection.eRight);
             }
             break;
         }
         case Archer.eArcherState.eStandRight: {
-            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Space)) {
+            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
                 this.eCurrentState = Archer.eArcherState.eShootRight;
+                this.setCurrentFrontDir(Archer.eDirection.eRight);
             }
             else if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
                 this.eCurrentState = Archer.eArcherState.eWalkRight;
+                this.setCurrentFrontDir(Archer.eDirection.eRight);
             }
             else if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
                 this.eCurrentState = Archer.eArcherState.eWalkLeft;
+                this.setCurrentFrontDir(Archer.eDirection.eLeft);
             }
 
             break;
         }
         case Archer.eArcherState.eWalkLeft: {
-            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Space)) {
+            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
                 this.eCurrentState = Archer.eArcherState.eShootLeft;
+                this.setCurrentFrontDir(Archer.eDirection.eLeft);
             }
             else if (!gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
                 this.eCurrentState = Archer.eArcherState.eStandLeft;
+                this.setCurrentFrontDir(Archer.eDirection.eLeft);
             }
             break;
         }
         case Archer.eArcherState.eWalkRight: {
-            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Space)) {
+            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
                 this.eCurrentState = Archer.eArcherState.eShootRight;
+                this.setCurrentFrontDir(Archer.eDirection.eRight);
             }
             else if (!gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
                 this.eCurrentState = Archer.eArcherState.eStandRight;
+                this.setCurrentFrontDir(Archer.eDirection.eRight);
             }
             break;
         }
     }
-    console.log(this.eCurrentState);
+    //console.log(this.eCurrentState);
 
     // move
     var xform = this.getXform();
@@ -195,4 +246,38 @@ Archer.prototype.keyControl = function () {
     }
 
     this.getRigidBody().userSetsState();
+};
+
+Archer.prototype.setToStand = function () {
+    switch (this.eCurrentState) {
+        case Archer.eArcherState.eShootLeft: {          
+            this.eCurrentState = Archer.eArcherState.eStandLeft;
+            break;
+        }
+        case Archer.eArcherState.eShootRight: {
+            this.eCurrentState = Archer.eArcherState.eStandRight;
+            break;
+        }
+        case Archer.eArcherState.eStandLeft: {
+            this.eCurrentState = Archer.eArcherState.eStandLeft;
+            break;
+        }
+        case Archer.eArcherState.eStandRight: {
+            this.eCurrentState = Archer.eArcherState.eStandRight;
+            break;
+        }
+        case Archer.eArcherState.eWalkLeft: {
+            this.eCurrentState = Archer.eArcherState.eStandLeft;
+            break;
+        }
+        case Archer.eArcherState.eWalkRight: {
+            this.eCurrentState = Archer.eArcherState.eStandRight;
+            break;
+        }
+    }
+};
+
+Archer.prototype.setVelocity = function (x, y) {
+    var tempVelocity = new vec2.fromValues(x, y);
+    this.mVelocity = tempVelocity;
 };
