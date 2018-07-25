@@ -37,14 +37,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="html" value="82" />
-          <entry key="js" value="17096" />
+          <entry key="js" value="17340" />
           <entry key="txt" value="286" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="82" />
-          <entry key="JavaScript" value="17096" />
+          <entry key="JavaScript" value="17340" />
           <entry key="PLAIN_TEXT" value="286" />
         </counts>
       </usages-collector>
@@ -65,8 +65,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public_html/src/Game/UI/ShootController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="84" column="23" selection-start-line="84" selection-start-column="23" selection-end-line="84" selection-end-column="23" />
+            <state relative-caret-position="769">
+              <caret line="100" column="64" lean-forward="true" selection-start-line="100" selection-start-column="64" selection-end-line="100" selection-end-column="64" />
             </state>
           </provider>
         </entry>
@@ -423,7 +423,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1532395569051</updated>
-      <workItem from="1532395570413" duration="64185000" />
+      <workItem from="1532395570413" duration="65082000" />
     </task>
     <task id="LOCAL-00001" summary="Arrow Complete">
       <created>1532423895961</created>
@@ -450,7 +450,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64185000" />
+    <option name="totallyTimeSpent" value="65082000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -843,8 +843,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public_html/src/Game/UI/ShootController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="84" column="23" selection-start-line="84" selection-start-column="23" selection-end-line="84" selection-end-column="23" />
+        <state relative-caret-position="769">
+          <caret line="100" column="64" lean-forward="true" selection-start-line="100" selection-start-column="64" selection-end-line="100" selection-end-column="64" />
         </state>
       </provider>
     </entry>

@@ -96,3 +96,10 @@ ShootController.prototype.keyControl = function () {
     }
     console.log(this.getXform().getSize());
 }
+
+ShootController.prototype.getVelocity = function () {
+    var speed = Math.pow(this.getXform().getSize()[0], 3) / 500;
+    var rad = this.getXform().getRotationInRad();
+    var velocity = new vec2.fromValues(speed * Math.cos(rad), speed * Math.sin(rad));
+    return velocity;
+}
