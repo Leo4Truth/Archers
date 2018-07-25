@@ -90,7 +90,9 @@ Arrow.prototype.update = function () {
         var collisionInfo = new CollisionInfo();
         if (obj !== this && obj !== this.mMaster && //avoid killing the archer who shoot
             this.getRigidBody().collisionTest(obj.getRigidBody(), collisionInfo)) {
-                //this.mDestoryable.removeFromSet(obj);
+            //obj = {};
+            //obj.getXform().setPosition(1000, 1000);
+            //this.mDestoryable.removeFromSet(obj);
             this.mAllObjs.removeFromSet(obj);
             this.mAllObjs.removeFromSet(this);            
         }

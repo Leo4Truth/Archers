@@ -38,7 +38,7 @@ function SceneA() {
     //Time
     this.mTimeCounter = 0;
     
-    //Which player's turn
+    //Which player's turn       ./////this can be removed or replaced by FSM
     this.mTurnToPlay = 0;
     
     //ShootController for ui
@@ -128,40 +128,27 @@ SceneA.prototype.update = function () {
     }
     
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) {
-        this.mTimeCounter = 590;
-        if(this.mTurnToPlay === 0){            
-            this.mAnotherArcher.setToStand();
-        }
-        else{
-            this.mArcherMale.setToStand();
-        }
+        this.mTimeCounter = 580;
     }
-    
-    //Set the activated archer
-    if(this.mTurnToPlay === 0)
-        this.mCurrentObject  = this.mArcherMale;
-    else
-        this.mCurrentObject  = this.mAnotherArcher;
-    this.mCurrentObject .keyControl();
-    this.mCurrentObject .getRigidBody().userSetsState();
     
     this.mAllObjs.update(this.mCamera);
     gEngine.Physics.processCollision(this.mAllObjs, this.mCollisionInfos);
     
-    //Time control part
+    //Time control part. When needed, set the activated archer
     this.mTimeCounter++;
-    //console.log(this.mTimeCounter);
     if(this.mTimeCounter >= 600){
-        if(this.mTurnToPlay === 0){
-            this.mTurnToPlay = 1;
-            this.mAnotherArcher.setToStand();
+        if(this.mCurrentObject === this.mArcherMale){
+            this.mCurrentObject  = this.mAnotherArcher;
+            this.mArcherMale.setToStand();
         }
         else{
-            this.mTurnToPlay = 0;
-            this.mArcherMale.setToStand();
+            this.mCurrentObject  = this.mArcherMale;
+            this.mAnotherArcher.setToStand();
         }            
         this.mTimeCounter = 0;
     }
+    this.mCurrentObject .keyControl();
+    this.mCurrentObject .getRigidBody().userSetsState();
     
 };
 
@@ -212,7 +199,7 @@ SceneA.prototype.wallAt = function (x, y, w) {
     var g = new GameObject(p);
     var r = new RigidRectangle(xf, w, h);
     g.setRigidBody(r);
-    g.toggleDrawRenderable();
+    //g.toggleDrawRenderable();
     g.toggleDrawRigidShape();
 
     r.setMass(0);
@@ -230,7 +217,7 @@ SceneA.prototype.platformAt = function (x, y, w, rot) {
     var g = new GameObject(p);
     var r = new RigidRectangle(xf, w, h);
     g.setRigidBody(r);
-    g.toggleDrawRenderable();
+    //g.toggleDrawRenderable();
     g.toggleDrawRigidShape();
 
     r.setMass(0);

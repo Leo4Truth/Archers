@@ -5,29 +5,27 @@
 "use strict";
 
 function MyMenu() {
-// my code
-	this.mTitle = null;
-        this.mButton1 = null;
-        this.mButton2 = null;
-        this.mMark = null;
-        this.mhelp = null;
+    this.mTitle = null;
+    this.mButton1 = null;
+    this.mButton2 = null;
+    this.mMark = null;
+    this.mhelp = null;
 
-        this.option = 0;
-//
-	this.mColorSelect = null;
-	this.mLevelBackground = null;
-	this.kBackground = "assets/menu/MenuBackground.png";
-	this.kStartButton = "assets/menu/Button.png";
-        this.kTitle = "assets/menu/title.png";    
-        this.khelp = "assets/menu/help.png";
-        this.kButton1 = "assets/menu/button1.png";
-        this.kButton2 = "assets/menu/button2.png";
-        this.kMark = "assets/menu/opArrow.png";
-	this.mCamera = null;
+    this.option = 0;
+    this.mColorSelect = null;
+    this.mLevelBackground = null;
+    this.kBackground = "assets/menu/MenuBackground.png";
+    this.kStartButton = "assets/menu/Button.png";
+    this.kTitle = "assets/menu/title.png";    
+    this.khelp = "assets/menu/help.png";
+    this.kButton1 = "assets/menu/button1.png";
+    this.kButton2 = "assets/menu/button2.png";
+    this.kMark = "assets/menu/opArrow.png";
+    this.mCamera = null;
 
-	// Coordinate Systems (Copied from MyGame for simplicity, can change this)
-    this.kWCWidth = 200;
-    this.kViewportWidth = 1200;
+    // Coordinate Systems (Copied from MyGame for simplicity, can change this)
+    this.kWCWidth = 100;
+    this.kViewportWidth = 800;
     this.kViewportHeight = 600;
     this.kWCHeight = this.kViewportHeight * (this.kWCWidth / this.kViewportWidth);
     // Animate Ball roll onto screen

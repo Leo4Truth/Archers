@@ -135,31 +135,6 @@ Archer.prototype.draw = function (aCamera) {
 
 var kWASDDelta = 0.3;
 Archer.prototype.keyControl = function () {
-    //Shoot the arrow
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) {
-        
-        var archerX, archerY;
-        var tempVec = this.getXform().getPosition();
-        archerX = tempVec[0];
-        archerY = tempVec[1];
-        
-        //var velocity = this.mShootController.getVelocity();
-        //console.log(velocity);
-        if(this.eCurrentState === Archer.eArcherState.eShootLeft
-            || this.eCurrentState === Archer.eArcherState.eStandLeft
-            || this.eCurrentState === Archer.eArcherState.eWalkdLeft)
-            this.mArrow = new Arrow(archerX - 5, archerY, this.mVelocity[0], this.mVelocity[1], this.arrowTexture, 
-                                this.mAllObjs, this.mObjstacles, this.mDestroyable,
-                                this);
-        else if(this.eCurrentState === Archer.eArcherState.eShootRight
-            || this.eCurrentState === Archer.eArcherState.eStandRight
-            || this.eCurrentState === Archer.eArcherState.eWalkdRight)
-            this.mArrow = new Arrow(archerX + 5, archerY, this.mVelocity[0], this.mVelocity[1], this.arrowTexture, 
-                                this.mAllObjs, this.mObjstacles, this.mDestroyable,
-                                this);
-        this.mAllObjs.addToSet(this.mArrow);
-    }
-    
     // Finite State Machine
     switch (this.eCurrentState) {
         case Archer.eArcherState.eShootLeft: {
@@ -230,7 +205,30 @@ Archer.prototype.keyControl = function () {
             break;
         }
     }
-    //console.log(this.eCurrentState);
+//    console.log(this.eCurrentState);
+    
+    //Shoot the arrow
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) {
+        
+        var archerX, archerY;
+        var tempVec = this.getXform().getPosition();
+        archerX = tempVec[0];
+        archerY = tempVec[1];
+        
+        //var velocity = this.mShootController.getVelocity();
+        //console.log(velocity);
+        if(this.eCurrentState === Archer.eArcherState.eShootLeft
+            || this.eCurrentState === Archer.eArcherState.eStandLeft)
+            this.mArrow = new Arrow(archerX - 5, archerY, this.mVelocity[0], this.mVelocity[1], this.arrowTexture, 
+                                this.mAllObjs, this.mObjstacles, this.mDestroyable,
+                                this);
+        else if(this.eCurrentState === Archer.eArcherState.eShootRight
+            || this.eCurrentState === Archer.eArcherState.eStandRight)
+            this.mArrow = new Arrow(archerX + 5, archerY, this.mVelocity[0], this.mVelocity[1], this.arrowTexture, 
+                                this.mAllObjs, this.mObjstacles, this.mDestroyable,
+                                this);
+        this.mAllObjs.addToSet(this.mArrow);
+    }
 
     // move
     var xform = this.getXform();

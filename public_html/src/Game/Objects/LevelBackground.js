@@ -17,9 +17,9 @@ function LevelBackground(spriteTexture) {
 
     this.addToSet(this.mBackg);
 
-}
+};
 gEngine.Core.inheritPrototype(LevelBackground, GameObjectSet);
 
 LevelBackground.prototype.getBackground = function() {
 	return this.mBackg;
-}
+};
