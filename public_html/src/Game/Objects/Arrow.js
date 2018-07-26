@@ -6,17 +6,9 @@ Arrow.eArrowState = Object.freeze({
     eMiss: 2
 });
 
-<<<<<<< HEAD
 function Arrow(posX, posY, vX, vY, spriteTexture,
                aAllObjs, aObstacle, aDestroyable,
-               master
-) {
-=======
-function Arrow(posX, posY, vX, vY, spriteTexture, 
-        aAllObjs, aObstacle, aDestroyable,
-        master
-        ) {
->>>>>>> a393ae762ed940b0aa8789ef09fdde8df0830b56
+               master) {
     this.mAllObjs = aAllObjs;
     this.mMaster = master;
     this.mObstacle = aObstacle;
@@ -43,7 +35,9 @@ function Arrow(posX, posY, vX, vY, spriteTexture,
     this.mArrow.setAnimationSpeed(10);
     GameObject.call(this, this.mArrow);
 
-    var r = new RigidCircle(this.getXform(), 2, 8);
+
+    //var r = new RigidCircle(this.getXform(), 2, 8);
+    var r = new RigidRectangle(this.getXform(), 1, 8);
     this.setRigidBody(r);
     this.getRigidBody().setVelocity(vX, vY);
 
@@ -88,7 +82,6 @@ Arrow.prototype.update = function () {
         if (obj !== this && obj !== this.mMaster && //avoid killing the archer who shoot
             this.getRigidBody().collisionTest(obj.getRigidBody(), collisionInfo)) {
             //this.mAllObjs.removeFromSet(obj);
-<<<<<<< HEAD
             this.mAllObjs.removeFromSet(this);
         }
     }
@@ -112,23 +105,4 @@ Arrow.prototype.update = function () {
 
     if (this.getXform().getPosition()[1] < -200)
         this.mAllObjs.removeFromSet(this);
-
-=======
-            this.mAllObjs.removeFromSet(this);
-        }
-    }
-    
-    for (i = 0; i < this.mDestroyable.size(); i++) {
-        var obj = this.mDestroyable.getObjectAt(i);
-        var collisionInfo = new CollisionInfo();
-        if (obj !== this && obj !== this.mMaster && //avoid killing the archer who shoot
-            this.getRigidBody().collisionTest(obj.getRigidBody(), collisionInfo)) {
-            //obj = {};
-            //obj.getXform().setPosition(1000, 1000);
-            //this.mDestoryable.removeFromSet(obj);
-            this.mAllObjs.removeFromSet(obj);
-            this.mAllObjs.removeFromSet(this);            
-        }
-    }
->>>>>>> a393ae762ed940b0aa8789ef09fdde8df0830b56
 };

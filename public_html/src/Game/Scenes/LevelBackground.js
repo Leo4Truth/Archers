@@ -22,4 +22,4 @@ gEngine.Core.inheritPrototype(LevelBackground, GameObjectSet);
 
 LevelBackground.prototype.getBackground = function() {
 	return this.mBackg;
-}
+};
