@@ -45,7 +45,7 @@ function Arrow(posX, posY, vX, vY, spriteTexture,
     this.GenerateParticales = 1;
     this.mParticles = new ParticleGameObjectSet();
 
-    this.toggleDrawRigidShape(); // Draw RigidShape
+    //this.toggleDrawRigidShape(); // Draw RigidShape
 }
 gEngine.Core.inheritPrototype(Arrow, GameObject);
 
@@ -137,7 +137,7 @@ Arrow.prototype.draw = function (aCamera) {
 Arrow.prototype.createParticle = function(atX, atY) {
     var life = 30 + Math.random() * 200;
     var p = new ParticleGameObject("assets/particles/Particle2.png", atX, atY, life);
-    p.getRenderable().setColor([1, 0, 0, 1]);
+    p.getRenderable().setColor([0, 0, 1, 1]);
     
     // size of the particle
     var r = 3.5 + Math.random() * 2.5;

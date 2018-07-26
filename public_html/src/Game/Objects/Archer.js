@@ -91,7 +91,7 @@ function Archer(atX, atY, atW, atH, textures,
     this.setRigidBody(r);
 
     //this.toggleDrawRenderable();
-    this.toggleDrawRigidShape();
+    //this.toggleDrawRigidShape();
 }
 
 gEngine.Core.inheritPrototype(Archer, GameObject);
