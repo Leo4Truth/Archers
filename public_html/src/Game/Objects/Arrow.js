@@ -6,9 +6,15 @@ Arrow.eArrowState = Object.freeze({
     eMiss: 2
 });
 
+Arrow.eAssets = Object.freeze({
+    eNormalArrowTexture: "./assets/arrows/arrows_a.png"
+});
+
 function Arrow(posX, posY, vX, vY, spriteTexture,
                aAllObjs, aObstacle, aDestroyable,
                master) {
+    this.mCurrentState = Arrow.eArrowState.eFlying;
+
     this.mAllObjs = aAllObjs;
     this.mMaster = master;
     this.mObstacle = aObstacle;
@@ -35,7 +41,9 @@ function Arrow(posX, posY, vX, vY, spriteTexture,
     this.mArrow.setAnimationSpeed(10);
     GameObject.call(this, this.mArrow);
 
-    var r = new RigidCircle(this.getXform(), 2, 8);
+
+    //var r = new RigidCircle(this.getXform(), 2, 8);
+    var r = new RigidRectangle(this.getXform(), 1, 8);
     this.setRigidBody(r);
     this.getRigidBody().setVelocity(vX, vY);
 
@@ -73,34 +81,49 @@ Arrow.prototype.update = function () {
     this.mArrow.updateAnimation();
 
     /* Check Collision */
+    var obj;
+    var collisionInfo;
     var i;
     for (i = 0; i < this.mObstacle.size(); i++) {
-        var obj = this.mObstacle.getObjectAt(i);
-        var collisionInfo = new CollisionInfo();
+        obj = this.mObstacle.getObjectAt(i);
+        collisionInfo = new CollisionInfo();
         if (obj !== this && obj !== this.mMaster && //avoid killing the archer who shoot
             this.getRigidBody().collisionTest(obj.getRigidBody(), collisionInfo)) {
-            //this.mAllObjs.removeFromSet(obj);
+            if (obj instanceof Archer) {
+                obj.loseHp();
+            }
             this.mAllObjs.removeFromSet(this);
+            this.mCurrentState = Arrow.eArrowState.eMiss;
         }
     }
 
     for (i = 0; i < this.mDestroyable.size(); i++) {
-        var obj = this.mDestroyable.getObjectAt(i);
-        var collisionInfo = new CollisionInfo();
+        obj = this.mDestroyable.getObjectAt(i);
+        collisionInfo = new CollisionInfo();
         if (obj !== this && obj !== this.mMaster && //avoid killing the archer who shoot
             this.getRigidBody().collisionTest(obj.getRigidBody(), collisionInfo)) {
-            //obj = {};
-            //obj.getXform().setPosition(1000, 1000);
-            //this.mDestoryable.removeFromSet(obj);
+            if (obj instanceof LifePotion) {
+                this.mMaster.addHp();
+            }
             this.mAllObjs.removeFromSet(obj);
+            this.mDestroyable.removeFromSet(obj);
             this.mAllObjs.removeFromSet(this);
+            this.mCurrentState = Arrow.eArrowState.eHit;
         }
     }
 
     var v = this.getRigidBody().getVelocity();
-    if (Math.abs(v[0]) < 0.2 && Math.abs(v[1]) < 0.2)
+    if (Math.abs(v[0]) < 0.2 && Math.abs(v[1]) < 0.2) {
         this.mAllObjs.removeFromSet(this);
+        this.mCurrentState = Arrow.eArrowState.eMiss;
+    }
 
-    if (this.getXform().getPosition()[1] < -200)
+    if (this.getXform().getPosition()[1] < -200) {
         this.mAllObjs.removeFromSet(this);
+        this.mCurrentState = Arrow.eArrowState.eMiss;
+    }
+};
+
+Arrow.prototype.getCurrentState = function () {
+    return this.mCurrentState;
 };

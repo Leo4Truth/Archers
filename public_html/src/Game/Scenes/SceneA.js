@@ -1,245 +1,133 @@
 "use strict";
 
-function SceneA() {
-    this.kArrowSprite = "assets/arrows/arrows_a.png";
+function SceneA(game) {
+    this.mGame = game;
+
     this.kLifePotionTexture = "assets/props/lifePotion.png";
-    this.kArcherMaleTextures = {
-        file_stand_left: "assets/archerNew/stand_left.png",
-        file_stand_right: "assets/archerNew/stand_right.png",
-        file_walk_left: "assets/archerNew/walk_left.png",
-        file_walk_right: "assets/archerNew/walk_right.png",
-        file_shoot_left: "assets/archerNew/shoot_left.png",
-        file_shoot_right: "assets/archerNew/shoot_right.png"
-    };
-    this.kShootDirectionArrow = "assets/UI/UI_arrow.png";
 
-    this.kPlatformTexture = "assets/platform.png";
-    this.kWallTexture = "assets/wall.png";
-    this.kTargetTexture = "assets/target.png";
-
-    // The camera to view the scene
-    this.mCamera = null;
-
-    this.mArmoryCamera = null;
-    this.mHPBarCamera = null;
+    this.kPlatformTexture = "assets/terrains/platform.png";
+    this.kWallTexture = "assets/terrains/wall.png";
 
     //GameObjectSets
     this.mAllObjs = null;   //All GameObject
     this.mAllObstacles = null; // All Obstacles which cant be destroyed
     this.mDestroyable = null; // All objects that can be shot
-    
-    // Gameobjects
-    this.mArcherMale = null;
-    this.mAnotherArcher = null;
-    this.mArrow = null;
 
     this.mLifePotion = null;
 
-    this.mAllObjs = null;
-    this.mAllObstacles = null;
-    this.mDestroyable = null;
-
-    this.mLifePotion = null;    
     this.mCollisionInfos = [];
-    
-    //CurrentObj to take turns
-    this.mCurrentObject = null;
-    
-    //Time
-    this.mTimeCounter = 0;
-    
-    //Which player's turn       ./////this can be removed or replaced by FSM
-    this.mTurnToPlay = 0;
-    
-    //ShootController for ui
-    this.mShootController = null;
-    this.mVelocity = null;
 }
 gEngine.Core.inheritPrototype(SceneA, Scene);
 
 SceneA.prototype.loadScene = function () {
-    gEngine.Textures.loadTexture(this.kArrowSprite);
+    gEngine.Textures.loadTexture(Arrow.eAssets.eNormalArrowTexture);
     gEngine.Textures.loadTexture(this.kLifePotionTexture);
-    gEngine.Textures.loadTexture(this.kShootDirectionArrow);
+    gEngine.Textures.loadTexture(ShootController.eAssets.eShootDirArrowTexture);
 
-    gEngine.Textures.loadTexture(this.kArcherMaleTextures.file_stand_left);
-    gEngine.Textures.loadTexture(this.kArcherMaleTextures.file_stand_right);
-    gEngine.Textures.loadTexture(this.kArcherMaleTextures.file_walk_left);
-    gEngine.Textures.loadTexture(this.kArcherMaleTextures.file_walk_right);
-    gEngine.Textures.loadTexture(this.kArcherMaleTextures.file_shoot_left);
-    gEngine.Textures.loadTexture(this.kArcherMaleTextures.file_shoot_right);
+    gEngine.Textures.loadTexture(Archer.eAssets.eShootLeftTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets.eShootRightTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets.eStandLeftTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets.eStandRightTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets.eWalkLeftTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets.eWalkRightTexture);
 
     gEngine.Textures.loadTexture(Armory.eAssets.eBackgroundTexture);
     gEngine.Textures.loadTexture(Armory.eAssets.eCellTexture);
     gEngine.Textures.loadTexture(Armory.eAssets.eCheckMarkTexture);
-    gEngine.Textures.loadTexture(HPBar.eAssets.eRedHeart);
+    gEngine.Textures.loadTexture(HpBar.eAssets.eRedHeart);
 
     gEngine.Textures.loadTexture(this.kPlatformTexture);
     gEngine.Textures.loadTexture(this.kWallTexture);
-    gEngine.Textures.loadTexture(this.kTargetTexture);
 };
 
 SceneA.prototype.unloadScene = function () {
-    gEngine.Textures.unloadTexture(this.kArrowSprite);
+    gEngine.Textures.unloadTexture(Arrow.eAssets.eNormalArrowTexture);
     gEngine.Textures.unloadTexture(this.kLifePotionTexture);
-    gEngine.Textures.unloadTexture(this.kShootDirectionArrow);
+    gEngine.Textures.unloadTexture(ShootController.eAssets.eShootDirArrowTexture);
 
-    gEngine.Textures.unloadTexture(this.kArcherMaleTextures.file_stand_left);
-    gEngine.Textures.unloadTexture(this.kArcherMaleTextures.file_stand_right);
-    gEngine.Textures.unloadTexture(this.kArcherMaleTextures.file_walk_left);
-    gEngine.Textures.unloadTexture(this.kArcherMaleTextures.file_walk_right);
-    gEngine.Textures.unloadTexture(this.kArcherMaleTextures.file_shoot_left);
-    gEngine.Textures.unloadTexture(this.kArcherMaleTextures.file_shoot_right);
+    gEngine.Textures.unloadTexture(Archer.eAssets.eShootLeftTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets.eShootRightTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets.eStandLeftTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets.eStandRightTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets.eWalkLeftTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets.eWalkRightTexture);
 
     gEngine.Textures.unloadTexture(Armory.eAssets.eBackgroundTexture);
     gEngine.Textures.unloadTexture(Armory.eAssets.eCellTexture);
     gEngine.Textures.unloadTexture(Armory.eAssets.eCheckMarkTexture);
-    gEngine.Textures.unloadTexture(HPBar.eAssets.eRedHeart);
+    gEngine.Textures.unloadTexture(HpBar.eAssets.eRedHeart);
 
     gEngine.Textures.unloadTexture(this.kPlatformTexture);
     gEngine.Textures.unloadTexture(this.kWallTexture);
-    gEngine.Textures.unloadTexture(this.kTargetTexture);
 
-    var nextLevel = new MyMenu(); // pass CarColor selection to MyMenu
-    gEngine.Core.startScene(nextLevel);
+    var nextLevel;
+    switch (this.mGame.getState()) {
+        case Game.eGameState.ePlayer1_Win: {
+            this.mGame.setState(Game.eGameState.eGameOver);
+            nextLevel = new GameOver1(this.mGame);
+            this.mGame.mCurrentScene = nextLevel;
+            gEngine.Core.startScene(nextLevel);
+            break;
+        }
+        case Game.eGameState.ePlayer2_Win: {
+            this.mGame.setState(Game.eGameState.eGameOver);
+            nextLevel = new GameOver2(this.mGame);
+            this.mGame.mCurrentScene = nextLevel;
+            gEngine.Core.startScene(nextLevel);
+            break;
+        }
+    }
 };
 
 
 SceneA.prototype.initialize = function () {
-    // Step A: set up the cameras
-    this.mCamera = new Camera(
-        vec2.fromValues(50, 40), // position of the camera
-        200,                     // width of camera
-        [0, 0, 1300, 800]         // viewport (orgX, orgY, width, height)
-    );
-    this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
-
-    this.mArmoryCamera = new Camera(
-        vec2.fromValues(1000, 1000),
-        60,
-        [1300, 0, 300, 420]
-    );
-    this.mArmoryCamera.setBackgroundColor([[0, 0, 0, 1]]);
-
-    this.mHPBarCamera = new Camera(
-        vec2.fromValues(1045, 1100),
-        100,
-        [1300, 420, 300, 30]
-    );
-    this.mHPBarCamera.setBackgroundColor([[0.5, 0.5, 0.5, 1]]);
-
-    // sets the background to gray
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
 
     this.mAllObjs = new GameObjectSet();
     this.mAllObstacles = new GameObjectSet();
     this.mDestroyable = new GameObjectSet();
 
-    this.createBounds();
-    this.mArcherMale = new Archer(20, 25, 12, 14,
-        this.kArcherMaleTextures,
-        this.mArrow,
-        this.kArrowSprite,
-        this.mAllObjs,
-        this.mAllObstacles,
-        this.mDestroyable);
-    this.mAnotherArcher = new Archer(40, 45, 12, 14,
-        this.kArcherMaleTextures,
-        this.mArrow,
-        this.kArrowSprite,
-        this.mAllObjs,
-        this.mAllObstacles,
-        this.mDestroyable);
+    this.mGame.initialize(this.mAllObjs, this.mAllObstacles, this.mDestroyable);
 
-    this.mAllObjs.addToSet(this.mArcherMale);
-    this.mAllObjs.addToSet(this.mAnotherArcher);
-    this.mDestroyable.addToSet(this.mArcherMale);
-    this.mDestroyable.addToSet(this.mAnotherArcher);
+    this.createBounds();
+
+    var player;
+
+    player = this.mGame.getPlayerAt(0);
+    this.mAllObjs.addToSet(player.getArcher());
+    this.mAllObstacles.addToSet(player.getArcher());
+
+    player = this.mGame.getPlayerAt(1);
+    this.mAllObjs.addToSet(player.getArcher());
+    this.mAllObstacles.addToSet(player.getArcher());
 
     this.mLifePotion = new LifePotion(50, 8, this.kLifePotionTexture);
-    this.mShootController = new ShootController(20, 40,
-        this.mArcherMale.getCurrentFrontDir(),
-        this.kShootDirectionArrow);
     this.mAllObjs.addToSet(this.mLifePotion);
-
     this.mDestroyable.addToSet(this.mLifePotion);
-
-    this.mArmory = new Armory();
-    this.mHPBar = new HPBar(this.mArcherMale);
-    this.mArcherMale.setHpBar(this.mHPBar);
-
-    this.mShootController = new ShootController(20, 40,
-        this.mArcherMale.getCurrentFrontDir(),
-        this.kShootDirectionArrow);
-    this.mVelocity = this.mShootController.getVelocity();
-    this.mCurrentObject = this.mArcherMale;
 };
 
 SceneA.prototype.update = function () {
-    // for test
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Q))
-        gEngine.GameLoop.stop();
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.V))
-        this.mArcherMale.loseHp();
-    else if (gEngine.Input.isKeyClicked(gEngine.Input.keys.F))
-        this.mArcherMale.addHp();
-
-    this.mArmory.update();
-    
-    this.mShootController = new ShootController(20, 40, this.mArcherMale.getCurrentFrontDir(), this.kShootDirectionArrow);
-    this.mVelocity = this.mShootController.getVelocity();
-    
-    this.mCurrentObject = this.mArcherMale;
-};
-
-SceneA.prototype.update = function () {
-    //get the velocity from shootcontroller and send it to the archer
-    this.mVelocity = this.mShootController.getVelocity();
-    this.mCurrentObject.setVelocity(this.mVelocity[0], this.mVelocity[1]);
-    //change shootercontroller. this is not in the mAllObjs
-    if (this.mCurrentObject !== null) {
-        var archerPos = this.mCurrentObject.getXform().getPosition();
-        this.mShootController.getXform().setPosition(archerPos[0], archerPos[1]);
-        this.mShootController.update(this.mCurrentObject.getCurrentFrontDir());
-    }
-
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) {
-        this.mTimeCounter = 580;
-    }
-
-    this.mAllObjs.update(this.mCamera);
+    this.mGame.getCurrentPlayer().update();
+    this.mAllObjs.update(this.mGame.getCurrentPlayer().getMainCamera());
     gEngine.Physics.processCollision(this.mAllObjs, this.mCollisionInfos);
 
-    //Time control part. When needed, set the activated archer
-    this.mTimeCounter++;
-    if (this.mTimeCounter >= 600){
-        if(this.mCurrentObject === this.mArcherMale){
-            this.mCurrentObject = this.mAnotherArcher;
-            this.mArcherMale.setToStand();
+    switch (this.mGame.getState()) {
+        case Game.eGameState.ePlayer1_Win:
+        case Game.eGameState.ePlayer2_Win: {
+            gEngine.GameLoop.stop();
+            break;
         }
-        else {
-            this.mCurrentObject  = this.mArcherMale;
-            this.mAnotherArcher.setToStand();
-        }
-        this.mTimeCounter = 0;
     }
-    this.mCurrentObject.keyControl();
-    this.mCurrentObject.getRigidBody().userSetsState();
 };
 
 SceneA.prototype.draw = function () {
     gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
 
-    this.mCamera.setupViewProjection();
-    this.mAllObjs.draw(this.mCamera);
-    
-    this.mShootController.draw(this.mCamera);
-
-    this.mArmoryCamera.setupViewProjection();
-    this.mArmory.draw(this.mArmoryCamera);
-
-    this.mHPBarCamera.setupViewProjection();
-    this.mHPBar.draw(this.mHPBarCamera);
+    var i;
+    for (i = 0; i < this.mGame.getAllPlayers().length; i++) {
+        var player = this.mGame.getPlayerAt(i);
+        player.draw();
+    }
 
     this.mCollisionInfos = [];
 };
@@ -249,8 +137,6 @@ SceneA.prototype.createBounds = function () {
     for (x = 15; x < 120; x += 30)
         this.platformAt(x, y, w, 0);
     y = 76;
-//    for (x = 15; x < 120; x += 30)
-//        this.platformAt(x, y, w, 180);
 
     this.platformAt(30, 40, 20, 0);
     this.platformAt(60, 30, 20, 0);
@@ -258,21 +144,6 @@ SceneA.prototype.createBounds = function () {
     this.platformAt(70, 50, 20, 0);
     this.platformAt(-20, 10, 30, 0);
     this.platformAt(90, 15, 30, 0);
-
-    /*
-    x = 2;
-    w = 3;
-    for (y = 8; y < 90; y += 12)
-        this.wallAt(x, y, w);
-    x = 98;
-    for (y = 8; y < 90; y += 12)
-        this.wallAt(x, y, w);
-    */
-
-    var r = new TextureRenderable(this.kTargetTexture);
-    this.mTarget = new GameObject(r);
-    var xf = r.getXform();
-    xf.setSize(3, 3);
 };
 
 SceneA.prototype.wallAt = function (x, y, w) {
@@ -283,7 +154,7 @@ SceneA.prototype.wallAt = function (x, y, w) {
     var g = new GameObject(p);
     var r = new RigidRectangle(xf, w, h);
     g.setRigidBody(r);
-    //g.toggleDrawRenderable();
+
     g.toggleDrawRigidShape();
 
     r.setMass(0);
@@ -301,7 +172,7 @@ SceneA.prototype.platformAt = function (x, y, w, rot) {
     var g = new GameObject(p);
     var r = new RigidRectangle(xf, w, h);
     g.setRigidBody(r);
-    //g.toggleDrawRenderable();
+
     g.toggleDrawRigidShape();
 
     r.setMass(0);

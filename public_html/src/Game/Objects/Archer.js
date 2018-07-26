@@ -6,6 +6,15 @@
 
 "use strict";
 
+Archer.eAssets = Object.freeze({
+    eStandLeftTexture: "assets/archerNew/stand_left.png",
+    eStandRightTexture: "assets/archerNew/stand_right.png",
+    eWalkLeftTexture: "assets/archerNew/walk_left.png",
+    eWalkRightTexture: "assets/archerNew/walk_right.png",
+    eShootLeftTexture: "assets/archerNew/shoot_left.png",
+    eShootRightTexture: "assets/archerNew/shoot_right.png"
+});
+
 Archer.eArcherState = Object.freeze({
     eStandLeft: 0,
     eStandRight: 1,
@@ -20,27 +29,22 @@ Archer.eDirection = Object.freeze({
     eRight: new vec2.fromValues(1, 0),
 });
 
-function Archer(atX, atY, atW, atH, textures,
-                arrow, arrowTexture,
+function Archer(atX, atY, atW, atH,
                 allObject, aObstacle, aDestroyable) {
-    this.hp = 10;
-    this.mArrow = arrow;
-    this.arrowTexture = arrowTexture;
+    this.mHp = 10;
     this.mHpBar = null;
     this.mAllObjs = allObject;
     this.mObjstacles = aObstacle;
     this.mDestroyable = aDestroyable;
-    this.mVelocity = new vec2.fromValues(0,0);
-    this.mAimDir = new vec2.fromValues(1, 0);
 
     // Animation Members
-    this.mStandLeft = new SpriteRenderable(textures.file_stand_left);
+    this.mStandLeft = new SpriteRenderable(Archer.eAssets.eStandLeftTexture);
     this.mStandLeft.setColor([1, 1, 1, 0]);
     this.mStandLeft.getXform().setPosition(atX, atY);
     this.mStandLeft.getXform().setSize(atW, atH);
     this.mStandLeft.setElementPixelPositions(0, 80, 48, 128);
 
-    this.mWalkLeft = new SpriteAnimateRenderable(textures.file_walk_left);
+    this.mWalkLeft = new SpriteAnimateRenderable(Archer.eAssets.eWalkLeftTexture);
     this.mWalkLeft.setColor([1, 1, 1, 0]);
     this.mWalkLeft.getXform().setPosition(atX, atY);
     this.mWalkLeft.getXform().setSize(atW, atH);
@@ -48,7 +52,7 @@ function Archer(atX, atY, atW, atH, textures,
     this.mWalkLeft.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateRight);
     this.mWalkLeft.setAnimationSpeed(10);
 
-    this.mShootLeft = new SpriteAnimateRenderable(textures.file_shoot_left);
+    this.mShootLeft = new SpriteAnimateRenderable(Archer.eAssets.eShootLeftTexture);
     this.mShootLeft.setColor([1, 1, 1, 0]);
     this.mShootLeft.getXform().setPosition(atX, atY);
     this.mShootLeft.getXform().setSize(atW, atH);
@@ -57,13 +61,13 @@ function Archer(atX, atY, atW, atH, textures,
     this.mShootLeft.setAnimationSpeed(30);
 
     // Animation Members
-    this.mStandRight = new SpriteRenderable(textures.file_stand_right);
+    this.mStandRight = new SpriteRenderable(Archer.eAssets.eStandRightTexture);
     this.mStandRight.setColor([1, 1, 1, 0]);
     this.mStandRight.getXform().setPosition(atX, atY);
     this.mStandRight.getXform().setSize(atW, atH);
     this.mStandRight.setElementPixelPositions(48, 128, 48, 128);
 
-    this.mWalkRight = new SpriteAnimateRenderable(textures.file_walk_right);
+    this.mWalkRight = new SpriteAnimateRenderable(Archer.eAssets.eWalkRightTexture);
     this.mWalkRight.setColor([1, 1, 1, 0]);
     this.mWalkRight.getXform().setPosition(atX, atY);
     this.mWalkRight.getXform().setSize(atW, atH);
@@ -71,7 +75,7 @@ function Archer(atX, atY, atW, atH, textures,
     this.mWalkRight.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateLeft);
     this.mWalkRight.setAnimationSpeed(10);
 
-    this.mShootRight = new SpriteAnimateRenderable(textures.file_shoot_right);
+    this.mShootRight = new SpriteAnimateRenderable(Archer.eAssets.eShootRightTexture);
     this.mShootRight.setColor([1, 1, 1, 0]);
     this.mShootRight.getXform().setPosition(atX, atY);
     this.mShootRight.getXform().setSize(atW, atH);
@@ -80,18 +84,18 @@ function Archer(atX, atY, atW, atH, textures,
     this.mShootRight.setAnimationSpeed(30);
 
     GameObject.call(this, this.mStandRight);
+
     this.eCurrentState = Archer.eArcherState.eStandRight;
     this.setCurrentFrontDir(Archer.eDirection.eRight);
     
     //Physics
     var r;
-    r = new RigidRectangle(this.getXform(), atW - 4, atH - 4);
+    r = new RigidRectangle(this.getXform(), atW - 6, atH - 4);
     this.setRigidBody(r);
 
     //this.toggleDrawRenderable();
     this.toggleDrawRigidShape();
 }
-
 gEngine.Core.inheritPrototype(Archer, GameObject);
 
 Archer.prototype.update = function (aCamera) {
@@ -207,29 +211,6 @@ Archer.prototype.keyControl = function () {
             break;
         }
     }
-    
-    //Shoot the arrow
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) {
-        
-        var archerX, archerY;
-        var tempVec = this.getXform().getPosition();
-        archerX = tempVec[0];
-        archerY = tempVec[1];
-        
-        //var velocity = this.mShootController.getVelocity();
-        //console.log(velocity);
-        if(this.eCurrentState === Archer.eArcherState.eShootLeft
-            || this.eCurrentState === Archer.eArcherState.eStandLeft)
-            this.mArrow = new Arrow(archerX - 5, archerY, this.mVelocity[0], this.mVelocity[1], this.arrowTexture, 
-                                this.mAllObjs, this.mObjstacles, this.mDestroyable,
-                                this);
-        else if(this.eCurrentState === Archer.eArcherState.eShootRight
-            || this.eCurrentState === Archer.eArcherState.eStandRight)
-            this.mArrow = new Arrow(archerX + 5, archerY, this.mVelocity[0], this.mVelocity[1], this.arrowTexture, 
-                                this.mAllObjs, this.mObjstacles, this.mDestroyable,
-                                this);
-        this.mAllObjs.addToSet(this.mArrow);
-    }
 
     // move
     var xform = this.getXform();
@@ -240,6 +221,12 @@ Archer.prototype.keyControl = function () {
         }
         case Archer.eArcherState.eWalkRight: {
             xform.incXPosBy(kWASDDelta);
+            break;
+        }
+        case Archer.eArcherState.eStandLeft:
+        case Archer.eArcherState.eStandRight:
+        case Archer.eArcherState.eShootLeft:
+        case Archer.eArcherState.eShootRight: {
             break;
         }
     }
@@ -276,20 +263,12 @@ Archer.prototype.setToStand = function () {
     }
 };
 
-Archer.prototype.setVelocity = function (x, y) {
-    this.mVelocity = new vec2.fromValues(x, y);
+Archer.prototype.getHp = function () {
+    return this.mHp;
 };
-
-Archer.prototype.setAimDir = function (dir) {
-    this.mAimDir = dir;
+Archer.prototype.addHp = function () {
+    this.mHp++;
 };
-
-Archer.prototype.getAimDir = function (dir) {
-    return this.mAimDir;
+Archer.prototype.loseHp = function () {
+    this.mHp--;
 };
-
-Archer.prototype.getHp = function () { return this.hp; };
-Archer.prototype.addHp = function () { this.hp++; this.mHpBar.addHp(); };
-Archer.prototype.loseHp = function () { this.hp--; this.mHpBar.loseHp(); };
-
-Archer.prototype.setHpBar = function(hpBar) { this.mHpBar = hpBar; };

@@ -1,8 +1,12 @@
-"use strict"
+"use strict";
 
 ShootController.eDirection = Object.freeze({
     eRight: new vec2.fromValues(1, 0),
     eLeft: new vec2.fromValues(-1, 0)
+});
+
+ShootController.eAssets = Object.freeze({
+    eShootDirArrowTexture: "./assets/UI/UI_arrow.png"
 });
 
 function ShootController(posX, posY, frontDir, texture) {
@@ -24,11 +28,14 @@ gEngine.Core.inheritPrototype(ShootController, SpriteRenderable);
 
 ShootController.prototype.setRotationInRad = function(rad) {
     this.getXform().setRotationInRad(rad);
-}
+};
 
-ShootController.prototype.isVisible = function() { return this.mVisible; }
+ShootController.prototype.isVisible = function () {
+    return this.mVisible;
+};
 
-ShootController.prototype.update = function(frontDir) {
+ShootController.prototype.update = function (XPos, YPos, frontDir) {
+    this.getXform().setPosition(XPos, YPos);
     var symmetryRad;
     if (this.mCurrentFrontDir[0] === 1 && frontDir[0] === -1) {
         this.mCurrentFrontDir = frontDir;
@@ -40,65 +47,81 @@ ShootController.prototype.update = function(frontDir) {
         symmetryRad = Math.PI - this.getXform().getRotationInRad();
         this.getXform().setRotationInRad(symmetryRad);
     }
-    this.keyControl();
-}
+};
+
+
+ShootController.prototype.keyControl = function () {
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W)) {
+        this.shootDirUp();
+    }
+    else if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S)) {
+        this.shootDirDown();
+    }
+
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Z)) {
+        this.shootPowDec();
+    }
+    else if (gEngine.Input.isKeyPressed(gEngine.Input.keys.X)) {
+        this.shootPowInc();
+    }
+};
 
 ShootController.prototype.draw = function(aCamera) {
     if (this.isVisible()) {
         SpriteRenderable.prototype.draw.call(this, aCamera);
     }
-}
+};
 
-ShootController.prototype.keyControl = function () {
+ShootController.prototype.shootDirUp = function () {
     var rotationInRad = this.getXform().getRotationInRad();
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W)) {
-        if (this.mCurrentFrontDir[0] === 1) {
-            rotationInRad += Math.PI / 90;
-            if (rotationInRad > Math.PI / 2)
-                rotationInRad = Math.PI / 2;
-        }
-        else if (this.mCurrentFrontDir[0] === -1) {
-            rotationInRad -= Math.PI / 90;
-            if (rotationInRad < Math.PI / 2)
-                rotationInRad = Math.PI / 2;
-        }
-        this.getXform().setRotationInRad(rotationInRad);
+    if (this.mCurrentFrontDir[0] === 1) {
+        rotationInRad += Math.PI / 90;
+        if (rotationInRad > Math.PI / 2)
+            rotationInRad = Math.PI / 2;
     }
-    else if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S)) {
-        if (this.mCurrentFrontDir[0] === -1) {
-            rotationInRad += Math.PI / 90;
-            if (rotationInRad > Math.PI * 3 / 2)
-                rotationInRad = Math.PI * 3 / 2;
-        }
-        else if (this.mCurrentFrontDir[0] === 1) {
-            rotationInRad -= Math.PI / 90;
-            if (rotationInRad < -Math.PI / 2)
-                rotationInRad = -Math.PI / 2;
-        }
-        this.getXform().setRotationInRad(rotationInRad);
+    else if (this.mCurrentFrontDir[0] === -1) {
+        rotationInRad -= Math.PI / 90;
+        if (rotationInRad < Math.PI / 2)
+            rotationInRad = Math.PI / 2;
     }
+    this.getXform().setRotationInRad(rotationInRad);
+};
 
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Z)) {
-        var size = [this.getXform().getSize()[0] - 1.2, this.getXform().getSize()[1] - 0.2];
-        if (size[0] < 18) {
-            size[0] = 18;
-            size[1] = 3;
-        }
-        this.getXform().setSize(size[0], size[1]);
+ShootController.prototype.shootDirDown = function () {
+    var rotationInRad = this.getXform().getRotationInRad();
+    if (this.mCurrentFrontDir[0] === -1) {
+        rotationInRad += Math.PI / 90;
+        if (rotationInRad > Math.PI * 3 / 2)
+            rotationInRad = Math.PI * 3 / 2;
     }
-    else if (gEngine.Input.isKeyPressed(gEngine.Input.keys.X)) {
-        var size = [this.getXform().getSize()[0] + 1.2, this.getXform().getSize()[1] + 0.2];
-        if (size[0] > 36) {
-            size[0] = 36;
-            size[1] = 6;
-        }
-        this.getXform().setSize(size[0], size[1]);
+    else if (this.mCurrentFrontDir[0] === 1) {
+        rotationInRad -= Math.PI / 90;
+        if (rotationInRad < -Math.PI / 2)
+            rotationInRad = -Math.PI / 2;
     }
-}
+    this.getXform().setRotationInRad(rotationInRad);
+};
+
+ShootController.prototype.shootPowDec = function () {
+    var size = [this.getXform().getSize()[0] - 1.2, this.getXform().getSize()[1] - 0.2];
+    if (size[0] < 18) {
+        size[0] = 18;
+        size[1] = 3;
+    }
+    this.getXform().setSize(size[0], size[1]);
+};
+
+ShootController.prototype.shootPowInc = function () {
+    var size = [this.getXform().getSize()[0] + 1.2, this.getXform().getSize()[1] + 0.2];
+    if (size[0] > 36) {
+        size[0] = 36;
+        size[1] = 6;
+    }
+    this.getXform().setSize(size[0], size[1]);
+};
 
 ShootController.prototype.getVelocity = function () {
     var speed = Math.pow(this.getXform().getSize()[0], 3) / 500;
     var rad = this.getXform().getRotationInRad();
-    var velocity = new vec2.fromValues(speed * Math.cos(rad), speed * Math.sin(rad));
-    return velocity;
-}
+    return new vec2.fromValues(speed * Math.cos(rad), speed * Math.sin(rad));
+};
