@@ -14,13 +14,11 @@
         </group>
         <-->
         <group name="FinalGame">
-            <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Game/UI/HPBar.js</file>
+            <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Engine/RigidShapes/RigidRectangle.js</file>
             <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Game/Scenes/SceneA.js</file>
-            <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Game/Scenes/MyMenu.js</file>
             <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Game/Objects/Arrow.js</file>
             <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Game/Objects/Archer.js</file>
-            <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Game/Scenes/GameOver2.js</file>
-            <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Game/Scenes/GameOver1.js</file>
+            <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Game/Objects/WeaponSystem.js</file>
         </group>
     </open-files>
 </project-private>
