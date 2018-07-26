@@ -34,6 +34,8 @@ function Archer(atX, atY, atW, atH, textures,
     this.mAimDir = new vec2.fromValues(1, 0);
 
     // Animation Members
+    this.mAnimationCounter = 0;
+    
     this.mStandLeft = new SpriteRenderable(textures.file_stand_left);
     this.mStandLeft.setColor([1, 1, 1, 0]);
     this.mStandLeft.getXform().setPosition(atX, atY);
@@ -54,7 +56,7 @@ function Archer(atX, atY, atW, atH, textures,
     this.mShootLeft.getXform().setSize(atW, atH);
     this.mShootLeft.setSpriteSequence(128, 0, 80, 80, 5, 0);
     this.mShootLeft.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateRight);
-    this.mShootLeft.setAnimationSpeed(30);
+    this.mShootLeft.setAnimationSpeed(10);
 
     // Animation Members
     this.mStandRight = new SpriteRenderable(textures.file_stand_right);
@@ -77,7 +79,7 @@ function Archer(atX, atY, atW, atH, textures,
     this.mShootRight.getXform().setSize(atW, atH);
     this.mShootRight.setSpriteSequence(128, 112, 80, 80, 5, 0);
     this.mShootRight.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateLeft);
-    this.mShootRight.setAnimationSpeed(30);
+    this.mShootRight.setAnimationSpeed(10);
 
     GameObject.call(this, this.mStandRight);
     this.eCurrentState = Archer.eArcherState.eStandRight;
@@ -95,6 +97,26 @@ function Archer(atX, atY, atW, atH, textures,
 gEngine.Core.inheritPrototype(Archer, GameObject);
 
 Archer.prototype.update = function (aCamera) {
+    //play the entire animation when shooting
+    if(this.eCurrentState === Archer.eArcherState.eShootLeft){
+        this.mShootLeft.updateAnimation();
+        this.mAnimationCounter++;
+        if((this.mAnimationCounter % 60) === 0){
+            this.mAnimationCounter = 0;
+            this.mShootLeft._initAnimation();        
+            this.eCurrentState = Archer.eArcherState.eStandLeft;
+        }
+    }
+    if(this.eCurrentState === Archer.eArcherState.eShootRight){
+        this.mShootRight.updateAnimation();
+        this.mAnimationCounter++;
+        if((this.mAnimationCounter % 60) === 0){
+            this.mAnimationCounter = 0;
+            this.mShootRight._initAnimation();        
+            this.eCurrentState = Archer.eArcherState.eStandRight;
+        }
+    }
+    
     var xform = this.getRenderable().getXform();
     this.mStandLeft.setXform(xform);
     this.mStandRight.setXform(xform);
@@ -111,9 +133,9 @@ Archer.prototype.update = function (aCamera) {
     this.mShootRight.getXform().setRotationInRad(0);
 
     this.mWalkLeft.updateAnimation();
-    this.mShootLeft.updateAnimation();
+    //this.mShootLeft.updateAnimation();
     this.mWalkRight.updateAnimation();
-    this.mShootRight.updateAnimation();
+    //this.mShootRight.updateAnimation();
 
     GameObject.prototype.update.call(this);
 };
@@ -140,17 +162,17 @@ Archer.prototype.keyControl = function () {
     // Finite State Machine
     switch (this.eCurrentState) {
         case Archer.eArcherState.eShootLeft: {
-            if (!gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
-                this.eCurrentState = Archer.eArcherState.eStandLeft;
-                this.setCurrentFrontDir(Archer.eDirection.eLeft);
-            }
+//            if (!gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
+//                this.eCurrentState = Archer.eArcherState.eStandLeft;
+//                this.setCurrentFrontDir(Archer.eDirection.eLeft);
+//            }
             break;
         }
         case Archer.eArcherState.eShootRight: {
-            if (!gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
-                this.eCurrentState = Archer.eArcherState.eStandRight;
-                this.setCurrentFrontDir(Archer.eDirection.eRight);
-            }
+//            if (!gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
+//                this.eCurrentState = Archer.eArcherState.eStandRight;
+//                this.setCurrentFrontDir(Archer.eDirection.eRight);
+//            }
             break;
         }
         case Archer.eArcherState.eStandLeft: {
@@ -220,12 +242,12 @@ Archer.prototype.keyControl = function () {
         //console.log(velocity);
         if(this.eCurrentState === Archer.eArcherState.eShootLeft
             || this.eCurrentState === Archer.eArcherState.eStandLeft)
-            this.mArrow = new Arrow(archerX - 5, archerY, this.mVelocity[0], this.mVelocity[1], this.arrowTexture, 
+            this.mArrow = new Arrow(archerX - 7, archerY, this.mVelocity[0], this.mVelocity[1], this.arrowTexture, 
                                 this.mAllObjs, this.mObjstacles, this.mDestroyable,
                                 this);
         else if(this.eCurrentState === Archer.eArcherState.eShootRight
             || this.eCurrentState === Archer.eArcherState.eStandRight)
-            this.mArrow = new Arrow(archerX + 5, archerY, this.mVelocity[0], this.mVelocity[1], this.arrowTexture, 
+            this.mArrow = new Arrow(archerX + 7, archerY, this.mVelocity[0], this.mVelocity[1], this.arrowTexture, 
                                 this.mAllObjs, this.mObjstacles, this.mDestroyable,
                                 this);
         this.mAllObjs.addToSet(this.mArrow);

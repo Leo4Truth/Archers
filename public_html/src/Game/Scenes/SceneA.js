@@ -215,11 +215,11 @@ SceneA.prototype.update = function () {
     if (this.mTimeCounter >= 600){
         if(this.mCurrentObject === this.mArcherMale){
             this.mCurrentObject = this.mAnotherArcher;
-            this.mArcherMale.setToStand();
+            //this.mArcherMale.setToStand();
         }
         else {
             this.mCurrentObject  = this.mArcherMale;
-            this.mAnotherArcher.setToStand();
+            //this.mAnotherArcher.setToStand();
         }
         this.mTimeCounter = 0;
     }
