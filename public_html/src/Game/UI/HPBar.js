@@ -45,16 +45,20 @@ HPBar.prototype.draw = function(aCamera) {
     }
 };
 
-HPBar.prototype.loseHp = function() {
-    if (this.mArcher.getHp() >= 0)
+HPBar.prototype.loseHp = function(dec) {
+    var i;
+    for(i = 0; i < dec && this.mArcher.getHp() >= 0; i++ )
+    //if (this.mArcher.getHp() >= 0)
         this.mHpBar.pop();
     console.log("lose: " + this.mHpBar);
     console.log("lose: " + this.mHpBar.length);
 };
 
-HPBar.prototype.addHp = function() {
+HPBar.prototype.addHp = function(inc) {
     var newHp = null;
-    if (this.mArcher.getHp() <= 10) {
+    var i;
+    //if (this.mArcher.getHp() <= 10) 
+    for(i = 0; i < inc && this.mArcher.getHp() <= 10; i++){
         var newHp = new TextureRenderable(HPBar.eAssets.eRedHeart);
         newHp.setColor([1, 1, 1, 0]);
         newHp.getXform().setSize(this.mSize, this.mSize);

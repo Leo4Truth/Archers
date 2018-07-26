@@ -2,8 +2,7 @@
 
 Arrow.eArrowState = Object.freeze({
     eFlying: 0,
-    eHit: 1,
-    eMiss: 2
+    eHit: 1
 });
 
 function Arrow(posX, posY, vX, vY, spriteTexture,
@@ -13,7 +12,8 @@ function Arrow(posX, posY, vX, vY, spriteTexture,
     this.mMaster = master;
     this.mObstacle = aObstacle;
     this.mDestroyable = aDestroyable;
-
+    
+    //speed and rotation
     this.kVelocity = [vX, vY];
     this.kSpeed = Math.sqrt(this.kVelocity[0] * this.kVelocity[0] + this.kVelocity[1] * this.kVelocity[1]);
     this.kRotationInRad = null;
@@ -24,24 +24,24 @@ function Arrow(posX, posY, vX, vY, spriteTexture,
         this.kRotationInRad = Math.acos(this.kVelocity[1] / this.kSpeed);
     }
 
+    //animation
     this.mArrow = new SpriteAnimateRenderable(spriteTexture);
     this.mArrow.setColor([1, 1, 1, 0]);
     this.mArrow.getXform().setPosition(posX, posY);
     this.mArrow.getXform().setSize(2, 8);
     this.mArrow.getXform().setRotationInRad(this.kRotationInRad);
-    //this.mArrow.setElementPixelPositions(0, 2, 0, 8);
     this.mArrow.setSpriteSequence(32, 0, 10, 32, 3, 0);
     this.mArrow.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateRight);
     this.mArrow.setAnimationSpeed(10);
     GameObject.call(this, this.mArrow);
 
-
-    //var r = new RigidCircle(this.getXform(), 2, 8);
+    //physics
     var r = new RigidRectangle(this.getXform(), 1, 8);
     this.setRigidBody(r);
     this.getRigidBody().setVelocity(vX, vY);
 
-    this.mExpired = false;
+    //status (flying or hit)
+    this.mStatus = Arrow.eArrowState.eFlying;//this.mExpired = false;
     this.mParticles = null;
 
     this.toggleDrawRigidShape(); // Draw RigidShape
@@ -82,6 +82,7 @@ Arrow.prototype.update = function () {
         if (obj !== this && obj !== this.mMaster && //avoid killing the archer who shoot
             this.getRigidBody().collisionTest(obj.getRigidBody(), collisionInfo)) {
             //this.mAllObjs.removeFromSet(obj);
+            this.mStatus = Arrow.eArrowState.eHit;
             this.mAllObjs.removeFromSet(this);
         }
     }
@@ -91,11 +92,15 @@ Arrow.prototype.update = function () {
         var collisionInfo = new CollisionInfo();
         if (obj !== this && obj !== this.mMaster && //avoid killing the archer who shoot
             this.getRigidBody().collisionTest(obj.getRigidBody(), collisionInfo)) {
-            //obj = {};
             //obj.getXform().setPosition(1000, 1000);
-            //this.mDestoryable.removeFromSet(obj);
-            this.mAllObjs.removeFromSet(obj);
-            this.mAllObjs.removeFromSet(this);
+            this.mStatus = Arrow.eArrowState.eHit;
+            //if shot
+            if(obj instanceof Archer){
+                obj.loseHp(1);
+                //obj.mHpBar.loseHp(1);
+            }
+            //this.mAllObjs.removeFromSet(obj);
+            this.mAllObjs.removeFromSet(this);            
         }
     }
 

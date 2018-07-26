@@ -129,7 +129,7 @@ MyMenu.prototype.update = function() {
 
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)) {
         // test code for scene switching
-        if(this.option == 2){
+        if(this.option === 2){
             this.option = 0;
             this.mhelp.getXform().setPosition(0, 100);
             this.mtips.getXform().setPosition(0, 100);

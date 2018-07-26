@@ -22,6 +22,7 @@ function SceneA() {
 
     this.mArmoryCamera = null;
     this.mHPBarCamera = null;
+    this.mAnotherHPBarCamera = null;
 
     //GameObjectSets
     this.mAllObjs = null;   //All GameObject
@@ -32,14 +33,12 @@ function SceneA() {
     this.mArcherMale = null;
     this.mAnotherArcher = null;
     this.mArrow = null;
-
     this.mLifePotion = null;
 
     this.mAllObjs = null;
     this.mAllObstacles = null;
     this.mDestroyable = null;
 
-    this.mLifePotion = null;    
     this.mCollisionInfos = [];
     
     //CurrentObj to take turns
@@ -48,10 +47,9 @@ function SceneA() {
     //Time
     this.mTimeCounter = 0;
     
-    //Which player's turn       ./////this can be removed or replaced by FSM
-    this.mTurnToPlay = 0;
-    
-    //ShootController for ui
+    //UI stuff
+    this.mHPBar = null;
+    this.mAnotherHPBar = null;
     this.mShootController = null;
     this.mVelocity = null;
 }
@@ -100,7 +98,11 @@ SceneA.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kWallTexture);
     gEngine.Textures.unloadTexture(this.kTargetTexture);
 
-    var nextLevel = new MyMenu(); // pass CarColor selection to MyMenu
+    var nextLevel;
+    if(this.mArcherMale.getHp() === 0)
+        nextLevel = new GameOver2();
+    else if(this.mAnotherArcher.getHp() === 0)
+        nextLevel = new GameOver1();
     gEngine.Core.startScene(nextLevel);
 };
 
@@ -124,9 +126,16 @@ SceneA.prototype.initialize = function () {
     this.mHPBarCamera = new Camera(
         vec2.fromValues(1045, 1100),
         100,
-        [1300, 420, 300, 30]
+        [1300, 450, 300, 30]
     );
     this.mHPBarCamera.setBackgroundColor([[0.5, 0.5, 0.5, 1]]);
+    
+    this.mAnotherHPBarCamera = new Camera(
+        vec2.fromValues(1045, 1100),
+        100,
+        [1300, 420, 300, 30]
+    );
+    this.mAnotherHPBarCamera.setBackgroundColor([[0.5, 0.5, 0.5, 1]]);
 
     // sets the background to gray
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
@@ -157,42 +166,42 @@ SceneA.prototype.initialize = function () {
     this.mDestroyable.addToSet(this.mAnotherArcher);
 
     this.mLifePotion = new LifePotion(50, 8, this.kLifePotionTexture);
-    this.mShootController = new ShootController(20, 40,
-        this.mArcherMale.getCurrentFrontDir(),
-        this.kShootDirectionArrow);
     this.mAllObjs.addToSet(this.mLifePotion);
-
     this.mDestroyable.addToSet(this.mLifePotion);
 
     this.mArmory = new Armory();
     this.mHPBar = new HPBar(this.mArcherMale);
     this.mArcherMale.setHpBar(this.mHPBar);
+    this.mAnotherHPBar = new HPBar(this.mAnotherArcher);
+    this.mAnotherArcher.setHpBar(this.mAnotherHPBar);
 
     this.mShootController = new ShootController(20, 40,
         this.mArcherMale.getCurrentFrontDir(),
         this.kShootDirectionArrow);
     this.mVelocity = this.mShootController.getVelocity();
+    
     this.mCurrentObject = this.mArcherMale;
 };
 
 SceneA.prototype.update = function () {
-    // for test
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Q))
+    //check if an idiot has fallen
+    if(this.mArcherMale.getXform().getPosition()[1] <= 0)
+        this.mArcherMale.loseHp(10);
+    if(this.mAnotherArcher.getXform().getPosition()[1] <= 0)
+        this.mAnotherArcher.loseHp(10);
+        
+    //check win condition
+    if(this.mArcherMale.getHp() === 0 || this.mAnotherArcher.getHp() === 0)
         gEngine.GameLoop.stop();
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.V))
-        this.mArcherMale.loseHp();
-    else if (gEngine.Input.isKeyClicked(gEngine.Input.keys.F))
-        this.mArcherMale.addHp();
 
     this.mArmory.update();
+  
+    this.mAllObjs.update(this.mCamera);
+    gEngine.Physics.processCollision(this.mAllObjs, this.mCollisionInfos);
     
-    this.mShootController = new ShootController(20, 40, this.mArcherMale.getCurrentFrontDir(), this.kShootDirectionArrow);
-    this.mVelocity = this.mShootController.getVelocity();
+    this.mCurrentObject.keyControl();
+    this.mCurrentObject.getRigidBody().userSetsState();
     
-    this.mCurrentObject = this.mArcherMale;
-};
-
-SceneA.prototype.update = function () {
     //get the velocity from shootcontroller and send it to the archer
     this.mVelocity = this.mShootController.getVelocity();
     this.mCurrentObject.setVelocity(this.mVelocity[0], this.mVelocity[1]);
@@ -202,29 +211,23 @@ SceneA.prototype.update = function () {
         this.mShootController.getXform().setPosition(archerPos[0], archerPos[1]);
         this.mShootController.update(this.mCurrentObject.getCurrentFrontDir());
     }
-
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) {
         this.mTimeCounter = 580;
     }
-
-    this.mAllObjs.update(this.mCamera);
-    gEngine.Physics.processCollision(this.mAllObjs, this.mCollisionInfos);
 
     //Time control part. When needed, set the activated archer
     this.mTimeCounter++;
     if (this.mTimeCounter >= 600){
         if(this.mCurrentObject === this.mArcherMale){
             this.mCurrentObject = this.mAnotherArcher;
-            //this.mArcherMale.setToStand();
+            this.mAnotherArcher.setToStand();
         }
         else {
             this.mCurrentObject  = this.mArcherMale;
-            //this.mAnotherArcher.setToStand();
+            this.mArcherMale.setToStand();
         }
         this.mTimeCounter = 0;
     }
-    this.mCurrentObject.keyControl();
-    this.mCurrentObject.getRigidBody().userSetsState();
 };
 
 SceneA.prototype.draw = function () {
@@ -240,6 +243,8 @@ SceneA.prototype.draw = function () {
 
     this.mHPBarCamera.setupViewProjection();
     this.mHPBar.draw(this.mHPBarCamera);
+    this.mAnotherHPBarCamera.setupViewProjection();
+    this.mAnotherHPBar.draw(this.mAnotherHPBarCamera);
 
     this.mCollisionInfos = [];
 };

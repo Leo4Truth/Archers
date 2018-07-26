@@ -32,7 +32,7 @@ function Archer(atX, atY, atW, atH, textures,
     this.mDestroyable = aDestroyable;
     this.mVelocity = new vec2.fromValues(0,0);
     this.mAimDir = new vec2.fromValues(1, 0);
-
+    
     // Animation Members
     this.mAnimationCounter = 0;
     
@@ -97,6 +97,7 @@ function Archer(atX, atY, atW, atH, textures,
 gEngine.Core.inheritPrototype(Archer, GameObject);
 
 Archer.prototype.update = function (aCamera) {
+    //console.log(this.mTargetHit);
     //play the entire animation when shooting
     if(this.eCurrentState === Archer.eArcherState.eShootLeft){
         this.mShootLeft.updateAnimation();
@@ -310,8 +311,12 @@ Archer.prototype.getAimDir = function (dir) {
     return this.mAimDir;
 };
 
+Archer.prototype.getArrow = function(dir){
+    return this.mArrow;
+};
+
 Archer.prototype.getHp = function () { return this.hp; };
-Archer.prototype.addHp = function () { this.hp++; this.mHpBar.addHp(); };
-Archer.prototype.loseHp = function () { this.hp--; this.mHpBar.loseHp(); };
+Archer.prototype.addHp = function (add) { this.hp+=add; this.mHpBar.addHp(add); };
+Archer.prototype.loseHp = function (lose) { this.hp-=lose; this.mHpBar.loseHp(lose); };
 
 Archer.prototype.setHpBar = function(hpBar) { this.mHpBar = hpBar; };
