@@ -20,7 +20,6 @@ Archer.eDirection = Object.freeze({
     eRight: new vec2.fromValues(1, 0),
 });
 
-<<<<<<< HEAD
 function Archer(atX, atY, atW, atH, textures,
                 arrow, arrowTexture,
                 allObject, aObstacle, aDestroyable) {
@@ -28,21 +27,11 @@ function Archer(atX, atY, atW, atH, textures,
     this.mArrow = arrow;
     this.arrowTexture = arrowTexture;
     this.mHpBar = null;
-=======
-function Archer(atX, atY, atW, atH, textures, 
-        arrow, arrowTexture, 
-        allObject, aObstacle, aDestroyable) {
-    this.mArrow = arrow;
-    this.arrowTexture = arrowTexture;
->>>>>>> a393ae762ed940b0aa8789ef09fdde8df0830b56
     this.mAllObjs = allObject;
     this.mObjstacles = aObstacle;
     this.mDestroyable = aDestroyable;
     this.mVelocity = new vec2.fromValues(0,0);
-<<<<<<< HEAD
     this.mAimDir = new vec2.fromValues(1, 0);
-=======
->>>>>>> a393ae762ed940b0aa8789ef09fdde8df0830b56
 
     // Animation Members
     this.mStandLeft = new SpriteRenderable(textures.file_stand_left);
@@ -106,11 +95,6 @@ function Archer(atX, atY, atW, atH, textures,
 gEngine.Core.inheritPrototype(Archer, GameObject);
 
 Archer.prototype.update = function (aCamera) {
-<<<<<<< HEAD
-=======
-    //this.keyControl();
-
->>>>>>> a393ae762ed940b0aa8789ef09fdde8df0830b56
     var xform = this.getRenderable().getXform();
     this.mStandLeft.setXform(xform);
     this.mStandRight.setXform(xform);
@@ -223,7 +207,6 @@ Archer.prototype.keyControl = function () {
             break;
         }
     }
-//    console.log(this.eCurrentState);
     
     //Shoot the arrow
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) {
@@ -248,29 +231,6 @@ Archer.prototype.keyControl = function () {
         this.mAllObjs.addToSet(this.mArrow);
     }
 
-    //Shoot the arrow
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) {
-
-        var archerX, archerY;
-        var tempVec = this.getXform().getPosition();
-        archerX = tempVec[0];
-        archerY = tempVec[1];
-
-        //var velocity = this.mShootController.getVelocity();
-        //console.log(velocity);
-        if(this.eCurrentState === Archer.eArcherState.eShootLeft
-            || this.eCurrentState === Archer.eArcherState.eStandLeft)
-            this.mArrow = new Arrow(archerX - 5, archerY, this.mVelocity[0], this.mVelocity[1], this.arrowTexture,
-                this.mAllObjs, this.mObjstacles, this.mDestroyable,
-                this);
-        else if(this.eCurrentState === Archer.eArcherState.eShootRight
-            || this.eCurrentState === Archer.eArcherState.eStandRight)
-            this.mArrow = new Arrow(archerX + 5, archerY, this.mVelocity[0], this.mVelocity[1], this.arrowTexture,
-                this.mAllObjs, this.mObjstacles, this.mDestroyable,
-                this);
-        this.mAllObjs.addToSet(this.mArrow);
-    }
-
     // move
     var xform = this.getXform();
     switch (this.eCurrentState) {
@@ -289,11 +249,7 @@ Archer.prototype.keyControl = function () {
 
 Archer.prototype.setToStand = function () {
     switch (this.eCurrentState) {
-<<<<<<< HEAD
         case Archer.eArcherState.eShootLeft: {
-=======
-        case Archer.eArcherState.eShootLeft: {          
->>>>>>> a393ae762ed940b0aa8789ef09fdde8df0830b56
             this.eCurrentState = Archer.eArcherState.eStandLeft;
             break;
         }
@@ -321,25 +277,19 @@ Archer.prototype.setToStand = function () {
 };
 
 Archer.prototype.setVelocity = function (x, y) {
-<<<<<<< HEAD
     this.mVelocity = new vec2.fromValues(x, y);
 };
 
 Archer.prototype.setAimDir = function (dir) {
     this.mAimDir = dir;
-}
+};
 
 Archer.prototype.getAimDir = function (dir) {
     return this.mAimDir;
-}
+};
 
 Archer.prototype.getHp = function () { return this.hp; };
 Archer.prototype.addHp = function () { this.hp++; this.mHpBar.addHp(); };
 Archer.prototype.loseHp = function () { this.hp--; this.mHpBar.loseHp(); };
 
 Archer.prototype.setHpBar = function(hpBar) { this.mHpBar = hpBar; };
-=======
-    var tempVelocity = new vec2.fromValues(x, y);
-    this.mVelocity = tempVelocity;
-};
->>>>>>> a393ae762ed940b0aa8789ef09fdde8df0830b56

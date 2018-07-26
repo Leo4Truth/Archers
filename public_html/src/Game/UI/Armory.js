@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 Armory.eAssets = Object.freeze({
     eBackgroundTexture: "assets/UI/armoryBackground.png",
@@ -21,8 +21,8 @@ function Armory() {
     this.kCellNum = new vec2.fromValues(5, 7);
     this.kCurrentArm = 0;
 
-    this.mArms = new UIObjectSet();
-    this.mCells = new UIObjectSet();
+    this.mArms = [];
+    this.mCells = [];
 
     this.mBackground = new SpriteRenderable(Armory.eAssets.eBackgroundTexture);
     console.log(this.mBackground);
@@ -33,15 +33,14 @@ function Armory() {
 
     var i;
     for (i = 0; i < 35; i++) {
-        var cellRenderable = new SpriteRenderable(Armory.eAssets.eCellTexture);
-        var cell = new UIObject(cellRenderable);
-        cell.getRenderable().setColor([1, 1, 1, 0]);
-        cell.getRenderable().getXform().setSize(10, 10);
-        cell.getRenderable().getXform().setPosition(
+        var cell = new SpriteRenderable(Armory.eAssets.eCellTexture);
+        cell.setColor([1, 1, 1, 0]);
+        cell.getXform().setSize(10, 10);
+        cell.getXform().setPosition(
             this.mBackground.getXform().getXPos() + Armory.eCellOffsets[i][0],
             this.mBackground.getXform().getXPos() + Armory.eCellOffsets[i][1]
         );
-        this.mCells.addToSet(cell);
+        this.mCells.push(cell);
     }
 
     this.mCheckMark = new SpriteRenderable(Armory.eAssets.eCheckMarkTexture);
@@ -51,22 +50,23 @@ function Armory() {
         this.mBackground.getXform().getXPos() + Armory.eCellOffsets[this.kCurrentArm][0],
         this.mBackground.getXform().getXPos() + Armory.eCellOffsets[this.kCurrentArm][1]
     );
-    console.log(this.mCells);
 }
 
 Armory.prototype.addArm = function(arm) {
-    this.mArms.addToSet(arm);
+    this.mArms.push(arm);
 };
 
 Armory.prototype.removeArm = function(arm) {
-    this.mArms.removeFromSet(arm);
+    var index = this.mArms.indexOf(arm);
+    if (index > -1)
+        this.mArms.splice(index, 1);
 };
 
 Armory.prototype.draw = function (aCamera) {
     this.mBackground.draw(aCamera);
     var i;
     for (i = 0; i < 35; i++) {
-        this.mCells.getObjectAt(i).getRenderable().draw(aCamera);
+        this.mCells[i].draw(aCamera);
     }
     this.mCheckMark.draw(aCamera);
 };
@@ -104,6 +104,6 @@ Armory.prototype.keyControl = function() {
             this.kCurrentArm = 34;
         console.log(this.kCurrentArm);
     }
-}
+};
 
 
