@@ -93,3 +93,12 @@ GameObjectSet.prototype.draw = function (aCamera) {
         this.mSet[i].draw(aCamera);
     }
 };
+
+GameObjectSet.prototype.hasObject = function(obj) {
+    var i;
+    for (i = 0; i < this.mSet.length; i++) {
+        if (this.mSet[i] === obj)
+            return true;
+    }
+    return false;
+}

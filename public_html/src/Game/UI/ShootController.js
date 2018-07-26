@@ -94,7 +94,6 @@ ShootController.prototype.keyControl = function () {
         }
         this.getXform().setSize(size[0], size[1]);
     }
-    console.log(this.getXform().getSize());
 }
 
 ShootController.prototype.getVelocity = function () {

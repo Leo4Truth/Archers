@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Game Physics Engine Integration: RigidBody Physics Engine </title>
-        <link rel ="icon" type ="image/x-icon" href="./assets/favicon.png">
+        <title>Archers Demo</title>
+        <link rel ="icon" type ="image/x-icon" href="./assets/icon.png">
 
         <!-- the following says there are javascript source code contained in 
              the external source files
@@ -99,23 +99,30 @@
         <script type="text/javascript" src= "src/MyGame/Objects/Arrow.js"></script>
         -->
 
-        <script type="text/javascript" src="src/Game/Scenes/SceneA.js"></script>
         <!-- GameObjects -->
         <script type="text/javascript" src="src/Game/Objects/Archer.js"></script>
         <script type="text/javascript" src="src/Game/Objects/Arrow.js"></script>
         <script type="text/javascript" src="src/Game/Objects/LifePotion.js"></script>
         <!-- UI -->
         <script type="text/javascript" src="src/Game/UI/ShootController.js"></script>
+        <script type="text/javascript" src="src/Game/UI/UIObject.js"></script>
+        <script type="text/javascript" src="src/Game/UI/UIObjectSet.js"></script>
+        <script type="text/javascript" src="src/Game/UI/Armory.js"></script>
+        <script type="text/javascript" src="src/Game/UI/HPBar.js"></script>
+
+        <script type="text/javascript" src="src/Game/Scenes/MyMenu.js"></script>
+        <script type="text/javascript" src="src/Game/Scenes/SceneA.js"></script>
+        <script type="text/javascript" src="src/Game/Scenes/LevelBackground.js"></script>
 
         <link rel="stylesheet" type="text/css" href="LoadingIcons.css">
         
     </head>
 
     <body onload="
-        var sceneA = new SceneA();
-        gEngine.Core.initializeEngineCore('GLCanvas', sceneA);
+        var menu = new MyMenu();
+        gEngine.Core.initializeEngineCore('GLCanvas', menu);
      ">
-        <div id="LoadingIconParent" style="width: 800px; height:600px;">
+        <div id="LoadingIconParent" style="width: 1600px; height: 800px;">
             <canvas id="GLCanvas">
                 <!-- GLCanvas is the area we will draw in: a 640x480 area. -->
                 Your browser does not support the HTML5 canvas.

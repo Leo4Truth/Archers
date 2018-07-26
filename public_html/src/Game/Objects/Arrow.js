@@ -6,8 +6,14 @@ Arrow.eArrowState = Object.freeze({
     eMiss: 2
 });
 
-function Arrow(posX, posY, vX, vY, spriteTexture, aAllObjs) {
+function Arrow(posX, posY, vX, vY, spriteTexture,
+               aAllObjs, aObstacle, aDestroyable,
+               master
+) {
     this.mAllObjs = aAllObjs;
+    this.mMaster = master;
+    this.mObstacle = aObstacle;
+    this.mDestroyable = aDestroyable;
 
     this.kVelocity = [vX, vY];
     this.kSpeed = Math.sqrt(this.kVelocity[0] * this.kVelocity[0] + this.kVelocity[1] * this.kVelocity[1]);
@@ -69,12 +75,34 @@ Arrow.prototype.update = function () {
 
     /* Check Collision */
     var i;
-    for (i = 0; i < this.mAllObjs.size(); i++) {
-        var obj = this.mAllObjs.getObjectAt(i);
+    for (i = 0; i < this.mObstacle.size(); i++) {
+        var obj = this.mObstacle.getObjectAt(i);
         var collisionInfo = new CollisionInfo();
-        if (obj !== this && this.getRigidBody().collisionTest(obj.getRigidBody(), collisionInfo)) {
+        if (obj !== this && obj !== this.mMaster && //avoid killing the archer who shoot
+            this.getRigidBody().collisionTest(obj.getRigidBody(), collisionInfo)) {
+            //this.mAllObjs.removeFromSet(obj);
+            this.mAllObjs.removeFromSet(this);
+        }
+    }
+
+    for (i = 0; i < this.mDestroyable.size(); i++) {
+        var obj = this.mDestroyable.getObjectAt(i);
+        var collisionInfo = new CollisionInfo();
+        if (obj !== this && obj !== this.mMaster && //avoid killing the archer who shoot
+            this.getRigidBody().collisionTest(obj.getRigidBody(), collisionInfo)) {
+            //obj = {};
+            //obj.getXform().setPosition(1000, 1000);
+            //this.mDestoryable.removeFromSet(obj);
             this.mAllObjs.removeFromSet(obj);
             this.mAllObjs.removeFromSet(this);
         }
     }
+
+    var v = this.getRigidBody().getVelocity();
+    if (Math.abs(v[0]) < 0.2 && Math.abs(v[1]) < 0.2)
+        this.mAllObjs.removeFromSet(this);
+
+    if (this.getXform().getPosition()[1] < -200)
+        this.mAllObjs.removeFromSet(this);
+
 };
