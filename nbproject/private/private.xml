@@ -2,9 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group name="BookChapters">
-            <file>file:/E:/2D-VideoGame/build-your-own-2d-game-engine-master/V2-EngineWithPhysics+Particles/DemoWithPhysics+Particle/public_html/index.html</file>
-        </group>
         <!-->
         <group name="FinalGame">
             <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Engine/Core/Engine_Physics.js</file>
@@ -13,12 +10,26 @@
             <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Game/Objects/Archer.js</file>
         </group>
         <-->
+        <group name="Archers-master">
+            <file>file:/C:/Users/yonghan%20li/Desktop/archers/Archers-master/public_html/src/Game/UI/timing.js</file>
+            <file>file:/C:/Users/yonghan%20li/Desktop/archers/Archers-master/public_html/src/Game/Objects/Arrow.js</file>
+            <file>file:/C:/Users/yonghan%20li/Desktop/archers/Archers-master/public_html/assets/menu/MenuBackground.png</file>
+            <file>file:/C:/Users/yonghan%20li/Desktop/archers/Archers-master/public_html/src/Game/Objects/Archer.js</file>
+            <file>file:/C:/Users/yonghan%20li/Desktop/archers/Archers-master/public_html/assets/quit.png</file>
+            <file>file:/C:/Users/yonghan%20li/Desktop/archers/Archers-master/public_html/assets/P1Win.PNG</file>
+            <file>file:/C:/Users/yonghan%20li/Desktop/archers/Archers-master/public_html/src/Game/Scenes/GameOver1.js</file>
+            <file>file:/C:/Users/yonghan%20li/Desktop/archers/Archers-master/public_html/src/Game/GameState.js</file>
+            <file>file:/C:/Users/yonghan%20li/Desktop/archers/Archers-master/public_html/src/Game/Objects/LevelBackground.js</file>
+            <file>file:/C:/Users/yonghan%20li/Desktop/archers/Archers-master/public_html/src/Game/Scenes/GameOver2.js</file>
+            <file>file:/C:/Users/yonghan%20li/Desktop/archers/Archers-master/public_html/src/Game/Scenes/LevelBackground.js</file>
+        </group>
+        <group name="BookChapters">
+            <file>file:/C:/Users/yonghan%20li/Desktop/archers/Archers-master/public_html/src/Game/Scenes/SceneA.js</file>
+        </group>
         <group name="FinalGame">
-            <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Engine/RigidShapes/RigidRectangle.js</file>
             <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Game/Scenes/SceneA.js</file>
             <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Game/Objects/Arrow.js</file>
             <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Game/Objects/Archer.js</file>
-            <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Game/Objects/WeaponSystem.js</file>
         </group>
     </open-files>
 </project-private>

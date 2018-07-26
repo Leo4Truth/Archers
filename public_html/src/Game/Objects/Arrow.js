@@ -42,7 +42,8 @@ function Arrow(posX, posY, vX, vY, spriteTexture,
 
     //status (flying or hit)
     this.mStatus = Arrow.eArrowState.eFlying;//this.mExpired = false;
-    this.mParticles = null;
+    this.GenerateParticales = 1;
+    this.mParticles = new ParticleGameObjectSet();
 
     this.toggleDrawRigidShape(); // Draw RigidShape
 }
@@ -84,6 +85,7 @@ Arrow.prototype.update = function () {
             //this.mAllObjs.removeFromSet(obj);
             this.mStatus = Arrow.eArrowState.eHit;
             this.mAllObjs.removeFromSet(this);
+            this.GenerateParticales = 0;
         }
     }
 
@@ -99,8 +101,15 @@ Arrow.prototype.update = function () {
                 obj.loseHp(1);
                 //obj.mHpBar.loseHp(1);
             }
-            //this.mAllObjs.removeFromSet(obj);
-            this.mAllObjs.removeFromSet(this);            
+            else if(obj instanceof LifePotion){
+                this.mMaster.addHp(1);
+                this.mAllObjs.removeFromSet(obj);
+                this.mDestroyable.removeFromSet(obj);
+                this.getXform().setPosition(-500, -500);
+                this.getRigidBody().setPosition(-500, -500);                
+            }            
+            this.mAllObjs.removeFromSet(this);           
+            this.GenerateParticales = 0;
         }
     }
 
@@ -110,4 +119,43 @@ Arrow.prototype.update = function () {
 
     if (this.getXform().getPosition()[1] < -200)
         this.mAllObjs.removeFromSet(this);
+    
+    if (this.GenerateParticales === 1) {        
+            var p = this.createParticle(this.getXform().getXPos(), this.getXform().getYPos());
+            this.mParticles.addToSet(p);
+    }
+    gEngine.ParticleSystem.update(this.mParticles);
+};
+
+Arrow.prototype.draw = function (aCamera) {
+    this.mParticles.draw(aCamera);
+
+    GameObject.prototype.draw.call(this, aCamera);
+};
+
+
+Arrow.prototype.createParticle = function(atX, atY) {
+    var life = 30 + Math.random() * 200;
+    var p = new ParticleGameObject("assets/particles/Particle2.png", atX, atY, life);
+    p.getRenderable().setColor([1, 0, 0, 1]);
+    
+    // size of the particle
+    var r = 3.5 + Math.random() * 2.5;
+    p.getXform().setSize(r, r);
+    
+    // final color
+    var fr = 3.5 + Math.random();
+    var fg = 0.4 + 0.1 * Math.random();
+    var fb = 0.3 + 0.1 * Math.random();
+    p.setFinalColor([fr, fg, fb, 0.6]);
+    
+    // velocity on the particle
+    var fx = 10 * Math.random() - 20 * Math.random();
+    var fy = 10 * Math.random();
+    p.getParticle().setVelocity([fx, fy]);
+    
+    // size delta
+    p.setSizeDelta(0.98);
+    
+    return p;
 };

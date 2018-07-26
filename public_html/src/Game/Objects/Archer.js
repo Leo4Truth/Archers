@@ -89,7 +89,7 @@ function Archer(atX, atY, atW, atH, textures,
     var r;
     r = new RigidRectangle(this.getXform(), atW - 6, atH - 4);
     this.setRigidBody(r);
-    r.setMass(1000);
+
     //this.toggleDrawRenderable();
     this.toggleDrawRigidShape();
 }
@@ -137,15 +137,14 @@ Archer.prototype.update = function (aCamera) {
     //this.mShootLeft.updateAnimation();
     this.mWalkRight.updateAnimation();
     //this.mShootRight.updateAnimation();
-    
-    if(this.eCurrentState !== Archer.eArcherState.eWalkLeft
-        && this.eCurrentState !== Archer.eArcherState.eWalkRight){
-        var velo = this.getRigidBody().getVelocity();
-        this.getRigidBody().setVelocity(0, velo[1]);
-    }
-    
 
     GameObject.prototype.update.call(this);
+    
+    if(this.eCurrentState !== Archer.eArcherState.eWalkLeft
+        || this.eCurrentState !== Archer.eArcherState.eWalkRight){
+        var velo = this.getRigidBody().getVelocity();
+        this.getRigidBody().setVelocity(0, velo[1]);
+    }    
 };
 
 Archer.prototype.draw = function (aCamera) {
@@ -250,19 +249,18 @@ Archer.prototype.keyControl = function () {
         //console.log(velocity);
         if(this.eCurrentState === Archer.eArcherState.eShootLeft
             || this.eCurrentState === Archer.eArcherState.eStandLeft)
-            this.mArrow = new Arrow(archerX - 8, archerY, this.mVelocity[0], this.mVelocity[1], this.arrowTexture, 
+            this.mArrow = new Arrow(archerX - 7, archerY, this.mVelocity[0], this.mVelocity[1], this.arrowTexture, 
                                 this.mAllObjs, this.mObjstacles, this.mDestroyable,
                                 this);
         else if(this.eCurrentState === Archer.eArcherState.eShootRight
             || this.eCurrentState === Archer.eArcherState.eStandRight)
-            this.mArrow = new Arrow(archerX + 8, archerY, this.mVelocity[0], this.mVelocity[1], this.arrowTexture, 
+            this.mArrow = new Arrow(archerX + 7, archerY, this.mVelocity[0], this.mVelocity[1], this.arrowTexture, 
                                 this.mAllObjs, this.mObjstacles, this.mDestroyable,
                                 this);
         this.mAllObjs.addToSet(this.mArrow);
     }
 
     // move
-    var velo = this.getRigidBody().getVelocity();
     var xform = this.getXform();
     switch (this.eCurrentState) {
         case Archer.eArcherState.eWalkLeft: {
@@ -272,9 +270,6 @@ Archer.prototype.keyControl = function () {
         case Archer.eArcherState.eWalkRight: {
             xform.incXPosBy(kWASDDelta);
             break;
-        }
-        default:{
-            velo[0] = 0;
         }
     }
 

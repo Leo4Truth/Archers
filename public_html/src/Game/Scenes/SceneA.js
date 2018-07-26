@@ -16,14 +16,21 @@ function SceneA() {
     this.kPlatformTexture = "assets/platform.png";
     this.kWallTexture = "assets/wall.png";
     this.kTargetTexture = "assets/target.png";
+    
+    this.kSceneArenaTexture = "assets/scene/scene_arena.png";
+    this.kSceneStatueTexture = "assets/scene/scene_statue.png";
+    this.kParticleTexture = "assets/particles/Particle2.png";
 
+    this.kBgm = "assets/Sound/bgm.mp3";
+    this.kShoot = "assets/Sound/ShootSound.mp3";
     // The camera to view the scene
     this.mCamera = null;
 
     this.mArmoryCamera = null;
     this.mHPBarCamera = null;
     this.mAnotherHPBarCamera = null;
-
+    this.mTimeCamera = null;
+    
     //GameObjectSets
     this.mAllObjs = null;   //All GameObject
     this.mAllObstacles = null; // All Obstacles which cant be destroyed
@@ -46,12 +53,18 @@ function SceneA() {
     
     //Time
     this.mTimeCounter = 0;
-    
+    this.mTiming = null;
     //UI stuff
     this.mHPBar = null;
     this.mAnotherHPBar = null;
     this.mShootController = null;
     this.mVelocity = null;
+    
+    //background image
+    this.mScene = null;
+    
+    //background music
+    this.mBgm = null;
 }
 gEngine.Core.inheritPrototype(SceneA, Scene);
 
@@ -75,6 +88,13 @@ SceneA.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kPlatformTexture);
     gEngine.Textures.loadTexture(this.kWallTexture);
     gEngine.Textures.loadTexture(this.kTargetTexture);
+    
+    gEngine.Textures.loadTexture(this.kSceneArenaTexture);
+    gEngine.Textures.loadTexture(this.kSceneStatueTexture);
+    gEngine.Textures.loadTexture(this.kParticleTexture);
+    
+    gEngine.AudioClips.loadAudio(this.kBgm);
+    gEngine.AudioClips.loadAudio(this.kShoot);
 };
 
 SceneA.prototype.unloadScene = function () {
@@ -97,7 +117,15 @@ SceneA.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kPlatformTexture);
     gEngine.Textures.unloadTexture(this.kWallTexture);
     gEngine.Textures.unloadTexture(this.kTargetTexture);
+    
+    gEngine.Textures.unloadTexture(this.kSceneArenaTexture);
+    gEngine.Textures.unloadTexture(this.kSceneStatueTexture);
+    gEngine.Textures.unloadTexture(this.kParticleTexture);
 
+    gEngine.AudioClips.unloadAudio(this.kBgm);
+    gEngine.AudioClips.unloadAudio(this.kShoot);
+    gEngine.AudioClips.stopBackgroundAudio(this.kBgm);
+    
     var nextLevel;
     if(this.mArcherMale.getHp() === 0)
         nextLevel = new GameOver2();
@@ -136,7 +164,13 @@ SceneA.prototype.initialize = function () {
         [1300, 420, 300, 30]
     );
     this.mAnotherHPBarCamera.setBackgroundColor([[0.5, 0.5, 0.5, 1]]);
-
+    
+    this.mTimeCamera = new Camera(
+        vec2.fromValues(1100, 1100),
+        100,
+        [1300, 480, 300, 30]
+    );
+    this.mTimeCamera.setBackgroundColor([0.5, 0.5, 0.5, 1]);
     // sets the background to gray
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
 
@@ -144,6 +178,10 @@ SceneA.prototype.initialize = function () {
     this.mAllObstacles = new GameObjectSet();
     this.mDestroyable = new GameObjectSet();
 
+    this.mTiming = new Timing();
+    this.mTiming.mTextbox.getXform().setPosition(1100, 1100);
+    this.mTiming.mTextbox.getXform().setSize(10, 10);
+    
     this.createBounds();
     this.mArcherMale = new Archer(20, 25, 12, 14,
         this.kArcherMaleTextures,
@@ -164,7 +202,7 @@ SceneA.prototype.initialize = function () {
     this.mAllObjs.addToSet(this.mAnotherArcher);
     this.mDestroyable.addToSet(this.mArcherMale);
     this.mDestroyable.addToSet(this.mAnotherArcher);
-
+    
     this.mLifePotion = new LifePotion(50, 8, this.kLifePotionTexture);
     this.mAllObjs.addToSet(this.mLifePotion);
     this.mDestroyable.addToSet(this.mLifePotion);
@@ -180,6 +218,19 @@ SceneA.prototype.initialize = function () {
         this.kShootDirectionArrow);
     this.mVelocity = this.mShootController.getVelocity();
     
+    var i = Math.random()%2;
+    if(i === 1){
+        this.mScene = new TextureRenderable(this.kSceneStatueTexture);    
+    }else
+        this.mScene = new TextureRenderable(this.kSceneArenaTexture);    
+    this.mScene.getXform().setPosition(50, 40);
+    this.mScene.getXform().setSize(200, 125);
+//    this.mSceneImg.setColor([1, 1, 1, 0]);
+//    this.mSceneImg.getXform().setPosition(50, 40);
+//    this.mSceneImg.getXform().setSize(1600, 800);
+//    this.mSceneImg.setElementPixelPositions(0, 800, 0, 600);
+//    this.mScene.setRender
+        
     this.mCurrentObject = this.mArcherMale;
 };
 
@@ -189,6 +240,8 @@ SceneA.prototype.update = function () {
         this.mArcherMale.loseHp(10);
     if(this.mAnotherArcher.getXform().getPosition()[1] <= 0)
         this.mAnotherArcher.loseHp(10);
+    if(gEngine.AudioClips.isBackgroundAudioPlaying() === false)
+        gEngine.AudioClips.playBackgroundAudio(this.kBgm);
         
     //check win condition
     if(this.mArcherMale.getHp() === 0 || this.mAnotherArcher.getHp() === 0)
@@ -212,20 +265,26 @@ SceneA.prototype.update = function () {
         this.mShootController.update(this.mCurrentObject.getCurrentFrontDir());
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) {
+        gEngine.AudioClips.playACue(this.kShoot);
         this.mTimeCounter = 580;
     }
 
     //Time control part. When needed, set the activated archer
     this.mTimeCounter++;
+    var TimeS = this.mTimeCounter / 60;
+    this.mTiming.TimeUpdate(TimeS);
     if (this.mTimeCounter >= 600){
         if(this.mCurrentObject === this.mArcherMale){
             this.mCurrentObject = this.mAnotherArcher;
-            this.mAnotherArcher.setToStand();
+//            this.mAnotherArcher.setToStand();
         }
         else {
             this.mCurrentObject  = this.mArcherMale;
-            this.mArcherMale.setToStand();
+//            this.mArcherMale.setToStand();
         }
+        this.mAnotherArcher.setToStand();
+        this.mArcherMale.setToStand();
+        this.mTiming.setZero();
         this.mTimeCounter = 0;
     }
 };
@@ -234,6 +293,8 @@ SceneA.prototype.draw = function () {
     gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
 
     this.mCamera.setupViewProjection();
+    this.mScene.draw(this.mCamera);
+    
     this.mAllObjs.draw(this.mCamera);
     
     this.mShootController.draw(this.mCamera);
@@ -246,6 +307,9 @@ SceneA.prototype.draw = function () {
     this.mAnotherHPBarCamera.setupViewProjection();
     this.mAnotherHPBar.draw(this.mAnotherHPBarCamera);
 
+    this.mTimeCamera.setupViewProjection();
+    this.mTiming.mTextbox.draw(this.mTimeCamera);
+    
     this.mCollisionInfos = [];
 };
 
@@ -274,10 +338,10 @@ SceneA.prototype.createBounds = function () {
         this.wallAt(x, y, w);
     */
 
-    var r = new TextureRenderable(this.kTargetTexture);
-    this.mTarget = new GameObject(r);
-    var xf = r.getXform();
-    xf.setSize(3, 3);
+//    var r = new TextureRenderable(this.kTargetTexture);
+//    this.mTarget = new GameObject(r);
+//    var xf = r.getXform();
+//    xf.setSize(3, 3);
 };
 
 SceneA.prototype.wallAt = function (x, y, w) {

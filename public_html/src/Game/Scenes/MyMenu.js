@@ -20,9 +20,9 @@ function MyMenu() {
     this.mCamera = null;
 
     // Coordinate Systems (Copied from MyGame for simplicity, can change this)
-    this.kWCWidth = 100;
-    this.kViewportWidth = 800;
-    this.kViewportHeight = 600;
+    this.kWCWidth = 200;
+    this.kViewportWidth = 1600;
+    this.kViewportHeight = 800;
     this.kWCHeight = this.kViewportHeight * (this.kWCWidth / this.kViewportWidth);
     // Animate Ball roll onto screen
 
