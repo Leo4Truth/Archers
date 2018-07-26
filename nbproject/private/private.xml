@@ -5,5 +5,13 @@
         <group name="BookChapters">
             <file>file:/E:/2D-VideoGame/build-your-own-2d-game-engine-master/V2-EngineWithPhysics+Particles/DemoWithPhysics+Particle/public_html/index.html</file>
         </group>
+        <!-->
+        <group name="FinalGame">
+            <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Engine/Core/Engine_Physics.js</file>
+            <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Game/Scenes/SceneA.js</file>
+            <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Game/Objects/Arrow.js</file>
+            <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Game/Objects/Archer.js</file>
+        </group>
+        <-->
     </open-files>
 </project-private>

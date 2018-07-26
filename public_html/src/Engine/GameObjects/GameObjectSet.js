@@ -77,7 +77,8 @@ GameObjectSet.prototype.moveToLast = function (obj) {
 GameObjectSet.prototype.update = function () {
     var i;
     for (i = 0; i < this.mSet.length; i++) {
-        this.mSet[i].update();
+        if(this.mSet[i] !== null)
+            this.mSet[i].update();
     }
 };
 

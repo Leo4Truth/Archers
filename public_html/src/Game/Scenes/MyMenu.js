@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+/*
+* Splash.js
+* 
+*/
+>>>>>>> a393ae762ed940b0aa8789ef09fdde8df0830b56
 "use strict";
 
 function MyMenu() {
@@ -12,7 +19,11 @@ function MyMenu() {
     this.mLevelBackground = null;
     this.kBackground = "assets/menu/MenuBackground.png";
     this.kStartButton = "assets/menu/Button.png";
+<<<<<<< HEAD
     this.kTitle = "assets/menu/title.png";
+=======
+    this.kTitle = "assets/menu/title.png";    
+>>>>>>> a393ae762ed940b0aa8789ef09fdde8df0830b56
     this.khelp = "assets/menu/help.png";
     this.kButton1 = "assets/menu/button1.png";
     this.kButton2 = "assets/menu/button2.png";
@@ -32,6 +43,7 @@ function MyMenu() {
 gEngine.Core.inheritPrototype(MyMenu, Scene);
 
 MyMenu.prototype.loadScene = function(sceneParams) {
+<<<<<<< HEAD
     // load the scene file
     // need to create this.kSceneFile; choose JSON or XML
     // gEngine.TextFileLoader.LoadTextFile(this.kScene, gEngine.TextFileLoader.eTextFileType.eTextFile); // if JSON
@@ -45,11 +57,27 @@ MyMenu.prototype.loadScene = function(sceneParams) {
     gEngine.Textures.loadTexture(this.kButton2);
     gEngine.Textures.loadTexture(this.kMark);
     gEngine.Textures.loadTexture(this.khelp);
+=======
+	// load the scene file
+	// need to create this.kSceneFile; choose JSON or XML
+	// gEngine.TextFileLoader.LoadTextFile(this.kScene, gEngine.TextFileLoader.eTextFileType.eTextFile); // if JSON
+	// use XMLFile for XML
+
+	// load Textures
+	gEngine.Textures.loadTexture(this.kBackground); 
+        
+        gEngine.Textures.loadTexture(this.kTitle);
+        gEngine.Textures.loadTexture(this.kButton1);
+        gEngine.Textures.loadTexture(this.kButton2);
+        gEngine.Textures.loadTexture(this.kMark);
+        gEngine.Textures.loadTexture(this.khelp);
+>>>>>>> a393ae762ed940b0aa8789ef09fdde8df0830b56
 
 
 };
 
 MyMenu.prototype.unloadScene = function() {
+<<<<<<< HEAD
     // unload the Scene File
     // same this.kSceneFile as in loadScene
 
@@ -64,11 +92,28 @@ MyMenu.prototype.unloadScene = function() {
 
     var nextLevel = new SceneA(); // pass CarColor selection to MyGame
     gEngine.Core.startScene(nextLevel);
+=======
+	// unload the Scene File
+	// same this.kSceneFile as in loadScene
+
+	// unload Textures
+	gEngine.Textures.unloadTexture(this.kBackground);
+        gEngine.Textures.unloadTexture(this.kTitle);
+        gEngine.Textures.unloadTexture(this.kButton1);
+        gEngine.Textures.unloadTexture(this.kButton2);
+        gEngine.Textures.unloadTexture(this.kMark);
+        gEngine.Textures.unloadTexture(this.khelp);
+		// textures for each car color
+
+	var nextLevel = new SceneA(); // pass CarColor selection to MyGame
+	gEngine.Core.startScene(nextLevel);
+>>>>>>> a393ae762ed940b0aa8789ef09fdde8df0830b56
 };
 
 MyMenu.prototype.initialize = function() {
 //	this.mColorSelect = new ColorSelect();
 
+<<<<<<< HEAD
     this.mLevelBackground = new LevelBackground(this.kBackground); // with parameter for the background Texture
 
     this.mCamera = new Camera( // camera setup copied from MyGame.js for simplicity, can change this
@@ -104,10 +149,48 @@ MyMenu.prototype.initialize = function() {
 
 
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
+=======
+	this.mLevelBackground = new LevelBackground(this.kBackground); // with parameter for the background Texture
+
+	this.mCamera = new Camera( // camera setup copied from MyGame.js for simplicity, can change this
+		[0, 0],		 // position of the camera
+		this.kWCWidth,		// width of camera
+		[0, 0, this.kViewportWidth, this.kViewportHeight] 	// viewport (orgX, orgY, width, height)
+	);
+
+        this.mTitle = new TextureRenderable(this.kTitle);
+        this.mTitle.setColorArray([1, 1, 1, 1]);
+        this.mTitle.getXform().setPosition(0, 20);
+        this.mTitle.getXform().setSize(120, 30);
+        
+        this.mButton1 = new TextureRenderable(this.kButton1);
+        this.mButton1.setColorArray([1, 1, 1, 0]);
+        this.mButton1.getXform().setPosition(0, 0);
+        this.mButton1.getXform().setSize(80, 20);
+        
+        this.mButton2 = new TextureRenderable(this.kButton2);
+        this.mButton2.setColorArray([1, 1, 1, 0]);
+        this.mButton2.getXform().setPosition(0, -20);
+        this.mButton2.getXform().setSize(80, 20);
+        
+        this.mMark = new TextureRenderable(this.kMark);
+        this.mMark.setColorArray([0, 0, 0, 1]);
+        this.mMark.getXform().setPosition(-40, 0);
+        this.mMark.getXform().setSize(8, 2);
+        
+        this.mhelp = new TextureRenderable(this.khelp);
+        this.mhelp.getXform().setPosition(0, 100);
+        this.mhelp.getXform().setSize(80, 80);
+        
+
+        
+	gEngine.DefaultResources.setGlobalAmbientIntensity(3);
+>>>>>>> a393ae762ed940b0aa8789ef09fdde8df0830b56
 };
 
 MyMenu.prototype.update = function() {
     var delta = -3;
+<<<<<<< HEAD
     switch(this.option)
     {
         case 0:
@@ -170,3 +253,67 @@ MyMenu.prototype.draw = function() {
     this.mMark.draw(this.mCamera);
     this.mhelp.draw(this.mCamera);
 };
+=======
+        switch(this.option)
+        {
+            case 0:
+                this.mButton2.getXform().setSize(80, 20);
+                this.mButton1.getXform().setSize(120, 30);
+                this.mMark.getXform().setPosition(-40, 1);
+                break;
+            case 1:
+                this.mButton1.getXform().setSize(80, 20);
+                this.mButton2.getXform().setSize(120, 30);
+                this.mMark.getXform().setPosition(-20, -19);
+                break;
+            default:
+                this.mButton1.getXform().setSize(80, 20);
+                this.mButton2.getXform().setSize(80, 20);
+                if(this.mhelp.getXform().getYPos() > 0)
+                {
+                    this.mhelp.getXform().incYPosBy(delta);
+                }
+                break;
+        }
+
+	if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)) { 
+		// test code for scene switching
+                if(this.option == 2){
+                    this.option = 0;
+                    this.mhelp.getXform().setPosition(0, 100);
+                    this.mtips.getXform().setPosition(0, 100);
+                }
+                else
+                    gEngine.GameLoop.stop();
+        }
+        
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W) && this.option == 1){
+            this.option = 0;
+        }
+        else if(gEngine.Input.isKeyPressed(gEngine.Input.keys.S) && this.option == 0){
+            this.option = 1;
+        }
+        else if(gEngine.Input.isKeyPressed(gEngine.Input.keys.Space) && this.option == 1){
+            this.option = 2;
+        }
+        
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Space) && this.option == 0){
+            gEngine.GameLoop.stop();
+        }
+        
+};
+
+MyMenu.prototype.draw = function() {
+	gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
+	this.mCamera.setupViewProjection(); // activate drawing camera
+	// draw all SplashScreen GameObjects
+	// draw LevelBackground
+	this.mLevelBackground.draw(this.mCamera);
+        this.mTitle.draw(this.mCamera);
+        this.mButton1.draw(this.mCamera);
+        this.mButton2.draw(this.mCamera);
+	this.mTitle.draw(this.mCamera);
+        this.mMark.draw(this.mCamera);
+        this.mhelp.draw(this.mCamera);
+};
+>>>>>>> a393ae762ed940b0aa8789ef09fdde8df0830b56
