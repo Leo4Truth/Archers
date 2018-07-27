@@ -106,22 +106,25 @@
         <!-- UI -->
         <script type="text/javascript" src="src/Game/UI/ShootController.js"></script>
         <script type="text/javascript" src="src/Game/UI/Armory.js"></script>
-        <script type="text/javascript" src="src/Game/UI/HPBar.js"></script>
-        <script type="text/javascript" src="src/Game/UI/timing.js"></script>
-        
+        <script type="text/javascript" src="src/Game/UI/HpBar.js"></script>
+        <script type="text/javascript" src="src/Game/UI/Timer.js"></script>
+
         <script type="text/javascript" src="src/Game/Scenes/MyMenu.js"></script>
-        <script type="text/javascript" src="src/Game/Scenes/SceneA.js"></script>
         <script type="text/javascript" src="src/Game/Scenes/LevelBackground.js"></script>
+        <script type="text/javascript" src="src/Game/Scenes/SceneA.js"></script>
         <script type="text/javascript" src="src/Game/Scenes/GameOver1.js"></script>
         <script type="text/javascript" src="src/Game/Scenes/GameOver2.js"></script>
+
+
+        <script type="text/javascript" src="src/Game/Game.js"></script>
+        <script type="text/javascript" src="src/Game/Player.js"></script>
 
         <link rel="stylesheet" type="text/css" href="LoadingIcons.css">
         
     </head>
 
     <body onload="
-        var menu = new MyMenu();
-        gEngine.Core.initializeEngineCore('GLCanvas', menu);
+        var game = new Game();
      ">
         <div id="LoadingIconParent" style="width: 1600px; height: 800px;">
             <canvas id="GLCanvas">

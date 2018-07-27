@@ -16,7 +16,11 @@ Armory.eCellOffsets = Object.freeze([
     [-24, -36], [-12, -36], [0, -36], [12, -36], [24, -36]
 ]);
 
-function Armory() {
+function Armory(XPos, YPos) {
+    this.XPos = XPos;
+    this.YPos = YPos;
+
+    console.log("X, Y: " + this.XPos + ", " + this.YPos);
     this.kCellLength = 10;
     this.kCellNum = new vec2.fromValues(5, 7);
     this.kCurrentArm = 0;
@@ -25,31 +29,30 @@ function Armory() {
     this.mCells = [];
 
     this.mBackground = new SpriteRenderable(Armory.eAssets.eBackgroundTexture);
-    //console.log(this.mBackground);
     this.mBackground.setColor([1, 1, 1, 0]);
-    this.mBackground.getXform().setPosition(1000, 1000);
+    this.mBackground.getXform().setPosition(XPos, YPos);
     this.mBackground.getXform().setSize(60, 84);
-
 
     var i;
     for (i = 0; i < 35; i++) {
         var cell = new SpriteRenderable(Armory.eAssets.eCellTexture);
         cell.setColor([1, 1, 1, 0]);
-        cell.getXform().setSize(10, 10);
         cell.getXform().setPosition(
-            this.mBackground.getXform().getXPos() + Armory.eCellOffsets[i][0],
-            this.mBackground.getXform().getXPos() + Armory.eCellOffsets[i][1]
+            XPos + Armory.eCellOffsets[i][0],
+            YPos + Armory.eCellOffsets[i][1]
         );
-        this.mCells.push(cell);
+        cell.getXform().setSize(10, 10);
+        this.mCells[i] = cell;
     }
+    console.log(this.mCells);
 
     this.mCheckMark = new SpriteRenderable(Armory.eAssets.eCheckMarkTexture);
     this.mCheckMark.setColor([1, 1, 1, 0]);
-    this.mCheckMark.getXform().setSize(10, 10);
     this.mCheckMark.getXform().setPosition(
-        this.mBackground.getXform().getXPos() + Armory.eCellOffsets[this.kCurrentArm][0],
-        this.mBackground.getXform().getXPos() + Armory.eCellOffsets[this.kCurrentArm][1]
+        XPos + Armory.eCellOffsets[this.kCurrentArm][0],
+        YPos + Armory.eCellOffsets[this.kCurrentArm][1]
     );
+    this.mCheckMark.getXform().setSize(10, 10);
 }
 
 Armory.prototype.addArm = function(arm) {
@@ -72,37 +75,32 @@ Armory.prototype.draw = function (aCamera) {
 };
 
 Armory.prototype.update = function() {
-    this.keyControl();
     this.mCheckMark.getXform().setPosition(
-        this.mBackground.getXform().getXPos() + Armory.eCellOffsets[this.kCurrentArm][0],
-        this.mBackground.getXform().getXPos() + Armory.eCellOffsets[this.kCurrentArm][1]
+        this.XPos + Armory.eCellOffsets[this.kCurrentArm][0],
+        this.YPos + Armory.eCellOffsets[this.kCurrentArm][1]
     );
 };
 
 Armory.prototype.keyControl = function() {
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Up)) {
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.I)) {
         this.kCurrentArm -= 5;
         if (this.kCurrentArm < 0)
             this.kCurrentArm = 0;
-        console.log(this.kCurrentArm);
     }
-    else if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Down)) {
+    else if (gEngine.Input.isKeyClicked(gEngine.Input.keys.K)) {
         this.kCurrentArm += 5;
         if (this.kCurrentArm >= 35)
             this.kCurrentArm = 34;
-        console.log(this.kCurrentArm);
     }
-    else if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Left)) {
+    else if (gEngine.Input.isKeyClicked(gEngine.Input.keys.J)) {
         this.kCurrentArm -= 1;
         if (this.kCurrentArm < 0)
             this.kCurrentArm = 0;
-        console.log(this.kCurrentArm);
     }
-    else if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Right)) {
+    else if (gEngine.Input.isKeyClicked(gEngine.Input.keys.L)) {
         this.kCurrentArm += 1;
         if (this.kCurrentArm >= 35)
             this.kCurrentArm = 34;
-        console.log(this.kCurrentArm);
     }
 };
 

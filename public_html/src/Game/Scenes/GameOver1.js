@@ -1,13 +1,14 @@
 "use strict";
 
-function GameOver1() {
+function GameOver1(game) {
+    this.mGame = game;
     this.kGameOverTitle = "assets/gameover/gameover.png";
     this.kRestart = "assets/gameover/restart.png";
     this.kQuit = "assets/gameover/quit.png";
     this.kBackground = "assets/menu/MenuBackground.png";
-    this.kP1Win = "assets/gameover/P1win.png";
+    this.kP1Win = "assets/gameover/P1Win.png";
 
-    
+
     this.mAllObject = null;
     this.mGameOverTitle = null;
     this.mRestart = null;
@@ -16,15 +17,16 @@ function GameOver1() {
     this.mP1Win = null;
     //Camera
     this.mCamera = null;
-    
+
     //Next scene
     this.mNext = null;
     //option
     this.mOption = 0;
 }
+
 gEngine.Core.inheritPrototype(GameOver1, Scene);
 
-GameOver1.prototype.loadScene = function() {
+GameOver1.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kGameOverTitle);
     gEngine.Textures.loadTexture(this.kRestart);
     gEngine.Textures.loadTexture(this.kBackground);
@@ -33,18 +35,19 @@ GameOver1.prototype.loadScene = function() {
 };
 
 
-GameOver1.prototype.unloadScene = function() {
+GameOver1.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kGameOverTitle);
     gEngine.Textures.unloadTexture(this.kRestart);
     gEngine.Textures.unloadTexture(this.kQuit);
     gEngine.Textures.unloadTexture(this.kBackground);
-    gEngine.Textures.unloadTexture(this.kP1Win)
-    
+    gEngine.Textures.unloadTexture(this.kP1Win);
+
+    this.mNext = new SceneA(this.mGame);
     gEngine.Core.startScene(this.mNext);
 };
 
-GameOver1.prototype.initialize = function() {
-    this.mCamera  = new Camera(
+GameOver1.prototype.initialize = function () {
+    this.mCamera = new Camera(
         vec2.fromValues(80, 40),
         200,
         [0, 0, 1600, 800]
@@ -52,61 +55,56 @@ GameOver1.prototype.initialize = function() {
     this.mLevelBackground = new LevelBackground(this.kBackground); // with parameter for the background Texture
     this.mLevelBackground.getObjectAt(0).getXform().setPosition(80, 40);
     this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
-    
+
     this.mAllObject = new GameObjectSet();
-    
+
     this.mGameOverTitle = new TextureRenderable(this.kGameOverTitle);
     this.mGameOverTitle.getXform().setPosition(80, 40);
     this.mGameOverTitle.getXform().setSize(80, 20);
     this.mAllObject.addToSet(this.mGameOverTitle);
-    
+
     this.mRestart = new TextureRenderable(this.kRestart);
     this.mRestart.getXform().setPosition(80, 30);
     this.mRestart.getXform().setSize(40, 10);
     this.mAllObject.addToSet(this.mRestart);
-    
+
     this.mQuit = new TextureRenderable(this.kQuit);
     this.mQuit.getXform().setPosition(80, 20);
     this.mQuit.getXform().setSize(32, 8);
     this.mAllObject.addToSet(this.mQuit);
-    
+
     this.mP1Win = new TextureRenderable(this.kP1Win);
     this.mP1Win.getXform().setSize(200, 50);
     this.mP1Win.getXform().setPosition(40, 60);
     this.mP1Win.getXform().setRotationInRad(0.5);
     this.mAllObject.addToSet(this.mP1Win);
-    
-    gEngine.DefaultResources.setGlobalAmbientIntensity(3);    
-    
-    this.mNext = new SceneA();
+
+    gEngine.DefaultResources.setGlobalAmbientIntensity(3);
 };
 
-GameOver1.prototype.update = function (){
+GameOver1.prototype.update = function () {
     this.mAllObject.update();
-    
-    if(this.mOption == 0 && gEngine.Input.isKeyClicked(gEngine.Input.keys.S))
-    {
+
+    if (this.mOption === 0 && gEngine.Input.isKeyClicked(gEngine.Input.keys.S)) {
         this.mRestart.getXform().setSize(32, 8);
         this.mQuit.getXform().setSize(40, 10);
         this.mOption = 1;
         this.mNext = new MyMenu();
     }
-    
-    if(this.mOption == 1 && gEngine.Input.isKeyClicked(gEngine.Input.keys.W))
-    { 
+
+    if (this.mOption === 1 && gEngine.Input.isKeyClicked(gEngine.Input.keys.W)) {
         this.mQuit.getXform().setSize(32, 8);
         this.mRestart.getXform().setSize(40, 10);
         this.mOption = 0;
         this.mNext = new SceneA();
     }
-    
-    if(gEngine.Input.isKeyPressed(gEngine.Input.keys.Space))
-    {
+
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Space)) {
         gEngine.GameLoop.stop();
     }
 };
 
-GameOver1.prototype.draw = function (){
+GameOver1.prototype.draw = function () {
     this.mCamera.setupViewProjection();
     this.mLevelBackground.draw(this.mCamera);
     this.mAllObject.draw(this.mCamera);
