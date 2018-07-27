@@ -11,7 +11,7 @@ function LifePotion(posX, posY, texture) {
     this.setRigidBody(r);
 
     //this.toggleDrawRenderable();
-    this.toggleDrawRigidShape();
+    //this.toggleDrawRigidShape();
 }
 
 gEngine.Core.inheritPrototype(LifePotion, GameObject);

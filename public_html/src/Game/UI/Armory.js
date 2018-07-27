@@ -20,7 +20,7 @@ function Armory(XPos, YPos) {
     this.XPos = XPos;
     this.YPos = YPos;
 
-    console.log("X, Y: " + this.XPos + ", " + this.YPos);
+//    console.log("X, Y: " + this.XPos + ", " + this.YPos);
     this.kCellLength = 10;
     this.kCellNum = new vec2.fromValues(5, 7);
     this.kCurrentArm = 0;
@@ -53,6 +53,15 @@ function Armory(XPos, YPos) {
         YPos + Armory.eCellOffsets[this.kCurrentArm][1]
     );
     this.mCheckMark.getXform().setSize(10, 10);
+    
+    //Here are all of the weapon
+    this.mNewArm = new Arm(this.XPos, this.YPos, 0, 99, Arm.eIconAssets.eNormalArrow);
+    this.mNewArm.setActive();
+    this.addArm(this.mNewArm);
+    this.mNewArm = new Arm(this.XPos, this.YPos, 1, 10, Arm.eIconAssets.ePaperPlane);
+    this.addArm(this.mNewArm);
+    
+    //this.activeArm = this.mArms[0];
 }
 
 Armory.prototype.addArm = function(arm) {
@@ -71,6 +80,9 @@ Armory.prototype.draw = function (aCamera) {
     for (i = 0; i < 35; i++) {
         this.mCells[i].draw(aCamera);
     }
+    for (i = 0; i < this.mArms.length; i++){
+        this.mArms[i].draw(aCamera);
+    }
     this.mCheckMark.draw(aCamera);
 };
 
@@ -82,6 +94,8 @@ Armory.prototype.update = function() {
 };
 
 Armory.prototype.keyControl = function() {
+    if(this.kCurrentArm < this.mArms.length)
+        this.mArms[this.kCurrentArm].setInactive();
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.I)) {
         this.kCurrentArm -= 5;
         if (this.kCurrentArm < 0)
@@ -102,10 +116,21 @@ Armory.prototype.keyControl = function() {
         if (this.kCurrentArm >= 35)
             this.kCurrentArm = 34;
     }
+    if(this.kCurrentArm < this.mArms.length)
+        this.mArms[this.kCurrentArm].setActive();
 };
 
 Armory.prototype.getCurrentArm = function () {
-    return this.kCurrentArm;
-}
+    if(this.mArms[this.kCurrentArm].getCurrentNum() > 0)
+        return this.kCurrentArm;
+    else
+        return -1;
+};
 
+Armory.prototype.useWeapon = function (dec) {
+    this.mArms[this.kCurrentArm].useWeapon(dec);
+};
 
+Armory.prototype.getWeapon = function (inc) {
+    this.mArms[this.kCurrentArm].getWeapon(inc);
+};

@@ -227,7 +227,7 @@ Player.prototype.update = function () {
 Player.prototype.keyControl = function () {
     switch (this.mCurrentState) {
         case Player.ePlayerState.eReady: {
-            if (this.mTime > 600) {
+            if (this.mTime > 960) {
                 this.resetTimer();
                 this.setState(Player.ePlayerState.eWait);
                 this.mArcher.setToStand();
@@ -241,8 +241,9 @@ Player.prototype.keyControl = function () {
             this.mTimer.TimeUpdate(this.mTime / 60);
 
             if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) {
-                this.shoot();
-                this.mCurrentState = Player.ePlayerState.eShoot;
+                var ifShootSuccess = this.shoot();
+                if(ifShootSuccess)
+                    this.mCurrentState = Player.ePlayerState.eShoot;
             }
 
             this.moveCamera();
@@ -304,9 +305,13 @@ Player.prototype.shoot = function () {
     var velocity = this.mShootController.getVelocity();
     var offset = new vec2.fromValues(1, 0);
     vec2.normalize(offset, velocity);
-
+    
     var arrowchoose = this.mArmory.getCurrentArm();
+    console.log(arrowchoose);
     switch (arrowchoose){
+        case -1:{
+            break;
+        }
         case 0:{
             this.mArrow = new Arrow(
                 pos[0] + offset[0] * 8, pos[1] + offset[1] * 8,
@@ -314,6 +319,7 @@ Player.prototype.shoot = function () {
                 Arrow.eAssets.eNormalArrowTexture,
                 this.mAllObjs, this.mObstacle, this.mDestroyable, this.mArcher
             );
+            this.mAllObjs.addToSet(this.mArrow);
             break;
         }
         case 1:{
@@ -323,6 +329,7 @@ Player.prototype.shoot = function () {
                 PaperPlane.eAssets.ePaperPlaneTexture,
                 this.mAllObjs, this.mObstacle, this.mDestroyable, this.mArcher
             );
+            this.mAllObjs.addToSet(this.mArrow);
             break;
         }
         default:{
@@ -332,11 +339,16 @@ Player.prototype.shoot = function () {
                 Arrow.eAssets.eNormalArrowTexture,
                 this.mAllObjs, this.mObstacle, this.mDestroyable, this.mArcher
             );
+            this.mAllObjs.addToSet(this.mArrow);
             break;
         }
     }
-
-    this.mAllObjs.addToSet(this.mArrow);
+    if(arrowchoose === -1)
+        return 0;
+    else{
+        this.mArmory.useWeapon(1);
+        return 1;
+    }
 };
 
 Player.prototype.moveCamera = function () {

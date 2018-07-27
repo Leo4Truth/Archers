@@ -7,7 +7,7 @@
 ;
 function Timer() {
     this.mTime = 0;
-    this.mTimeShow = 9;
+    this.mTimeShow = 16;
     this.mTextbox = new FontRenderable(this.mTimeShow.toString());
     this.mTextbox.setColor([1, 0, 0, 1]);
     this.mTextbox.getXform().setPosition(0, 0);
@@ -19,7 +19,7 @@ function Timer() {
 
 Timer.prototype.setZero = function () {
     this.mTime = 0;
-    this.mTimeShow = 9;
+    this.mTimeShow = 16;
 };
 
 Timer.prototype.TimeUpdate = function (time) {
