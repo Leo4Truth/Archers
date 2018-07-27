@@ -332,6 +332,16 @@ Player.prototype.shoot = function () {
             this.mAllObjs.addToSet(this.mArrow);
             break;
         }
+        case 2:{
+            this.mArrow = new BouncingArrow(
+                pos[0] + offset[0] * 8, pos[1] + offset[1] * 8,
+                velocity[0], velocity[1],
+                BouncingArrow.eAssets.eBouncingArrowTexture,
+                this.mAllObjs, this.mObstacle, this.mDestroyable, this.mArcher
+            );
+            this.mAllObjs.addToSet(this.mArrow);
+            break;
+        }
         default:{
             this.mArrow = new Arrow(
                 pos[0] + offset[0] * 8, pos[1] + offset[1] * 8,

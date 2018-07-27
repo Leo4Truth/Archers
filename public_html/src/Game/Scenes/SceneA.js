@@ -32,6 +32,7 @@ SceneA.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(PaperPlane.eAssets.ePaperPlaneTexture);
     gEngine.Textures.loadTexture(Arm.eIconAssets.eNormalArrow);
     gEngine.Textures.loadTexture(Arm.eIconAssets.ePaperPlane);
+    gEngine.Textures.loadTexture(Arm.eIconAssets.eBouncingArrow);
     
     gEngine.Textures.loadTexture(this.kLifePotionTexture);
     gEngine.Textures.loadTexture(ShootController.eAssets.eShootDirArrowTexture);
@@ -88,6 +89,7 @@ SceneA.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(PaperPlane.eAssets.ePaperPlaneTexture);
     gEngine.Textures.unloadTexture(Arm.eIconAssets.eNormalArrow);
     gEngine.Textures.unloadTexture(Arm.eIconAssets.ePaperPlane);
+    gEngine.Textures.unloadTexture(Arm.eIconAssets.eBouncingArrow);
     
     gEngine.Textures.unloadTexture(this.kLifePotionTexture);
     gEngine.Textures.unloadTexture(ShootController.eAssets.eShootDirArrowTexture);

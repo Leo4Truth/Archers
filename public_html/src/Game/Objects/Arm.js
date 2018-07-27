@@ -6,12 +6,14 @@
 
 Arm.eMsgString = Object.freeze([
     "Arrow :",
-    "PaperPlane :"
+    "PaperPlane :",
+    "Bounce :"
 ]);
 
 Arm.eIconAssets =  Object.freeze({
     eNormalArrow: "assets/arrows/arrows_f.png",
-    ePaperPlane: "assets/arrows/paperplane.png"
+    ePaperPlane: "assets/arrows/paperplane.png",
+    eBouncingArrow: "assets/arrows/arrows_e.png"
 });
 
 function Arm(XPos, YPos, order, currentNum, texture){
@@ -63,15 +65,15 @@ Arm.prototype.useWeapon = function (dec) {
 Arm.prototype.setActive = function () {
     this.isActive = 1;
     var tempStr = Arm.eMsgString[this.mOrder];
-    console.log(Arm.eMsgString[this.mOrder]);
+    //console.log(Arm.eMsgString[this.mOrder]);
     this.mMessageBox = new FontRenderable(tempStr.concat(this.mCurrentNum.toString()));
     this.mMessageBox.setColor([1, 0, 0, 1]);
     this.mMessageBox.getXform().setPosition(this.XPos - 24, this.YPos - 36);
     this.mMessageBox.getXform().setSize(0, 0);
     this.mMessageBox.setTextHeight(5);
-}
+};
 
 Arm.prototype.setInactive = function(){
     this.isActive = 0;
     this.mMessageBox = null;
-}
+};

@@ -60,6 +60,8 @@ function Armory(XPos, YPos) {
     this.addArm(this.mNewArm);
     this.mNewArm = new Arm(this.XPos, this.YPos, 1, 10, Arm.eIconAssets.ePaperPlane);
     this.addArm(this.mNewArm);
+    this.mNewArm = new Arm(this.XPos, this.YPos, 2, 3, Arm.eIconAssets.eBouncingArrow);
+    this.addArm(this.mNewArm);
     
     //this.activeArm = this.mArms[0];
 }
