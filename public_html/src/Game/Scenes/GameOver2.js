@@ -6,7 +6,7 @@ function GameOver2(game) {
     this.kRestart = "assets/gameover/restart.png";
     this.kQuit = "assets/gameover/quit.png";
     this.kBackground = "assets/menu/MenuBackground.png";
-    this.kP2Win = "assets/gameover/P2win.png";
+    this.kP2Win = "assets/gameover/P2Win.png";
 
 
     this.mAllObject = null;
@@ -42,8 +42,9 @@ GameOver2.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kBackground);
     gEngine.Textures.unloadTexture(this.kP2Win);
 
-    this.mNext = new SceneA(this.mGame);
+    this.mNext = new SceneA(this.mGame, Background.ePlace.eTown, Background.eSky.eCloudy);
     gEngine.Core.startScene(this.mNext);
+    this.game.mCurrentScene = nextLevel;
 };
 
 GameOver2.prototype.initialize = function () {

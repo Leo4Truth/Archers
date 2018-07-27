@@ -1,12 +1,18 @@
 "use strict";
 
-function SceneA(game) {
+function SceneA(game, place, sky) {
     this.mGame = game;
+
+    this.mPlace = place;
+    this.mSky = sky;
 
     this.kLifePotionTexture = "assets/props/lifePotion.png";
 
     this.kPlatformTexture = "assets/terrains/platform.png";
     this.kWallTexture = "assets/terrains/wall.png";
+
+    this.kBgm = "assets/sounds/bgm.mp3";
+    this.kShootCue = "assets/sounds/ShootSound.mp3";
 
     //GameObjectSets
     this.mAllObjs = null;   //All GameObject
@@ -15,12 +21,15 @@ function SceneA(game) {
 
     this.mLifePotion = null;
 
+    this.mBackground = null;
+
     this.mCollisionInfos = [];
 }
 gEngine.Core.inheritPrototype(SceneA, Scene);
 
 SceneA.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(Arrow.eAssets.eNormalArrowTexture);
+    gEngine.Textures.loadTexture(PaperPlane.eAssets.ePaperPlaneTexture);
     gEngine.Textures.loadTexture(this.kLifePotionTexture);
     gEngine.Textures.loadTexture(ShootController.eAssets.eShootDirArrowTexture);
 
@@ -36,12 +45,44 @@ SceneA.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(Armory.eAssets.eCheckMarkTexture);
     gEngine.Textures.loadTexture(HpBar.eAssets.eRedHeart);
 
+    switch (this.mPlace) {
+        case Background.ePlace.eEasternCity: {
+            gEngine.Textures.loadTexture(Background.eAssets.eEasternCityTexture);
+            break;
+        }
+        case Background.ePlace.eOutskirts: {
+            gEngine.Textures.loadTexture(Background.eAssets.eOutskirtsTexture);
+            break;
+        }
+        case Background.ePlace.eTown: {
+            gEngine.Textures.loadTexture(Background.eAssets.eTownTexture);
+            break;
+        }
+    }
+    
+    switch (this.mSky) {
+        case Background.eSky.eCloudy: {
+            gEngine.Textures.loadTexture(Background.eAssets.eSkyCloudyTexture);
+            break;
+        }
+        case Background.eSky.eNightCloudy: {
+            gEngine.Textures.loadTexture(Background.eAssets.eSkyNightCloudyTexture);
+            break;
+        }
+    }
+
     gEngine.Textures.loadTexture(this.kPlatformTexture);
     gEngine.Textures.loadTexture(this.kWallTexture);
+
+    gEngine.Textures.loadTexture("assets/particles/Particle2.png");
+
+    gEngine.AudioClips.loadAudio(this.kBgm);
+    gEngine.AudioClips.loadAudio(this.kShootCue);
 };
 
 SceneA.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(Arrow.eAssets.eNormalArrowTexture);
+    gEngine.Textures.unloadTexture(PaperPlane.eAssets.ePaperPlaneTexture);
     gEngine.Textures.unloadTexture(this.kLifePotionTexture);
     gEngine.Textures.unloadTexture(ShootController.eAssets.eShootDirArrowTexture);
 
@@ -57,8 +98,40 @@ SceneA.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(Armory.eAssets.eCheckMarkTexture);
     gEngine.Textures.unloadTexture(HpBar.eAssets.eRedHeart);
 
+    switch (this.mPlace) {
+        case Background.ePlace.eEasternCity: {
+            gEngine.Textures.unloadTexture(Background.eAssets.eEasternCityTexture);
+            break;
+        }
+        case Background.ePlace.eOutskirts: {
+            gEngine.Textures.unloadTexture(Background.eAssets.eOutskirtsTexture);
+            break;
+        }
+        case Background.ePlace.eTown: {
+            gEngine.Textures.unloadTexture(Background.eAssets.eTownTexture);
+            break;
+        }
+    }
+
+    switch (this.mSky) {
+        case Background.eSky.eCloudy: {
+            gEngine.Textures.unloadTexture(Background.eAssets.eSkyCloudyTexture);
+            break;
+        }
+        case Background.eSky.eNightCloudy: {
+            gEngine.Textures.unloadTexture(Background.eAssets.eSkyNightCloudyTexture);
+            break;
+        }
+    }
+
     gEngine.Textures.unloadTexture(this.kPlatformTexture);
     gEngine.Textures.unloadTexture(this.kWallTexture);
+
+    gEngine.Textures.unloadTexture("assets/particles/Particle2.png");
+
+    gEngine.AudioClips.loadAudio(this.kBgm);
+    gEngine.AudioClips.loadAudio(this.kShootCue);
+    gEngine.AudioClips.stopBackgroundAudio(this.kBgm);
 
     var nextLevel;
     switch (this.mGame.getState()) {
@@ -87,7 +160,9 @@ SceneA.prototype.initialize = function () {
     this.mAllObstacles = new GameObjectSet();
     this.mDestroyable = new GameObjectSet();
 
-    this.mGame.initialize(this.mAllObjs, this.mAllObstacles, this.mDestroyable);
+    this.mBackground = new Background(this.mPlace, this.mSky);
+
+    this.mGame.initialize(this.mAllObjs, this.mAllObstacles, this.mDestroyable, this.mBackground);
 
     this.createBounds();
 
@@ -101,23 +176,20 @@ SceneA.prototype.initialize = function () {
     this.mAllObjs.addToSet(player.getArcher());
     this.mAllObstacles.addToSet(player.getArcher());
 
-    this.mLifePotion = new LifePotion(50, 8, this.kLifePotionTexture);
+    this.mLifePotion = new LifePotion(10, 70, this.kLifePotionTexture);
     this.mAllObjs.addToSet(this.mLifePotion);
     this.mDestroyable.addToSet(this.mLifePotion);
 };
 
 SceneA.prototype.update = function () {
-    this.mGame.getCurrentPlayer().update();
+    /*
+    if(gEngine.AudioClips.isBackgroundAudioPlaying() === false)
+        gEngine.AudioClips.playBackgroundAudio(this.kBgm);
+    */
+    //this.mGame.getCurrentPlayer().update();
+    this.mGame.update();
     this.mAllObjs.update(this.mGame.getCurrentPlayer().getMainCamera());
     gEngine.Physics.processCollision(this.mAllObjs, this.mCollisionInfos);
-
-    switch (this.mGame.getState()) {
-        case Game.eGameState.ePlayer1_Win:
-        case Game.eGameState.ePlayer2_Win: {
-            gEngine.GameLoop.stop();
-            break;
-        }
-    }
 };
 
 SceneA.prototype.draw = function () {
@@ -133,17 +205,26 @@ SceneA.prototype.draw = function () {
 };
 
 SceneA.prototype.createBounds = function () {
-    var x = 15, w = 30, y = 4;
-    for (x = 15; x < 120; x += 30)
-        this.platformAt(x, y, w, 0);
-    y = 76;
+    var x = 15;
+    for (x = -500; x <= 400; x += 100) {
+        this.platformAt(x, 0, 20, 0);
+        this.platformAt(x + 20, 0, 20, 0);
+        this.platformAt(x + 40, 0, 20, 0);
+        this.platformAt(x + 60, 0, 20, 0);
+        this.platformAt(x + 80, 0, 20, 0);
+    }
 
-    this.platformAt(30, 40, 20, 0);
-    this.platformAt(60, 30, 20, 0);
-    this.platformAt(20, 20, 20, 0);
-    this.platformAt(70, 50, 20, 0);
-    this.platformAt(-20, 10, 30, 0);
-    this.platformAt(90, 15, 30, 0);
+    for (x = -250; x <= 150; x += 100) {
+        this.platformAt(x, 30, 20, 0);
+        this.platformAt(x + 40, 30, 20, 0);
+        this.platformAt(x + 80, 30, 20, 0);
+    }
+
+    for (x = -100; x <= 50; x += 50) {
+        this.platformAt(x, 60, 20, 0);
+        this.platformAt(x + 30, 60, 20, 0);
+        this.platformAt(x + 60, 60, 20, 0);
+    }
 };
 
 SceneA.prototype.wallAt = function (x, y, w) {
@@ -155,7 +236,7 @@ SceneA.prototype.wallAt = function (x, y, w) {
     var r = new RigidRectangle(xf, w, h);
     g.setRigidBody(r);
 
-    g.toggleDrawRigidShape();
+    //g.toggleDrawRigidShape();
 
     r.setMass(0);
     xf.setSize(w, h);
@@ -173,7 +254,7 @@ SceneA.prototype.platformAt = function (x, y, w, rot) {
     var r = new RigidRectangle(xf, w, h);
     g.setRigidBody(r);
 
-    g.toggleDrawRigidShape();
+    //g.toggleDrawRigidShape();
 
     r.setMass(0);
     xf.setSize(w, h);

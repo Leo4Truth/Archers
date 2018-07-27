@@ -91,10 +91,12 @@ function Archer(atX, atY, atW, atH,
     //Physics
     var r;
     r = new RigidRectangle(this.getXform(), atW - 6, atH - 4);
+    r.setInertia(0);
+    r.setRestitution(0);
     this.setRigidBody(r);
 
     //this.toggleDrawRenderable();
-    this.toggleDrawRigidShape();
+    //this.toggleDrawRigidShape();
 }
 gEngine.Core.inheritPrototype(Archer, GameObject);
 
@@ -266,9 +268,13 @@ Archer.prototype.setToStand = function () {
 Archer.prototype.getHp = function () {
     return this.mHp;
 };
-Archer.prototype.addHp = function () {
-    this.mHp++;
+Archer.prototype.addHp = function (delta) {
+    this.mHp += delta;
+    if (this.mHp > 10)
+        this.mHp = 10;
 };
-Archer.prototype.loseHp = function () {
-    this.mHp--;
+Archer.prototype.loseHp = function (delta) {
+    this.mHp -= delta;
+    if (this.mHp < 0)
+        this.mHp = 0;
 };

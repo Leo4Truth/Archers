@@ -37,7 +37,6 @@ HpBar.prototype.update = function () {
 
 HpBar.prototype.draw = function (aCamera) {
     var i;
-    console.log(this.mHp);
     for (i = 0; i < this.mHp; i++) {
         this.mHpBar[i].draw(aCamera);
     }

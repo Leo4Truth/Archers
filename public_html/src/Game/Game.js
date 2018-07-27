@@ -15,31 +15,29 @@ function Game() {
 
     this.mCurrentPlayer = null;
 
-    this.mCurrentState = Game.eGameState.eGameStart;
+    this.mCurrentState = null;
 
     this.mCurrentScene = null;
 
+    this.mCurrentState = Game.eGameState.eGameStart;
     this.mCurrentScene = new MyMenu(this);
     gEngine.Core.initializeEngineCore('GLCanvas', this.mCurrentScene);
 }
 
 Game.prototype.setCurrentPlayer = function (index) {
     this.mCurrentPlayer = this.mPlayers[index];
+    this.mCurrentPlayer.setState(Player.ePlayerState.eReady);
+    this.mCurrentPlayer.resetTimer();
+    var i;
+    for (i = 1000; i > 0; i--)
+        this.mCurrentPlayer.resetCamera();
     if (index === 0) {
-        this.eCurrentState = Game.eGameState.ePlayer1_Turn;
-        this.mCurrentPlayer.setState(Player.ePlayerState.eReady);
-        var i;
-        for (i = 1000; i > 0; i--)
-            this.mCurrentPlayer.resetCamera();
         this.mPlayers[1].setState(Player.ePlayerState.eWait);
+        this.mCurrentState = Game.eGameState.ePlayer1_Turn;
     }
     else if (index === 1) {
-        this.eCurrentState = Game.eGameState.ePlayer2_Turn;
-        this.mCurrentPlayer.setState(Player.ePlayerState.eReady);
-        var i;
-        for (i = 1000; i > 0; i--)
-            this.mCurrentPlayer.resetCamera();
         this.mPlayers[0].setState(Player.ePlayerState.eWait);
+        this.mCurrentState = Game.eGameState.ePlayer2_Turn;
     }
 };
 
@@ -59,23 +57,49 @@ Game.prototype.getCurrentPlayer = function () {
     return this.mCurrentPlayer;
 };
 
-Game.prototype.initialize = function (aAllObjs, aAllObstacles, aDestroyable) {
-    this.mPlayers[0] = new Player(this, 0, aAllObjs, aAllObstacles, aDestroyable);
-    this.mPlayers[1] = new Player(this, 1, aAllObjs, aAllObstacles, aDestroyable);
+Game.prototype.initialize = function (aAllObjs, aAllObstacles, aDestroyable, aBackground) {
+    this.mPlayers[0] = new Player(this, 0, aAllObjs, aAllObstacles, aDestroyable, aBackground);
+    this.mPlayers[1] = new Player(this, 1, aAllObjs, aAllObstacles, aDestroyable, aBackground);
 
     this.setCurrentPlayer(0);
-    this.mCurrentPlayer.setState(Player.ePlayerState.eReady);
+    this.mCurrentPlayer.resetTimer();
 };
 
 Game.prototype.update = function () {
+    this.mCurrentPlayer.update();
     switch (this.mCurrentState) {
         case Game.eGameState.eGameStart: {
+            if (this.mCurrentPlayer.getCurrentState() === Player.ePlayerState.eReady) {
+                this.mCurrentState = Game.eGameState.ePlayer1_Turn;
+            }
             break;
         }
         case Game.eGameState.ePlayer1_Turn: {
+            switch (this.mCurrentPlayer.getCurrentState()) {
+                case Player.ePlayerState.eWait: {
+                    this.setCurrentPlayer(1);
+                    break;
+                }
+                case Player.ePlayerState.eDie: {
+                    this.mCurrentState = Game.eGameState.ePlayer2_Win;
+                    gEngine.GameLoop.stop();
+                    break;
+                }
+            }
             break;
         }
         case Game.eGameState.ePlayer2_Turn: {
+            switch (this.mCurrentPlayer.getCurrentState()) {
+                case Player.ePlayerState.eWait: {
+                    this.setCurrentPlayer(0);
+                    break;
+                }
+                case Player.ePlayerState.eDie: {
+                    this.mCurrentState = Game.eGameState.ePlayer1_Win;
+                    gEngine.GameLoop.stop();
+                    break;
+                }
+            }
             break;
         }
         case Game.eGameState.ePlayer1_Win: {

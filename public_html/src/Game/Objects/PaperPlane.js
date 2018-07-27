@@ -1,19 +1,24 @@
-"use strict";  // Operate in Strict mode such that variables must be declared before used!
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-Arrow.eArrowState = Object.freeze({
+
+PaperPlane.eArrowState = Object.freeze({
     eFlying: 0,
     eHit: 1,
     eMiss: 2
 });
 
-Arrow.eAssets = Object.freeze({
-    eNormalArrowTexture: "./assets/arrows/arrows_a.png"
+PaperPlane.eAssets = Object.freeze({
+    ePaperPlaneTexture: "./assets/arrows/paperplane.png"
 });
 
-function Arrow(posX, posY, vX, vY, spriteTexture,
+function PaperPlane(posX, posY, vX, vY, spriteTexture,
                aAllObjs, aObstacle, aDestroyable,
                master) {
-    this.mCurrentState = Arrow.eArrowState.eFlying;
+    this.mCurrentState = PaperPlane.eArrowState.eFlying;
 
     this.mAllObjs = aAllObjs;
     this.mMaster = master;
@@ -30,20 +35,15 @@ function Arrow(posX, posY, vX, vY, spriteTexture,
         this.kRotationInRad = Math.acos(this.kVelocity[1] / this.kSpeed);
     }
 
-    this.mArrow = new SpriteAnimateRenderable(spriteTexture);
+    this.mArrow = new TextureRenderable(spriteTexture);
     this.mArrow.setColor([1, 1, 1, 0]);
     this.mArrow.getXform().setPosition(posX, posY);
-    this.mArrow.getXform().setSize(2, 8);
-    this.mArrow.getXform().setRotationInRad(this.kRotationInRad);
-    //this.mArrow.setElementPixelPositions(0, 2, 0, 8);
-    this.mArrow.setSpriteSequence(32, 0, 10, 32, 3, 0);
-    this.mArrow.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateRight);
-    this.mArrow.setAnimationSpeed(10);
+    this.mArrow.getXform().setSize(4, 8);
     GameObject.call(this, this.mArrow);
 
 
     //var r = new RigidCircle(this.getXform(), 2, 8);
-    var r = new RigidRectangle(this.getXform(), 1, 8);
+    var r = new RigidRectangle(this.getXform(), 4, 8);
     this.setRigidBody(r);
     this.getRigidBody().setVelocity(vX, vY);
 
@@ -55,9 +55,9 @@ function Arrow(posX, posY, vX, vY, spriteTexture,
 
     //this.toggleDrawRigidShape(); // Draw RigidShape
 }
-gEngine.Core.inheritPrototype(Arrow, GameObject);
+gEngine.Core.inheritPrototype(PaperPlane, GameObject);
 
-Arrow.prototype.update = function () {
+PaperPlane.prototype.update = function () {
     GameObject.prototype.update.call(this);
 
     /* Update Flying Direction */
@@ -81,7 +81,7 @@ Arrow.prototype.update = function () {
         this.kRotationInRad = Math.acos(tmp);
     }
     this.mArrow.getXform().setRotationInRad(this.kRotationInRad);
-    this.mArrow.updateAnimation();
+    //this.mArrow.updateAnimation();
 
     /* Check Collision */
     var obj;
@@ -92,11 +92,10 @@ Arrow.prototype.update = function () {
         collisionInfo = new CollisionInfo();
         if (obj !== this && obj !== this.mMaster && //avoid killing the archer who shoot
             this.getRigidBody().collisionTest(obj.getRigidBody(), collisionInfo)) {
-            if (obj instanceof Archer) {
-                obj.loseHp(1);
-            }
+            var pos = this.getXform().getPosition();
+            this.mMaster.getXform().setPosition(pos[0], pos[1]);
             this.mAllObjs.removeFromSet(this);
-            this.mCurrentState = Arrow.eArrowState.eMiss;
+            this.mCurrentState = PaperPlane.eArrowState.eMiss;
             this.mGenerateParticles = 0;
         }
     }
@@ -107,39 +106,28 @@ Arrow.prototype.update = function () {
         if (obj !== this && obj !== this.mMaster && //avoid killing the archer who shoot
             this.getRigidBody().collisionTest(obj.getRigidBody(), collisionInfo)) {
             if (obj instanceof LifePotion) {
-                this.mMaster.addHp(1);
+                this.mMaster.addHp();
             }
+            var pos = this.getXform().getPosition();
+            this.mMaster.getXform().setPosition(pos[0], pos[1]);
+            
             this.mAllObjs.removeFromSet(obj);
             this.mDestroyable.removeFromSet(obj);
             this.mAllObjs.removeFromSet(this);
-            this.mCurrentState = Arrow.eArrowState.eHit;
+            this.mCurrentState = PaperPlane.eArrowState.eHit;
             this.mGenerateParticles = 0;
         }
     }
-    /*
+
     var v = this.getRigidBody().getVelocity();
     if (Math.abs(v[0]) < 0.2 && Math.abs(v[1]) < 0.2) {
         this.mAllObjs.removeFromSet(this);
-        this.mCurrentState = Arrow.eArrowState.eMiss;
-    }
-    */
-    if (this.getRigidBody().collisionTest(this.mMaster.getRigidBody(), collisionInfo)) {
-        this.mAllObjs.removeFromSet(this);
-        this.mCurrentState = Arrow.eArrowState.eMiss;
-        this.mGenerateParticles = 0;
+        this.mCurrentState = PaperPlane.eArrowState.eMiss;
     }
 
-    if (this.getXform().getYPos() < -250) {
+    if (this.getXform().getPosition()[1] < -200) {
         this.mAllObjs.removeFromSet(this);
-        this.mCurrentState = Arrow.eArrowState.eMiss;
-    }
-    if (this.getXform().getXPos() < -500) {
-        this.mAllObjs.removeFromSet(this);
-        this.mCurrentState = Arrow.eArrowState.eMiss;
-    }
-    if (this.getXform().getXPos() > 500) {
-        this.mAllObjs.removeFromSet(this);
-        this.mCurrentState = Arrow.eArrowState.eMiss;
+        this.mCurrentState = PaperPlane.eArrowState.eMiss;
     }
 
     if (this.mGenerateParticles === 1) {
@@ -149,27 +137,28 @@ Arrow.prototype.update = function () {
     gEngine.ParticleSystem.update(this.mParticles);
 };
 
-Arrow.prototype.draw = function(aCamera){
+PaperPlane.prototype.draw = function(aCamera){
     this.mParticles.draw(aCamera);
 
     GameObject.prototype.draw.call(this, aCamera);
-}
+};
 
-Arrow.prototype.getCurrentState = function () {
+PaperPlane.prototype.getCurrentState = function () {
     return this.mCurrentState;
 };
 
-Arrow.prototype.createParticle = function(atX, atY) {
+PaperPlane.prototype.createParticle = function(atX, atY) {
     var life = 30 + Math.random() * 200;
     var p = new ParticleGameObject("assets/particles/Particle2.png", atX, atY, life);
-    p.getRenderable().setColor([0, 0, 1, 1]);
+//    console.log(p);
+    p.getRenderable().setColor([1, 1, 1, 1]);
 
     // size of the particle
     var r = 3.5 + Math.random() * 2.5;
     p.getXform().setSize(r, r);
 
     // final color
-    var fr = 3.5 + Math.random();
+    var fr = 0.5 + Math.random();
     var fg = 0.4 + 0.1 * Math.random();
     var fb = 0.3 + 0.1 * Math.random();
     p.setFinalColor([fr, fg, fb, 0.6]);

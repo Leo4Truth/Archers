@@ -104,4 +104,8 @@ Armory.prototype.keyControl = function() {
     }
 };
 
+Armory.prototype.getCurrentArm = function () {
+    return this.kCurrentArm;
+}
+
 
