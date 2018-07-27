@@ -103,7 +103,7 @@ ShootController.prototype.shootDirDown = function () {
 };
 
 ShootController.prototype.shootPowDec = function () {
-    var size = [this.getXform().getSize()[0] - 1.2, this.getXform().getSize()[1] - 0.2];
+    var size = [this.getXform().getSize()[0] - 0.6, this.getXform().getSize()[1] - 0.1];
     if (size[0] < 18) {
         size[0] = 18;
         size[1] = 3;
@@ -112,7 +112,7 @@ ShootController.prototype.shootPowDec = function () {
 };
 
 ShootController.prototype.shootPowInc = function () {
-    var size = [this.getXform().getSize()[0] + 1.2, this.getXform().getSize()[1] + 0.2];
+    var size = [this.getXform().getSize()[0] + 0.6, this.getXform().getSize()[1] + 0.1];
     if (size[0] > 36) {
         size[0] = 36;
         size[1] = 6;
@@ -121,7 +121,8 @@ ShootController.prototype.shootPowInc = function () {
 };
 
 ShootController.prototype.getVelocity = function () {
-    var speed = Math.pow(this.getXform().getSize()[0], 3) / 500;
+    var norm = (this.getXform().getSize()[0] - 18) / 18;
+    var speed = norm * 60 + 60;
     var rad = this.getXform().getRotationInRad();
     return new vec2.fromValues(speed * Math.cos(rad), speed * Math.sin(rad));
 };

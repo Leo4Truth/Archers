@@ -32,10 +32,7 @@ Archer.eDirection = Object.freeze({
 function Archer(atX, atY, atW, atH,
                 allObject, aObstacle, aDestroyable) {
     this.mHp = 10;
-    this.mHpBar = null;
-    this.mAllObjs = allObject;
-    this.mObjstacles = aObstacle;
-    this.mDestroyable = aDestroyable;
+    this.mJumpCount = 0;
 
     // Animation Members
     this.mStandLeft = new SpriteRenderable(Archer.eAssets.eStandLeftTexture);
@@ -121,6 +118,9 @@ Archer.prototype.update = function (aCamera) {
     this.mWalkRight.updateAnimation();
     this.mShootRight.updateAnimation();
 
+    if (this.mJumpCount > 0 && this.getRigidBody().getVelocity()[1] === 0)
+        this.mJumpCount = 0;
+
     GameObject.prototype.update.call(this);
 };
 
@@ -160,7 +160,7 @@ Archer.prototype.keyControl = function () {
             break;
         }
         case Archer.eArcherState.eStandLeft: {
-            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
+            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C && this.mJumpCount === 0)) {
                 this.eCurrentState = Archer.eArcherState.eShootLeft;
                 this.setCurrentFrontDir(Archer.eDirection.eLeft);
             }
@@ -172,10 +172,13 @@ Archer.prototype.keyControl = function () {
                 this.eCurrentState = Archer.eArcherState.eWalkRight;
                 this.setCurrentFrontDir(Archer.eDirection.eRight);
             }
+            else if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Space)) {
+                this.jump();
+            }
             break;
         }
         case Archer.eArcherState.eStandRight: {
-            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
+            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C) && this.mJumpCount === 0) {
                 this.eCurrentState = Archer.eArcherState.eShootRight;
                 this.setCurrentFrontDir(Archer.eDirection.eRight);
             }
@@ -187,11 +190,14 @@ Archer.prototype.keyControl = function () {
                 this.eCurrentState = Archer.eArcherState.eWalkLeft;
                 this.setCurrentFrontDir(Archer.eDirection.eLeft);
             }
+            else if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Space)) {
+                this.jump();
+            }
 
             break;
         }
         case Archer.eArcherState.eWalkLeft: {
-            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
+            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C && this.mJumpCount === 0)) {
                 this.eCurrentState = Archer.eArcherState.eShootLeft;
                 this.setCurrentFrontDir(Archer.eDirection.eLeft);
             }
@@ -199,16 +205,22 @@ Archer.prototype.keyControl = function () {
                 this.eCurrentState = Archer.eArcherState.eStandLeft;
                 this.setCurrentFrontDir(Archer.eDirection.eLeft);
             }
+            else if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Space)) {
+                this.jump();
+            }
             break;
         }
         case Archer.eArcherState.eWalkRight: {
-            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
+            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C && this.mJumpCount === 0)) {
                 this.eCurrentState = Archer.eArcherState.eShootRight;
                 this.setCurrentFrontDir(Archer.eDirection.eRight);
             }
             else if (!gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
                 this.eCurrentState = Archer.eArcherState.eStandRight;
                 this.setCurrentFrontDir(Archer.eDirection.eRight);
+            }
+            else if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Space)) {
+                this.jump();
             }
             break;
         }
@@ -277,4 +289,16 @@ Archer.prototype.loseHp = function (delta) {
     this.mHp -= delta;
     if (this.mHp < 0)
         this.mHp = 0;
+};
+
+Archer.prototype.jump = function () {
+    if (this.mJumpCount < 2) {
+        var velocity = this.getRigidBody().getVelocity();
+        this.getRigidBody().setVelocity(velocity[0], 40);
+        this.mJumpCount++;
+    }
+};
+
+Archer.prototype.getJumpCount = function () {
+    return this.mJumpCount;
 };

@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 Background.eAssets = Object.freeze({
     eEasternCityTexture: "assets/backgrounds/backgroundEasternCity.png",
@@ -36,7 +36,7 @@ function Background(place, sky) {
     }
     this.mSky.setColor([1, 1, 1, 0]);
     this.mSky.getXform().setPosition(0, 0);
-    this.mSky.getXform().setSize(1000, 500);
+    this.mSky.getXform().setSize(500, 250);
 
     switch (place) {
         case Background.ePlace.eEasternCity: {
@@ -54,7 +54,7 @@ function Background(place, sky) {
     }
     this.mPlace.setColor([1, 1, 1, 0]);
     this.mPlace.getXform().setPosition(0, 0);
-    this.mPlace.getXform().setSize(1000, 500);
+    this.mPlace.getXform().setSize(500, 250);
 }
 
 Background.prototype.draw = function (aCamera) {
