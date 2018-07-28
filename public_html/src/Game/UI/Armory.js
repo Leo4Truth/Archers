@@ -51,7 +51,7 @@ function Armory(XPos, YPos) {
         YPos + Armory.eCellOffsets[this.kCurrentArm][1]
     );
     this.mCheckMark.getXform().setSize(10, 10);
-
+    
     // Here are all of the weapon
     var newArm = new Arm(this.XPos, this.YPos, 0, 99, Arm.eIconAssets.eNormalArrow);
     newArm.setActive();
