@@ -41,7 +41,7 @@ SceneA.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(Archer.eAssets.eWalkRightTexture);
 
     gEngine.Textures.loadTexture(Arrow.eAssets.eNormalArrowTexture);
-    gEngine.Textures.loadTexture(PaperPlane.eAssets.ePaperPlaneTexture);
+    gEngine.Textures.loadTexture(Arrow.eAssets.ePaperPlaneTexture);
     gEngine.Textures.loadTexture(Arrow.eAssets.eBouncingArrowTexture);
     gEngine.Textures.loadTexture(Arrow.eAssets.eScreamingChickenArrowTexture);
     gEngine.Textures.loadTexture(Arrow.eAssets.eScreamingChickenTexture);
@@ -105,7 +105,7 @@ SceneA.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(Archer.eAssets.eWalkRightTexture);
 
     gEngine.Textures.unloadTexture(Arrow.eAssets.eNormalArrowTexture);
-    gEngine.Textures.unloadTexture(PaperPlane.eAssets.ePaperPlaneTexture);
+    gEngine.Textures.unloadTexture(Arrow.eAssets.ePaperPlaneTexture);
     gEngine.Textures.unloadTexture(Arrow.eAssets.eBouncingArrowTexture);
     gEngine.Textures.unloadTexture(Arrow.eAssets.eScreamingChickenArrowTexture);
     gEngine.Textures.unloadTexture(Arrow.eAssets.eScreamingChickenTexture);
@@ -215,7 +215,7 @@ SceneA.prototype.update = function () {
 };
 
 SceneA.prototype.draw = function () {
-    gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
+    gEngine.Core.clearCanvas([1.0, 1.0, 1.0, 0.0]); // clear to light gray
 
     var player = this.mGame.getCurrentPlayer();
     player.draw();
