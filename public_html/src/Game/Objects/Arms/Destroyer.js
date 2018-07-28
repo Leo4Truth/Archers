@@ -1,29 +1,27 @@
-"use strict";
-
-function BouncingArrow(
+function Destroyer(
     posX, posY, vX, vY,
     aAllObjs, aObstacle, aDestroyable,
     master
 ) {
     Arrow.call(
         this,
-        posX, posY, vX, vY, Arrow.eAssets.eBouncingArrowTexture,
+        posX, posY, vX, vY, Arrow.eAssets.eDestroyerTexture,
         aAllObjs, aObstacle, aDestroyable,
         master
     );
 
-    this.getRigidBody().setMass(0.1);
+    this.mEffectTimeLimit = 180;
 
-    this.mBounceCount = 30;
-
-    //particles
     this.mGenerateParticles = 1;
     this.mParticles = new ParticleGameObjectSet();
 }
-gEngine.Core.inheritPrototype(BouncingArrow, Arrow);
 
-BouncingArrow.prototype.update = function () {
+gEngine.Core.inheritPrototype(Destroyer, Arrow);
+
+
+Destroyer.prototype.update = function () {
     Arrow.prototype.update.call(this);
+
 
     if (this.mGenerateParticles === 1) {
         var p = this.createParticle(this.getXform().getXPos(), this.getXform().getYPos());
@@ -32,15 +30,16 @@ BouncingArrow.prototype.update = function () {
     gEngine.ParticleSystem.update(this.mParticles);
 };
 
-BouncingArrow.prototype.draw = function (aCamera) {
+Destroyer.prototype.draw = function (aCamera) {
     this.mParticles.draw(aCamera);
     Arrow.prototype.draw.call(this, aCamera);
 };
 
-BouncingArrow.prototype.createParticle = function (atX, atY) {
+
+Destroyer.prototype.createParticle = function (atX, atY) {
     var life = 30 + Math.random() * 200;
     var p = new ParticleGameObject("assets/particles/Particle2.png", atX, atY, life);
-    p.getRenderable().setColor([0, 0, 1, 1]);
+    p.getRenderable().setColor([0.898, 0.898, 0.976, 1]);
 
     // size of the particle
     var r = 3.5 + Math.random() * 2.5;
@@ -63,15 +62,20 @@ BouncingArrow.prototype.createParticle = function (atX, atY) {
     return p;
 };
 
-BouncingArrow.prototype.effectOnObstacle = function (obj) {
-    var v = this.getRigidBody().getVelocity();
-    if (Math.abs(v[0]) > Math.abs(v[1]))
-        this.getRigidBody().setVelocity(-v[0] * 1.2, v[1] * 1.2);
-    else if (Math.abs(v[0]) <= Math.abs(v[1]))
-        this.getRigidBody().setVelocity(v[0] * 1.2, -v[1] * 1.2);
-    this.mBounceCount--;
-    if (this.mBounceCount === 0) {
-        this.mCurrentState = Arrow.eArrowState.eMiss;
-        this.mAllObjs.removeFromSet(this);
-    }
+Destroyer.prototype.effectOnObstacle = function (obj) {
+    this.mObstacle.removeFromSet(obj);
+    this.mAllObjs.removeFromSet(obj);
+    this.mGenerateParticles = 0;
+    this.mCurrentState = Arrow.eArrowState.eHit;
+};
+
+Destroyer.prototype.calculateDistance = function (posX, posY) {
+    return Math.sqrt(Math.pow(this.getXform().getXPos() - posX, 2)
+        + Math.pow(this.getXform().getYPos() - posY, 2));
+};
+
+Destroyer.prototype.effectOnArcher = function (obj) {
+    obj.loseHp(5);
+    this.mGenerateParticles = 0;
+    this.mCurrentState = Arrow.eArrowState.eHit;
 };

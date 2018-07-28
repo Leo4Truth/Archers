@@ -20,6 +20,7 @@ function SceneA(game, place, sky) {
     this.mDestroyable = null; // All objects that can be shot
 
     this.mLifePotion = null;
+    this.mBow = null;
 
     this.mBackground = null;
 
@@ -43,6 +44,8 @@ SceneA.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(Arrow.eAssets.eNormalArrowTexture);
     gEngine.Textures.loadTexture(Arrow.eAssets.ePaperPlaneTexture);
     gEngine.Textures.loadTexture(Arrow.eAssets.eBouncingArrowTexture);
+    gEngine.Textures.loadTexture(Arrow.eAssets.eDestroyerTexture);
+    gEngine.Textures.loadTexture(Arrow.eAssets.ePuncturingArrowTexture);
     gEngine.Textures.loadTexture(Arrow.eAssets.eScreamingChickenArrowTexture);
     gEngine.Textures.loadTexture(Arrow.eAssets.eScreamingChickenTexture);
 
@@ -53,8 +56,16 @@ SceneA.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(Arm.eIconAssets.eNormalArrow);
     gEngine.Textures.loadTexture(Arm.eIconAssets.ePaperPlane);
     gEngine.Textures.loadTexture(Arm.eIconAssets.eBouncingArrow);
+    gEngine.Textures.loadTexture(Arm.eIconAssets.eDestroyer);
+    gEngine.Textures.loadTexture(Arm.eIconAssets.ePuncturingArrow);
+    gEngine.Textures.loadTexture(Arm.eIconAssets.eShockWave);
+    gEngine.Textures.loadTexture(Arm.eIconAssets.eScreamingChickenArrow);
+
+    gEngine.Textures.loadTexture(Bow.eAssets.eBowSetSpriteTexture);
 
     gEngine.Textures.loadTexture(HpBar.eAssets.eRedHeart);
+    gEngine.Textures.loadTexture(PlayerMark.eAssets.eMark1);
+    gEngine.Textures.loadTexture(PlayerMark.eAssets.eMark2);
 
     switch (this.mPlace) {
         case Background.ePlace.eEasternCity: {
@@ -107,6 +118,8 @@ SceneA.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(Arrow.eAssets.eNormalArrowTexture);
     gEngine.Textures.unloadTexture(Arrow.eAssets.ePaperPlaneTexture);
     gEngine.Textures.unloadTexture(Arrow.eAssets.eBouncingArrowTexture);
+    gEngine.Textures.unloadTexture(Arrow.eAssets.eDestroyerTexture);
+    gEngine.Textures.unloadTexture(Arrow.eAssets.ePuncturingArrowTexture);
     gEngine.Textures.unloadTexture(Arrow.eAssets.eScreamingChickenArrowTexture);
     gEngine.Textures.unloadTexture(Arrow.eAssets.eScreamingChickenTexture);
 
@@ -117,8 +130,16 @@ SceneA.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(Arm.eIconAssets.eNormalArrow);
     gEngine.Textures.unloadTexture(Arm.eIconAssets.ePaperPlane);
     gEngine.Textures.unloadTexture(Arm.eIconAssets.eBouncingArrow);
+    gEngine.Textures.unloadTexture(Arm.eIconAssets.eDestroyer);
+    gEngine.Textures.unloadTexture(Arm.eIconAssets.ePuncturingArrow);
+    gEngine.Textures.unloadTexture(Arm.eIconAssets.eShockWave);
+    gEngine.Textures.unloadTexture(Arm.eIconAssets.eScreamingChickenArrow);
+
+    gEngine.Textures.unloadTexture(Bow.eAssets.eBowSetSpriteTexture);
 
     gEngine.Textures.unloadTexture(HpBar.eAssets.eRedHeart);
+    gEngine.Textures.unloadTexture(PlayerMark.eAssets.eMark1);
+    gEngine.Textures.unloadTexture(PlayerMark.eAssets.eMark2);
 
     switch (this.mPlace) {
         case Background.ePlace.eEasternCity: {
@@ -198,9 +219,15 @@ SceneA.prototype.initialize = function () {
     this.mAllObjs.addToSet(player.getArcher());
     this.mAllObstacles.addToSet(player.getArcher());
 
-    this.mLifePotion = new LifePotion(10, 70, this.kLifePotionTexture);
+    this.mLifePotion = new LifePotion(10, 70, this.kLifePotionTexture, 3);
     this.mAllObjs.addToSet(this.mLifePotion);
     this.mDestroyable.addToSet(this.mLifePotion);
+
+    this.mBow = new Bow(0, -90, Arm.eArmNum.ePaperPlane, 10, 50);
+    this.mAllObjs.addToSet(this.mBow);
+    this.mDestroyable.addToSet(this.mBow);
+
+    console.log(this.mAllObjs);
 };
 
 SceneA.prototype.update = function () {

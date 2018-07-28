@@ -1,13 +1,31 @@
 Arm.eMsgString = Object.freeze([
     "Arrow :",
     "PaperPlane :",
-    "Bounce :"
+    "Bounce :",
+    "Destroyer :",
+    "PuncturingArrow :",
+    "ShockWave :",
+    "ScreamingChicken :"
 ]);
+
+Arm.eArmNum = Object.freeze({
+    eNormalArrow: 0,
+    ePaperPlane: 1,
+    eBouncingArrow: 2,
+    eDestroyer: 3,
+    ePuncturingArrow: 4,
+    eShockWave: 5,
+    eScreamingChickenArrow: 6
+});
 
 Arm.eIconAssets = Object.freeze({
     eNormalArrow: "assets/arrows/arrows_f.png",
-    ePaperPlane: "assets/arrows/paperplane.png",
-    eBouncingArrow: "assets/arrows/arrows_e.png"
+    ePaperPlane: "assets/armIcons/paperPlane.png",
+    eBouncingArrow: "assets/arrows/arrows_e.png",
+    eDestroyer: "assets/target.png",
+    ePuncturingArrow: "assets/armIcons/waterArrowIcon.png",
+    eShockWave: "assets/armIcons/shockWaveIcon.png",
+    eScreamingChickenArrow: "assets/armIcons/ScreamingChickenIcon.png"
 });
 
 function Arm(XPos, YPos, order, currentNum, texture) {

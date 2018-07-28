@@ -47,6 +47,7 @@ function Player(game, index, aAllObjs, aAllObstacles, aDestroyable, aBackground)
     this.mHpBar = null;
     this.mTimer = null;
     this.mTime = 0;
+    this.mMark = null;
 
     this.mAllObjs = aAllObjs;
     this.mObstacle = aAllObstacles;
@@ -153,7 +154,8 @@ Player.prototype.initialize = function () {
         Player.eAttributes.eOrginPos[this.mIndex][0],
         Player.eAttributes.eOrginPos[this.mIndex][1],
         12, 14,
-        this.mAllObjs, this.mAllObstacles, this.mDestroyable
+        this.mAllObjs, this.mAllObstacles, this.mDestroyable,
+        this
     );
     this.mShootController = new ShootController(
         Player.eAttributes.eOrginPos[this.mIndex][0],
@@ -175,11 +177,17 @@ Player.prototype.initialize = function () {
     this.mTimer.mTextbox.getXform().setPosition(1100, 1100);
     this.mTimer.mTextbox.getXform().setSize(5, 5);
 
+    this.mMark = new PlayerMark(this.mIndex + 1);
+
     this.mCurrentState = Player.ePlayerState.eWait;
 };
 
 Player.prototype.update = function () {
     this.keyControl();
+    this.mMark.update(
+        this.mArcher.getXform().getPosition()[0],
+        this.mArcher.getXform().getPosition()[1]
+    );
     this.mShootController.update(
         this.mArcher.getXform().getPosition()[0],
         this.mArcher.getXform().getPosition()[1],
@@ -187,6 +195,9 @@ Player.prototype.update = function () {
     );
     this.mArmory.update();
     this.mHpBar.update();
+
+    if (this.mArrow && this.mArrow instanceof PuncturingArrow)
+        this.mArrow.update();
 
     /*
     if (this.mArrow instanceof ScreamingChickenArrow && this.mArrow.isChicken())
@@ -216,7 +227,7 @@ Player.prototype.update = function () {
     }
 
     // Dead Judgement
-    if (this.mArcher.getXform().getYPos() < -1250 ||
+    if (this.mArcher.getXform().getYPos() < -125 ||
         this.mArcher.getXform().getXPos() < -250 ||
         this.mArcher.getXform().getXPos() > 250 ||
         this.mArcher.getHp() <= 0) {
@@ -236,7 +247,7 @@ Player.prototype.keyControl = function () {
             this.mTime++;
             this.mTimer.TimeUpdate(this.mTime / 60);
 
-            if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C) && this.mArcher.getJumpCount() === 0) {
+            if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) {
                 var isShootSuccess = this.shoot();
                 if (isShootSuccess)
                     this.mCurrentState = Player.ePlayerState.eShoot;
@@ -277,7 +288,13 @@ Player.prototype.draw = function () {
         camera.setupViewProjection();
         this.mBackground.draw(camera);
         this.mAllObjs.draw(camera);
+        this.mMark.draw(camera);
         this.mShootController.draw(camera);
+
+        // for puncturing arrow
+        if (this.mArrow && this.mArrow instanceof PuncturingArrow) {
+            this.mArrow.draw(camera);
+        }
 
         /*
         if (this.mArrow instanceof ScreamingChickenArrow &&
@@ -321,16 +338,20 @@ Player.prototype.draw = function () {
 
         this.mAllObjs.draw(camera);
 
+        // for puncturing arrow
+        if (this.mArrow && this.mArrow instanceof PuncturingArrow) {
+            this.mArrow.draw(camera);
+        }
+
         var WCcenter = this.mMainCamera.getWCCenter();
         this.mViewFrame.getXform().setPosition(WCcenter[0], WCcenter[1]);
         this.mViewFrame.getXform().setSize(this.mMainCamera.getWCWidth(), this.mMainCamera.getWCHeight());
         this.mViewFrame.draw(camera);
     }
 
+    // always display HP and PlayerMark
     this.mHpBarCamera.setupViewProjection();
     this.mHpBar.draw(this.mHpBarCamera);
-
-    // always display HP
 
     if (this.mCurrentState === Player.ePlayerState.eReady) {
         camera = new Camera(
@@ -384,10 +405,33 @@ Player.prototype.shoot = function () {
             break;
         }
         case 3: {
+            this.mArrow = new Destroyer(
+                pos[0] + offset[0] * 10, pos[1] + offset[1] * 10,
+                velocity[0], velocity[1],
+                this.mAllObjs, this.mObstacle, this.mDestroyable, this.mArcher
+            );
+            break;
+        }
+        case 4: {
+            this.mArrow = new PuncturingArrow(
+                pos[0] + offset[0] * 10, pos[1] + offset[1] * 10,
+                velocity[0], velocity[1],
+                this.mAllObjs, this.mObstacle, this.mDestroyable, this.mArcher
+            );
+            break;
+        }
+        case 5: {
+            this.mArrow = new Shockwave(
+                pos[0] + offset[0] * 10, pos[1] + offset[1] * 10,
+                velocity[0], velocity[1],
+                this.mAllObjs, this.mObstacle, this.mDestroyable, this.mArcher
+            );
+            break;
+        }
+        case 6: {
             this.mArrow = new ScreamingChickenArrow(
                 pos[0] + offset[0] * 10, pos[1] + offset[1] * 10,
                 velocity[0], velocity[1],
-                Arrow.eAssets.eBouncingArrowTexture,
                 this.mAllObjs, this.mObstacle, this.mDestroyable, this.mArcher
             );
             break;
@@ -396,15 +440,15 @@ Player.prototype.shoot = function () {
             this.mArrow = new Arrow(
                 pos[0] + offset[0] * 10, pos[1] + offset[1] * 10,
                 velocity[0], velocity[1],
-                BouncingArrow.eAssets.eNormalArrowTexture,
                 this.mAllObjs, this.mObstacle, this.mDestroyable, this.mArcher
             );
             break;
         }
     }
 
-    if (this.mArrow)
+    if (this.mArrow && !(this.mArrow instanceof PuncturingArrow)) {
         this.mAllObjs.addToSet(this.mArrow);
+    }
 
     if (armChoice === -1)
         return 0;
@@ -458,7 +502,7 @@ Player.prototype.resetCamera = function () {
     if (cameraCenterY < -65)
         cameraCenterY = -65;
     var i;
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < 20; i++) {
         this.mMainCamera.setWCCenter(cameraCenterX, cameraCenterY);
         this.mMainCamera.update();
     }
@@ -484,4 +528,8 @@ Player.prototype.traceArrow = function () {
 Player.prototype.resetTimer = function () {
     this.mTime = 0;
     this.mTimer.setZero();
+};
+
+Player.prototype.getMoreArm = function (armNum, armAmount) {
+    this.mArmory.getMoreArm(armNum, armAmount);
 };

@@ -29,6 +29,7 @@ Game.prototype.setCurrentPlayer = function (index) {
     this.mCurrentPlayer.setState(Player.ePlayerState.eReady);
     this.mCurrentPlayer.resetTimer();
     this.mCurrentPlayer.resetCamera();
+
     var i;
     if (index === 0) {
         this.mPlayers[1].setState(Player.ePlayerState.eWait);
@@ -65,7 +66,9 @@ Game.prototype.initialize = function (aAllObjs, aAllObstacles, aDestroyable, aBa
 };
 
 Game.prototype.update = function () {
-    this.mCurrentPlayer.update();
+    this.mPlayers[0].update();
+    this.mPlayers[1].update();
+    //this.mCurrentPlayer.update();
     switch (this.mCurrentState) {
         case Game.eGameState.eGameStart: {
             if (this.mCurrentPlayer.getCurrentState() === Player.ePlayerState.eReady) {
