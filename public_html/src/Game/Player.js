@@ -15,8 +15,8 @@ Player.ePlayerState = Object.freeze({
 
 Player.eAttributes = Object.freeze({
     eOrginPos: [
-        [-20, 70],
-        [40, 70]
+        [-20, -70],
+        [40, -70]
     ],
     eArmoryPos: [
         [-1000, 0],
@@ -135,8 +135,9 @@ Player.prototype.initialize = function () {
             Player.eAttributes.eHpBarPos[this.mIndex][1]
         ),
         100,
-        [0 + 700 * this.mIndex, 750, 500, 50]
+        [700 * this.mIndex, 750, 500, 50]
     );
+
     this.mMinimapCamera = new Camera(
         [0, 0],
         500,
@@ -212,9 +213,9 @@ Player.prototype.update = function () {
     }
 
     // Dead Judgement
-    if (this.mArcher.getXform().getYPos() < -250 ||
-        this.mArcher.getXform().getXPos() < -500 ||
-        this.mArcher.getXform().getXPos() > 500 ||
+    if (this.mArcher.getXform().getYPos() < -1250 ||
+        this.mArcher.getXform().getXPos() < -250 ||
+        this.mArcher.getXform().getXPos() > 250 ||
         this.mArcher.getHp() <= 0) {
         this.mCurrentState = Player.ePlayerState.eDie;
     }
@@ -227,10 +228,6 @@ Player.prototype.keyControl = function () {
                 this.resetTimer();
                 this.setState(Player.ePlayerState.eWait);
                 this.mArcher.setToStand();
-                if (this.mIndex === 0)
-                    this.mGame.setCurrentPlayer(1);
-                else if (this.mIndex === 1)
-                    this.mGame.setCurrentPlayer(0);
                 break;
             }
             this.mTime++;
@@ -317,9 +314,10 @@ Player.prototype.draw = function () {
         this.mViewFrame.draw(camera);
     }
 
-    camera = this.mHpBarCamera;
-    camera.setupViewProjection();
-    this.mHpBar.draw(camera);
+    this.mHpBarCamera.setupViewProjection();
+    this.mHpBar.draw(this.mHpBarCamera);
+
+    // always display HP
 
     if (this.mCurrentState === Player.ePlayerState.eReady) {
         camera = new Camera(

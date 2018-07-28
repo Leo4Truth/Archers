@@ -6,7 +6,8 @@
 "use strict";
 
 HpBar.eAssets = Object.freeze({
-    eRedHeart: "assets/UI/redHeart.png"
+    eRedHeart: "assets/UI/redHeart.png",
+    eBlueHeart: "assets/UI/blueHeart.png"
 });
 
 function HpBar(XPos, YPos, archer) {
@@ -26,7 +27,7 @@ function HpBar(XPos, YPos, archer) {
         var newHp = new TextureRenderable(HpBar.eAssets.eRedHeart);
         newHp.setColor([1, 1, 1, 0]);
         newHp.getXform().setSize(this.mSize, this.mSize);
-        newHp.getXform().setPosition(this.Xpos + i * 10, this.Ypos);
+        newHp.getXform().setPosition(this.Xpos + i * this.mSize, this.Ypos);
         this.mHpBar.push(newHp);
     }
 }

@@ -217,12 +217,18 @@ SceneA.prototype.update = function () {
 SceneA.prototype.draw = function () {
     gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
 
-    var i;
-    for (i = 0; i < this.mGame.getAllPlayers().length; i++) {
-        var player = this.mGame.getPlayerAt(i);
-        player.draw();
-    }
-
+    var player = this.mGame.getCurrentPlayer();
+    player.draw();
+    var opponent;
+    if (player.mIndex === 0)
+        opponent = this.mGame.getPlayerAt(1);
+    else if (player.mIndex === 1)
+        opponent = this.mGame.getPlayerAt(0);
+    /*
+    opponent.mHpBarCamera.setupViewProjection();
+    opponent.mHpBar.draw(opponent.mHpBarCamera);
+    */
+    opponent.draw();
     this.mCollisionInfos = [];
 };
 
