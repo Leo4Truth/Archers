@@ -238,7 +238,7 @@ Player.prototype.keyControl = function () {
             this.mTime++;
             this.mTimer.TimeUpdate(this.mTime / 60);
 
-            if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C) && this.mArcher.getJumpCount() === 0) {
+            if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) {
                 var isShootSuccess = this.shoot();
                 if (isShootSuccess)
                     this.mCurrentState = Player.ePlayerState.eShoot;

@@ -32,7 +32,10 @@ Archer.eDirection = Object.freeze({
 function Archer(atX, atY, atW, atH,
                 allObject, aObstacle, aDestroyable) {
     this.mHp = 10;
-    this.mJumpCount = 0;
+    this.mJumpRemain = 2;
+    this.mTimeCount = 0;
+    this.mCoodDownCount = 0;
+    this.mJumpCoolDown = new Array(2);
 
     // Animation Members
     this.mStandLeft = new SpriteRenderable(Archer.eAssets.eStandLeftTexture);
@@ -117,9 +120,17 @@ Archer.prototype.update = function (aCamera) {
     this.mShootLeft.updateAnimation();
     this.mWalkRight.updateAnimation();
     this.mShootRight.updateAnimation();
-
-    if (this.mJumpCount > 0 && this.getRigidBody().getVelocity()[1] === 0)
-        this.mJumpCount = 0;
+    
+    this.mTimeCount++;
+    if(this.mTimeCount === this.mJumpCoolDown[0]){
+        this.mJumpRemain++;
+//        console.log(this.mTimeCount);
+    }
+    
+    if(this.mTimeCount === this.mJumpCoolDown[1]){
+        this.mJumpRemain++;
+//        console.log(this.mTimeCount);
+    }
 
     GameObject.prototype.update.call(this);
 };
@@ -160,7 +171,7 @@ Archer.prototype.keyControl = function () {
             break;
         }
         case Archer.eArcherState.eStandLeft: {
-            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C && this.mJumpCount === 0)) {
+            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C && this.mJumpRemain !== 0)) {
                 this.eCurrentState = Archer.eArcherState.eShootLeft;
                 this.setCurrentFrontDir(Archer.eDirection.eLeft);
             }
@@ -178,7 +189,7 @@ Archer.prototype.keyControl = function () {
             break;
         }
         case Archer.eArcherState.eStandRight: {
-            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C) && this.mJumpCount === 0) {
+            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C) && this.mJumpRemain !== 0) {
                 this.eCurrentState = Archer.eArcherState.eShootRight;
                 this.setCurrentFrontDir(Archer.eDirection.eRight);
             }
@@ -197,7 +208,7 @@ Archer.prototype.keyControl = function () {
             break;
         }
         case Archer.eArcherState.eWalkLeft: {
-            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C && this.mJumpCount === 0)) {
+            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C && this.mJumpRemain !== 0)) {
                 this.eCurrentState = Archer.eArcherState.eShootLeft;
                 this.setCurrentFrontDir(Archer.eDirection.eLeft);
             }
@@ -211,7 +222,7 @@ Archer.prototype.keyControl = function () {
             break;
         }
         case Archer.eArcherState.eWalkRight: {
-            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C && this.mJumpCount === 0)) {
+            if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C && this.mJumpRemain !== 0)) {
                 this.eCurrentState = Archer.eArcherState.eShootRight;
                 this.setCurrentFrontDir(Archer.eDirection.eRight);
             }
@@ -292,13 +303,19 @@ Archer.prototype.loseHp = function (delta) {
 };
 
 Archer.prototype.jump = function () {
-    if (this.mJumpCount < 2) {
+    if (this.mJumpRemain > 0) {
         var velocity = this.getRigidBody().getVelocity();
         this.getRigidBody().setVelocity(velocity[0], 40);
-        this.mJumpCount++;
+//        console.log("jump at");
+//        console.log(this.mTimeCount );
+        this.mJumpCoolDown[this.mCoodDownCount] = 195+this.mTimeCount;
+        this.mCoodDownCount++;
+        if(this.mCoodDownCount>1)
+            this.mCoodDownCount = 0;
+        this.mJumpRemain--;
     }
 };
 
-Archer.prototype.getJumpCount = function () {
-    return this.mJumpCount;
-};
+//Archer.prototype.getJumpCount = function () {
+//    return this.mJumpRemain;
+//};

@@ -136,14 +136,26 @@ MyMenu.prototype.keyControl = function () {
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W) && this.option === 1) {
         this.option = 0;
     }
+    else if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Up) && this.option === 1) {
+        this.option = 0;
+    }
     else if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S) && this.option === 0) {
+        this.option = 1;
+    }
+    else if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Down) && this.option === 0) {
         this.option = 1;
     }
     else if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Space) && this.option === 1) {
         this.option = 2;
     }
+    else if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Enter) && this.option === 1) {
+        this.option = 2;
+    }
 
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Space) && this.option === 0) {
+        gEngine.GameLoop.stop();
+    }
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Enter) && this.option === 0) {
         gEngine.GameLoop.stop();
     }
 };
