@@ -25,7 +25,7 @@ Arm.eIconAssets = Object.freeze({
     eDestroyer: "assets/target.png",
     ePuncturingArrow: "assets/armIcons/waterArrowIcon.png",
     eShockWave: "assets/armIcons/shockWaveIcon.png",
-    eScreamingChickenArrow: "assets/armIcons/ScreamingChickenIcon.png"
+    eScreamingChickenArrow: "assets/armIcons/screamingChickenArrowIcon.png"
 });
 
 function Arm(XPos, YPos, order, currentNum, texture) {
