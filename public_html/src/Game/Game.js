@@ -65,7 +65,9 @@ Game.prototype.initialize = function (aAllObjs, aAllObstacles, aDestroyable, aBa
 };
 
 Game.prototype.update = function () {
-    this.mCurrentPlayer.update();
+    //this.mCurrentPlayer.update();
+    this.mPlayers[0].update();
+    this.mPlayers[1].update();
     switch (this.mCurrentState) {
         case Game.eGameState.eGameStart: {
             if (this.mCurrentPlayer.getCurrentState() === Player.ePlayerState.eReady) {
