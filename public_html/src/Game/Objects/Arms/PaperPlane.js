@@ -1,27 +1,26 @@
-"use strict";
-
-function BouncingArrow(
+function PaperPlane(
     posX, posY, vX, vY,
     aAllObjs, aObstacle, aDestroyable,
     master
 ) {
     Arrow.call(
         this,
-        posX, posY, vX, vY, Arrow.eAssets.eBouncingArrowTexture,
+        posX, posY, vX, vY,
+        Arrow.eAssets.ePaperPlaneTexture,
         aAllObjs, aObstacle, aDestroyable,
         master
     );
 
-    this.mBounceCount = 30;
-
     //particles
     this.mGenerateParticles = 1;
     this.mParticles = new ParticleGameObjectSet();
+
+    //this.toggleDrawRigidShape(); // Draw RigidShape
 }
 
-gEngine.Core.inheritPrototype(BouncingArrow, Arrow);
+gEngine.Core.inheritPrototype(PaperPlane, Arrow);
 
-BouncingArrow.prototype.update = function () {
+PaperPlane.prototype.update = function () {
     Arrow.prototype.update.call(this);
 
     if (this.mGenerateParticles === 1) {
@@ -31,22 +30,23 @@ BouncingArrow.prototype.update = function () {
     gEngine.ParticleSystem.update(this.mParticles);
 };
 
-BouncingArrow.prototype.draw = function (aCamera) {
+PaperPlane.prototype.draw = function (aCamera) {
     this.mParticles.draw(aCamera);
-    GameObject.prototype.draw.call(this, aCamera);
+    Arrow.prototype.draw.call(this, aCamera);
 };
 
-BouncingArrow.prototype.createParticle = function (atX, atY) {
+PaperPlane.prototype.createParticle = function(atX, atY) {
     var life = 30 + Math.random() * 200;
     var p = new ParticleGameObject("assets/particles/Particle2.png", atX, atY, life);
-    p.getRenderable().setColor([0, 0, 1, 1]);
+//    console.log(p);
+    p.getRenderable().setColor([1, 1, 1, 1]);
 
     // size of the particle
     var r = 3.5 + Math.random() * 2.5;
     p.getXform().setSize(r, r);
 
     // final color
-    var fr = 3.5 + Math.random();
+    var fr = 0.5 + Math.random();
     var fg = 0.4 + 0.1 * Math.random();
     var fb = 0.3 + 0.1 * Math.random();
     p.setFinalColor([fr, fg, fb, 0.6]);
@@ -62,15 +62,23 @@ BouncingArrow.prototype.createParticle = function (atX, atY) {
     return p;
 };
 
-BouncingArrow.prototype.effectOnObstacle = function (obj) {
-    var v = this.getRigidBody().getVelocity();
-    if (Math.abs(v[0]) > Math.abs(v[1]))
-        this.getRigidBody().setVelocity(-v[0] * 1.2, v[1] * 1.2);
-    else if (Math.abs(v[0]) <= Math.abs(v[1]))
-        this.getRigidBody().setVelocity(v[0] * 1.2, -v[1] * 1.2);
-    this.mBounceCount--;
-    if (this.mBounceCount === 0) {
-        this.mCurrentState = Arrow.eArrowState.eMiss;
-        this.mAllObjs.removeFromSet(this);
-    }
+PaperPlane.prototype.effectOnObstacle = function (obj) {
+    this.transfer();
+};
+
+PaperPlane.prototype.effectOnArcher = function (obj) {
+    this.transfer();
+};
+
+PaperPlane.prototype.effectOnDestroyable = function (obj) {
+    this.transfer();
+    Arrow.prototype.effectOnDestroyable.call(this, obj);
+};
+
+
+PaperPlane.prototype.transfer = function () {
+    var pos = this.getXform().getPosition();
+    this.mMaster.getXform().setPosition(pos[0], pos[1]);
+    this.mCurrentState = Arrow.eArrowState.eHit;
+    this.mGenerateParticles = 0;
 };

@@ -3,19 +3,23 @@
 Arrow.eArrowState = Object.freeze({
     eFlying: 0,
     eHit: 1,
-    eMiss: 2
+    eMiss: 2,
+    eEffect: 3
 });
 
 Arrow.eAssets = Object.freeze({
     eNormalArrowTexture: "./assets/arrows/arrows_a.png",
+    ePaperPlaneTexture: "./assets/arrows/paperPlane.png",
     eBouncingArrowTexture: "./assets/arrows/arrows_c.png",
     eScreamingChickenArrowTexture: "./assets/arrows/arrows_d.png",
     eScreamingChickenTexture: "./assets/arrows/screamingChicken.png"
 });
 
-function Arrow(posX, posY, vX, vY, spriteTexture,
-               aAllObjs, aObstacle, aDestroyable,
-               master) {
+function Arrow(
+    posX, posY, vX, vY, texture,
+    aAllObjs, aObstacle, aDestroyable,
+    master
+) {
     this.mCurrentState = Arrow.eArrowState.eFlying;
 
     this.mAllObjs = aAllObjs;
@@ -33,22 +37,22 @@ function Arrow(posX, posY, vX, vY, spriteTexture,
         this.kRotationInRad = Math.acos(this.kVelocity[1] / this.kSpeed);
     }
 
-    this.mArrow = new SpriteAnimateRenderable(spriteTexture);
+    this.mArrow = new SpriteAnimateRenderable(texture);
     this.mArrow.setColor([1, 1, 1, 0]);
     this.mArrow.getXform().setPosition(posX, posY);
     this.mArrow.getXform().setSize(2, 8);
     this.mArrow.getXform().setRotationInRad(this.kRotationInRad);
-    //this.mArrow.setElementPixelPositions(0, 2, 0, 8);
-    this.mArrow.setSpriteSequence(32, 0, 10, 32, 3, 0);
+    this.mArrow.setSpriteSequence(64, 0, 21, 64, 3, 0);
     this.mArrow.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateRight);
     this.mArrow.setAnimationSpeed(10);
     GameObject.call(this, this.mArrow);
 
-    //var r = new RigidCircle(this.getXform(), 2, 8);
-    console.log(this);
     var r = new RigidRectangle(this.getXform(), 1, 8);
     this.setRigidBody(r);
     this.getRigidBody().setVelocity(vX, vY);
+    this.getRigidBody().setMass(0.1);
+
+    this.mEffectTimer = 0;
 
     //this.toggleDrawRigidShape(); // Draw RigidShape
 }
@@ -56,6 +60,15 @@ gEngine.Core.inheritPrototype(Arrow, GameObject);
 
 Arrow.prototype.update = function () {
     GameObject.prototype.update.call(this);
+
+    if (this.mCurrentState === Arrow.eArrowState.eHit) {
+        this.mEffectTimer++;
+        if (this.mEffectTimer === 25) {
+            this.mAllObjs.removeFromSet(this);
+            this.mCurrentState = Arrow.eArrowState.eEffect;
+        }
+        return;
+    }
 
     /* Update Flying Direction */
     this.kVelocity = this.getRigidBody().getVelocity();
@@ -90,12 +103,11 @@ Arrow.prototype.update = function () {
         if (obj !== this && obj !== this.mMaster && //avoid killing the archer who shoot
             this.getRigidBody().collisionTest(obj.getRigidBody(), collisionInfo)) {
             if (obj instanceof Archer) {
-                obj.loseHp(1);
-                this.mCurrentState = Arrow.eArrowState.eHit;
+                this.effectOnArcher(obj);
             }
-            else
-                this.mCurrentState = Arrow.eArrowState.eMiss;
-            this.mAllObjs.removeFromSet(this);
+            else {
+                this.effectOnObstacle(obj);
+            }
             break;
         }
     }
@@ -105,13 +117,8 @@ Arrow.prototype.update = function () {
         collisionInfo = new CollisionInfo();
         if (obj !== this && obj !== this.mMaster && //avoid killing the archer who shoot
             this.getRigidBody().collisionTest(obj.getRigidBody(), collisionInfo)) {
-            if (obj instanceof LifePotion) {
-                this.mMaster.addHp(1);
-            }
-            this.mAllObjs.removeFromSet(obj);
-            this.mDestroyable.removeFromSet(obj);
-            this.mAllObjs.removeFromSet(this);
-            this.mCurrentState = Arrow.eArrowState.eHit;
+            this.effectOnDestroyable(obj);
+            break;
         }
     }
     if (this.getRigidBody().collisionTest(this.mMaster.getRigidBody(), collisionInfo)) {
@@ -119,22 +126,23 @@ Arrow.prototype.update = function () {
         this.mCurrentState = Arrow.eArrowState.eMiss;
     }
 
-    if (this.getXform().getYPos() < -250) {
+    if (this.getXform().getYPos() < -125) {
         this.mAllObjs.removeFromSet(this);
         this.mCurrentState = Arrow.eArrowState.eMiss;
     }
-    if (this.getXform().getXPos() < -500) {
+    if (this.getXform().getXPos() < -250) {
         this.mAllObjs.removeFromSet(this);
         this.mCurrentState = Arrow.eArrowState.eMiss;
     }
-    if (this.getXform().getXPos() > 500) {
+    if (this.getXform().getXPos() > 250) {
         this.mAllObjs.removeFromSet(this);
         this.mCurrentState = Arrow.eArrowState.eMiss;
     }
 };
 
 Arrow.prototype.draw = function (aCamera) {
-    GameObject.prototype.draw.call(this, aCamera);
+    if (this.mCurrentState === Arrow.eArrowState.eFlying)
+        GameObject.prototype.draw.call(this, aCamera);
 };
 
 Arrow.prototype.getCurrentState = function () {
@@ -143,4 +151,23 @@ Arrow.prototype.getCurrentState = function () {
 
 Arrow.prototype.setCurrentState = function (state) {
     this.mCurrentState = state;
+};
+
+Arrow.prototype.effectOnObstacle = function (obj) {
+    //this.mAllObjs.removeFromSet(this);
+    this.mCurrentState = Arrow.eArrowState.eHit;
+};
+
+Arrow.prototype.effectOnArcher = function (obj) {
+    obj.loseHp(1);
+    this.mCurrentState = Arrow.eArrowState.eHit;
+};
+
+Arrow.prototype.effectOnDestroyable = function (obj) {
+    if (obj instanceof LifePotion) {
+        this.mMaster.addHp(1);
+    }
+    this.mAllObjs.removeFromSet(obj);
+    this.mDestroyable.removeFromSet(obj);
+    this.mCurrentState = Arrow.eArrowState.eHit;
 };

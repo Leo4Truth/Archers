@@ -12,7 +12,7 @@ function Timer() {
     this.mTextbox.setColor([1, 0, 0, 1]);
     this.mTextbox.getXform().setPosition(0, 0);
     this.mTextbox.getXform().setSize(0, 0);
-    this.mTextbox.setTextHeight(5);
+    this.mTextbox.setTextHeight(3);
 
 }
 Timer.prototype.setZero = function () {
@@ -26,9 +26,10 @@ Timer.prototype.TimeUpdate = function (time) {
         this.mTimeShow--;
     }
     var zeroStr = "0";
-    if(this.mTimeShow < 10)
+    if (this.mTimeShow < 10)
         this.mTextbox.setText(zeroStr.concat(this.mTimeShow.toString()));
     else
         this.mTextbox.setText(this.mTimeShow.toString());
+
 };
 

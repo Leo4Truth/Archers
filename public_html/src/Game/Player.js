@@ -15,8 +15,8 @@ Player.ePlayerState = Object.freeze({
 
 Player.eAttributes = Object.freeze({
     eOrginPos: [
-        [-50, 0],
-        [50, 0]
+        [-20, -70],
+        [40, -70]
     ],
     eArmoryPos: [
         [-1000, 0],
@@ -47,7 +47,6 @@ function Player(game, index, aAllObjs, aAllObstacles, aDestroyable, aBackground)
     this.mHpBar = null;
     this.mTimer = null;
     this.mTime = 0;
-    this.mPlayerMark = null;
 
     this.mAllObjs = aAllObjs;
     this.mObstacle = aAllObstacles;
@@ -57,6 +56,7 @@ function Player(game, index, aAllObjs, aAllObstacles, aDestroyable, aBackground)
     this.mIndex = index;
     this.mCurrentState = Player.ePlayerState.eNotInitialize;
 
+    this.mBuff = null;
 
     this.initialize();
 }
@@ -172,10 +172,8 @@ Player.prototype.initialize = function () {
         this.mArcher
     );
     this.mTimer = new Timer();
-    this.mTimer.mTextbox.getXform().setPosition(1098, 1102);
-    this.mTimer.mTextbox.getXform().setSize(8, 8);
-    
-    this.mPlayerMark = new PlayerMark(this.mIndex + 1);
+    this.mTimer.mTextbox.getXform().setPosition(1100, 1100);
+    this.mTimer.mTextbox.getXform().setSize(5, 5);
 
     this.mCurrentState = Player.ePlayerState.eWait;
 };
@@ -190,8 +188,6 @@ Player.prototype.update = function () {
     this.mArmory.update();
     this.mHpBar.update();
 
-    this.mPlayerMark.update(this.mArcher.getXform().getPosition()[0],
-                            this.mArcher.getXform().getPosition()[1]);
     /*
     if (this.mArrow instanceof ScreamingChickenArrow && this.mArrow.isChicken())
         this.mArrow.update();
@@ -200,12 +196,14 @@ Player.prototype.update = function () {
     if (this.mCurrentState === Player.ePlayerState.eShoot &&
         this.mArrow && (
             this.mArrow.getCurrentState() === Arrow.eArrowState.eHit ||
-            this.mArrow.getCurrentState() === Arrow.eArrowState.eMiss
+            this.mArrow.getCurrentState() === Arrow.eArrowState.eMiss ||
+            this.mArrow.getCurrentState() === Arrow.eArrowState.eEffect
         )
     ) {
         if (this.mArrow.getCurrentState() === Arrow.eArrowState.eHit) {
             this.mArcher.setToStand();
-
+        }
+        else if (this.mArrow.getCurrentState() === Arrow.eArrowState.eEffect) {
             this.mArrow = null;
             this.mCurrentState = Player.ePlayerState.eWait;
         }
@@ -248,14 +246,24 @@ Player.prototype.keyControl = function () {
             this.mShootController.keyControl();
             this.mArmory.keyControl();
             this.mArcher.keyControl();
+
+            if (
+                gEngine.Input.isKeyPressed(gEngine.Input.keys.A) ||
+                gEngine.Input.isKeyPressed(gEngine.Input.keys.D) ||
+                gEngine.Input.isKeyPressed(gEngine.Input.keys.Space)
+            ) {
+                this.resetCamera();
+            }
+
             break;
         }
         case Player.ePlayerState.eShoot: {
-            this.traceArrow();
+            if (this.mArrow.getCurrentState() === Arrow.eArrowState.eFlying)
+                this.traceArrow();
             break;
         }
         case Player.ePlayerState.eWait: {
-            this.resetCamera();
+            //this.resetCamera();
             break;
         }
     }
@@ -270,7 +278,7 @@ Player.prototype.draw = function () {
         this.mBackground.draw(camera);
         this.mAllObjs.draw(camera);
         this.mShootController.draw(camera);
-        this.mPlayerMark.draw(camera);
+
         /*
         if (this.mArrow instanceof ScreamingChickenArrow &&
             this.mArrow.isChicken()) {
@@ -326,7 +334,7 @@ Player.prototype.draw = function () {
 
     if (this.mCurrentState === Player.ePlayerState.eReady) {
         camera = new Camera(
-            [1100, 1100],
+            [1101, 1099],
             10,
             [550, 700, 100, 100]
         );
@@ -363,7 +371,6 @@ Player.prototype.shoot = function () {
             this.mArrow = new PaperPlane(
                 pos[0] + offset[0] * 10, pos[1] + offset[1] * 10,
                 velocity[0], velocity[1],
-                PaperPlane.eAssets.ePaperPlaneTexture,
                 this.mAllObjs, this.mObstacle, this.mDestroyable, this.mArcher
             );
             break;
@@ -372,7 +379,6 @@ Player.prototype.shoot = function () {
             this.mArrow = new BouncingArrow(
                 pos[0] + offset[0] * 10, pos[1] + offset[1] * 10,
                 velocity[0], velocity[1],
-                Arrow.eAssets.eBouncingArrowTexture,
                 this.mAllObjs, this.mObstacle, this.mDestroyable, this.mArcher
             );
             break;
