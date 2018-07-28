@@ -47,6 +47,7 @@ function Player(game, index, aAllObjs, aAllObstacles, aDestroyable, aBackground)
     this.mHpBar = null;
     this.mTimer = null;
     this.mTime = 0;
+    this.mPlayerMark = null;
 
     this.mAllObjs = aAllObjs;
     this.mObstacle = aAllObstacles;
@@ -174,6 +175,8 @@ Player.prototype.initialize = function () {
     this.mTimer = new Timer();
     this.mTimer.mTextbox.getXform().setPosition(1100, 1100);
     this.mTimer.mTextbox.getXform().setSize(5, 5);
+    
+    this.mPlayerMark = new PlayerMark(this.mIndex + 1);
 
     this.mCurrentState = Player.ePlayerState.eWait;
 };
@@ -187,12 +190,8 @@ Player.prototype.update = function () {
     );
     this.mArmory.update();
     this.mHpBar.update();
-
-    /*
-    if (this.mArrow instanceof ScreamingChickenArrow && this.mArrow.isChicken())
-        this.mArrow.update();
-    */
-
+    this.mPlayerMark.update( this.mArcher.getXform().getPosition()[0], this.mArcher.getXform().getPosition()[1]);
+    
     if (this.mCurrentState === Player.ePlayerState.eShoot &&
         this.mArrow && (
             this.mArrow.getCurrentState() === Arrow.eArrowState.eHit ||
@@ -278,6 +277,7 @@ Player.prototype.draw = function () {
         this.mBackground.draw(camera);
         this.mAllObjs.draw(camera);
         this.mShootController.draw(camera);
+        this.mPlayerMark.draw(camera);
 
         /*
         if (this.mArrow instanceof ScreamingChickenArrow &&

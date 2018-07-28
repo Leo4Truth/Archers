@@ -32,6 +32,8 @@ SceneA.prototype.loadScene = function () {
 
     gEngine.Textures.loadTexture(this.kLifePotionTexture);
     gEngine.Textures.loadTexture(ShootController.eAssets.eShootDirArrowTexture);
+    gEngine.Textures.loadTexture(PlayerMark.eAssets.eMark1);
+    gEngine.Textures.loadTexture(PlayerMark.eAssets.eMark2);
 
     gEngine.Textures.loadTexture(Archer.eAssets.eShootLeftTexture);
     gEngine.Textures.loadTexture(Archer.eAssets.eShootRightTexture);
@@ -96,6 +98,9 @@ SceneA.prototype.unloadScene = function () {
 
     gEngine.Textures.unloadTexture(this.kLifePotionTexture);
     gEngine.Textures.unloadTexture(ShootController.eAssets.eShootDirArrowTexture);
+    gEngine.Textures.unloadTexture(PlayerMark.eAssets.eMark1);
+    gEngine.Textures.unloadTexture(PlayerMark.eAssets.eMark2);
+
 
     gEngine.Textures.unloadTexture(Archer.eAssets.eShootLeftTexture);
     gEngine.Textures.unloadTexture(Archer.eAssets.eShootRightTexture);
