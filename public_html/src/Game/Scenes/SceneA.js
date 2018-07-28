@@ -55,6 +55,8 @@ SceneA.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(Arm.eIconAssets.eBouncingArrow);
 
     gEngine.Textures.loadTexture(HpBar.eAssets.eRedHeart);
+    gEngine.Textures.loadTexture(PlayerMark.eAssets.eMark1);
+    gEngine.Textures.loadTexture(PlayerMark.eAssets.eMark2);
 
     switch (this.mPlace) {
         case Background.ePlace.eEasternCity: {
@@ -96,6 +98,8 @@ SceneA.prototype.unloadScene = function () {
 
     gEngine.Textures.unloadTexture(this.kLifePotionTexture);
     gEngine.Textures.unloadTexture(ShootController.eAssets.eShootDirArrowTexture);
+    gEngine.Textures.loadTexture(PlayerMark.eAssets.eMark1);
+    gEngine.Textures.loadTexture(PlayerMark.eAssets.eMark2);
 
     gEngine.Textures.unloadTexture(Archer.eAssets.eShootLeftTexture);
     gEngine.Textures.unloadTexture(Archer.eAssets.eShootRightTexture);

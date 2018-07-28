@@ -51,7 +51,7 @@ BouncingArrow.prototype.update = function () {
     for (i = 0; i < this.mObstacle.size(); i++) {
         obj = this.mObstacle.getObjectAt(i);
         collisionInfo = new CollisionInfo();
-        if (obj !== this && obj !== this.mMaster && //avoid killing the archer who shoot
+        if (obj !== this && //obj !== this.mMaster && //avoid killing the archer who shoot
             this.getRigidBody().collisionTest(obj.getRigidBody(), collisionInfo)) {
             if (obj instanceof Archer) {
                 obj.loseHp(1);
@@ -61,7 +61,7 @@ BouncingArrow.prototype.update = function () {
             }
             else {
                 var v = this.getRigidBody().getVelocity();
-                this.getRigidBody().setVelocity(-v[0] * 1.1, -v[1] * 1.1);
+                this.getRigidBody().setVelocity(-v[0] * (0.8+Math.random()), -v[1] * (0.8+Math.random()));
                 this.mBounceCount--;
                 if (this.mBounceCount === 0) {
                     this.mCurrentState = Arrow.eArrowState.eMiss;

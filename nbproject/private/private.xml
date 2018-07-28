@@ -13,5 +13,9 @@
             <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Game/Objects/Archer.js</file>
         </group>
         <-->
+        <group name="FinalGame">
+            <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Game/Player.js</file>
+            <file>file:/D:/NUS%20Summer%20Workshop/FromGit/Archers/public_html/src/Game/Scenes/Background.js</file>
+        </group>
     </open-files>
 </project-private>

@@ -25,6 +25,10 @@ Timer.prototype.TimeUpdate = function (time) {
         this.mTime++;
         this.mTimeShow--;
     }
-    this.mTextbox.setText(this.mTimeShow.toString());
+    var zeroStr = "0";
+    if(this.mTimeShow < 10)
+        this.mTextbox.setText(zeroStr.concat(this.mTimeShow.toString()));
+    else
+        this.mTextbox.setText(this.mTimeShow.toString());
 };
 

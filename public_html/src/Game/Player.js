@@ -15,8 +15,8 @@ Player.ePlayerState = Object.freeze({
 
 Player.eAttributes = Object.freeze({
     eOrginPos: [
-        [-20, -70],
-        [40, -70]
+        [-50, 0],
+        [50, 0]
     ],
     eArmoryPos: [
         [-1000, 0],
@@ -47,6 +47,7 @@ function Player(game, index, aAllObjs, aAllObstacles, aDestroyable, aBackground)
     this.mHpBar = null;
     this.mTimer = null;
     this.mTime = 0;
+    this.mPlayerMark = null;
 
     this.mAllObjs = aAllObjs;
     this.mObstacle = aAllObstacles;
@@ -171,8 +172,10 @@ Player.prototype.initialize = function () {
         this.mArcher
     );
     this.mTimer = new Timer();
-    this.mTimer.mTextbox.getXform().setPosition(1100, 1100);
-    this.mTimer.mTextbox.getXform().setSize(10, 10);
+    this.mTimer.mTextbox.getXform().setPosition(1098, 1102);
+    this.mTimer.mTextbox.getXform().setSize(8, 8);
+    
+    this.mPlayerMark = new PlayerMark(this.mIndex + 1);
 
     this.mCurrentState = Player.ePlayerState.eWait;
 };
@@ -187,6 +190,8 @@ Player.prototype.update = function () {
     this.mArmory.update();
     this.mHpBar.update();
 
+    this.mPlayerMark.update(this.mArcher.getXform().getPosition()[0],
+                            this.mArcher.getXform().getPosition()[1]);
     /*
     if (this.mArrow instanceof ScreamingChickenArrow && this.mArrow.isChicken())
         this.mArrow.update();
@@ -265,7 +270,7 @@ Player.prototype.draw = function () {
         this.mBackground.draw(camera);
         this.mAllObjs.draw(camera);
         this.mShootController.draw(camera);
-
+        this.mPlayerMark.draw(camera);
         /*
         if (this.mArrow instanceof ScreamingChickenArrow &&
             this.mArrow.isChicken()) {
