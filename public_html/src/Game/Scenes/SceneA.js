@@ -249,7 +249,7 @@ SceneA.prototype.initialize = function () {
     this.mAllObstacles.addToSet(player.getArcher());
 
     var i, tempX, tempY;
-    for(i = 0; i < 8; ++i){
+    for(i = 0; i < 5; ++i){
         tempX = this.random(0, 900);
         tempY = this.random(0, 170);
         this.mLifePotion = new LifePotion(tempX-500, tempY-70, this.kLifePotionTexture, 2,
@@ -259,7 +259,7 @@ SceneA.prototype.initialize = function () {
     }
 
     var tempWeapon, tempAmount;
-    for(i = 0; i < 15; ++i){
+    for(i = 0; i < 10; ++i){
         tempX = this.random(0, 900);
         tempY = this.random(0, 170);
         tempWeapon = this.random(1, 7);  
