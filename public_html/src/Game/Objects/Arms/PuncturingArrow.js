@@ -30,7 +30,7 @@ gEngine.Core.inheritPrototype(PuncturingArrow, Arrow);
 PuncturingArrow.prototype.update = function () {
     Arrow.prototype.update.call(this);
 
-    console.log(this);
+//    console.log(this);
     this.getRigidBody().setVelocity(this.mVx, this.mVy);
 
     if (this.mGenerateParticles === 1) {

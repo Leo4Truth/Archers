@@ -5,7 +5,7 @@ Arm.eMsgString = Object.freeze([
     "Destroyer :",
     "PuncturingArrow :",
     "ShockWave :",
-    "ScreamingChicken :",
+    "ScreamingChick :",
     "MineLauncher :"
 ]);
 

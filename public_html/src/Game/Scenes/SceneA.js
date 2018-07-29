@@ -11,8 +11,7 @@ function SceneA(game, place, sky) {
     this.kPlatformTexture = "assets/terrains/platform.png";
     this.kWallTexture = "assets/terrains/wall.png";
 
-    this.kBgm = "assets/sounds/bgm.mp3";
-    this.kShootCue = "assets/sounds/ShootSound.mp3";
+    this.kBgm = "assets/sounds/bgm.mp3";    
 
     //GameObjectSets
     this.mAllObjs = null;   //All GameObject
@@ -106,7 +105,9 @@ SceneA.prototype.loadScene = function () {
 
 
     gEngine.AudioClips.loadAudio(this.kBgm);
-    gEngine.AudioClips.loadAudio(this.kShootCue);
+    gEngine.AudioClips.loadAudio(Player.eAudio.eShootCue);
+    gEngine.AudioClips.loadAudio(ScreamingChickenArrow.eAudio.eChicken);
+    gEngine.AudioClips.loadAudio(Mine.eAudio.eExplode);
 };
 
 SceneA.prototype.unloadScene = function () {
@@ -185,8 +186,9 @@ SceneA.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture("assets/particles/Particle2.png");
     gEngine.Textures.unloadTexture("assets/particles/emoji.png");
 
-    gEngine.AudioClips.loadAudio(this.kBgm);
-    gEngine.AudioClips.loadAudio(this.kShootCue);
+    gEngine.AudioClips.unloadAudio(this.kBgm);
+    gEngine.AudioClips.unloadAudio(Mine.eAudio.eExplode);
+    gEngine.AudioClips.unloadAudio(ScreamingChickenArrow.eAudio.eChicken);
     gEngine.AudioClips.stopBackgroundAudio(this.kBgm);
 
     var nextLevel;
@@ -232,7 +234,8 @@ SceneA.prototype.initialize = function () {
     this.mAllObjs.addToSet(player.getArcher());
     this.mAllObstacles.addToSet(player.getArcher());
 
-    this.mLifePotion = new LifePotion(10, 70, this.kLifePotionTexture, 3);
+    this.mLifePotion = new LifePotion(10, 70, this.kLifePotionTexture, 3,
+                                    this.mAllObjs, this.mAllObstacles, this.mDestroyable);
     this.mAllObjs.addToSet(this.mLifePotion);
     this.mDestroyable.addToSet(this.mLifePotion);
 
@@ -248,10 +251,10 @@ SceneA.prototype.initialize = function () {
 };
 
 SceneA.prototype.update = function () {
-    /*
+    
     if(gEngine.AudioClips.isBackgroundAudioPlaying() === false)
         gEngine.AudioClips.playBackgroundAudio(this.kBgm);
-    */
+    
     //this.mGame.getCurrentPlayer().update();
     this.mGame.update();
     this.mAllObjs.update(this.mGame.getCurrentPlayer().getMainCamera());

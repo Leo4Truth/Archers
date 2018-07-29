@@ -41,13 +41,10 @@ GameOver1.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kQuit);
     gEngine.Textures.unloadTexture(this.kBackground);
     gEngine.Textures.unloadTexture(this.kP1Win);
-
-    if (this.mOption === 1) {
-        this.mNext = new MyMenu(this.mGame);
-    }
-    else if (this.mOption === 0) {
+    if(this.mOption === 0)
         this.mNext = new SceneA(this.mGame, Background.ePlace.eOutskirts, Background.eSky.eCloudy);
-    }
+    else
+        this.mNext = new MyMenu(this.mGame);
     gEngine.Core.startScene(this.mNext);
     this.mGame.mCurrentScene = this.mNext;
 };
@@ -66,17 +63,17 @@ GameOver1.prototype.initialize = function () {
 
     this.mGameOverTitle = new TextureRenderable(this.kGameOverTitle);
     this.mGameOverTitle.getXform().setPosition(80, 40);
-    this.mGameOverTitle.getXform().setSize(80, 20);
+    this.mGameOverTitle.getXform().setSize(120, 30);
     this.mAllObject.addToSet(this.mGameOverTitle);
 
     this.mRestart = new TextureRenderable(this.kRestart);
-    this.mRestart.getXform().setPosition(80, 30);
-    this.mRestart.getXform().setSize(40, 10);
+    this.mRestart.getXform().setPosition(80, 25);
+    this.mRestart.getXform().setSize(100, 25);
     this.mAllObject.addToSet(this.mRestart);
 
     this.mQuit = new TextureRenderable(this.kQuit);
-    this.mQuit.getXform().setPosition(80, 20);
-    this.mQuit.getXform().setSize(32, 8);
+    this.mQuit.getXform().setPosition(80, 10);
+    this.mQuit.getXform().setSize(80, 20);
     this.mAllObject.addToSet(this.mQuit);
 
     this.mP1Win = new TextureRenderable(this.kP1Win);
@@ -92,15 +89,17 @@ GameOver1.prototype.update = function () {
     this.mAllObject.update();
 
     if (this.mOption === 0 && gEngine.Input.isKeyClicked(gEngine.Input.keys.S)) {
-        this.mRestart.getXform().setSize(32, 8);
-        this.mQuit.getXform().setSize(40, 10);
+        this.mRestart.getXform().setSize(80, 20);
+        this.mQuit.getXform().setSize(100, 25);
         this.mOption = 1;
     }
-    else if (this.mOption === 1 && gEngine.Input.isKeyClicked(gEngine.Input.keys.W)) {
-        this.mQuit.getXform().setSize(32, 8);
-        this.mRestart.getXform().setSize(40, 10);
+
+    if (this.mOption === 1 && gEngine.Input.isKeyClicked(gEngine.Input.keys.W)) {
+        this.mQuit.getXform().setSize(80, 20);
+        this.mRestart.getXform().setSize(100, 25);
         this.mOption = 0;
     }
+
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Space)) {
         gEngine.GameLoop.stop();
     }

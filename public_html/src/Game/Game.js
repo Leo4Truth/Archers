@@ -32,7 +32,7 @@ Game.prototype.setCurrentPlayer = function (index) {
     this.mPlayers[0].incTurns();
     this.mPlayers[1].incTurns();
     if (this.mTurns % 2 === 0) {
-        this.decreaseSpaceLimit(5);
+        this.decreaseSpaceLimit(10);
         console.log(this.mTurns);
         console.log(this.mSpaceLimit);
     }

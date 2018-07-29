@@ -89,8 +89,8 @@ ShockWave.prototype.effectOnArcher = function (obj) {
     this.mCurrentState = Arrow.eArrowState.eHit;
 
     //
-    var buff = new Buff(Arrow.eAssets.eShockWaveTexture);
-    obj.mPlayer.addBuff(buff);
+//    var buff = new Buff(Arrow.eAssets.eShockWaveTexture);
+//    obj.mPlayer.addBuff(buff);
 };
 
 

@@ -4,6 +4,10 @@ Player.eAssets = Object.freeze({
     eViewFrameTexture: "assets/UI/viewFrame.png"
 });
 
+Player.eAudio = Object.freeze({
+    eShootCue : "assets/sounds/ShootSound.mp3"
+});
+
 Player.ePlayerState = Object.freeze({
     eWait: 0,
     eReady: 1,
@@ -438,6 +442,8 @@ Player.prototype.setState = function (state) {
 };
 
 Player.prototype.shoot = function () {
+    gEngine.AudioClips.playACue(Player.eAudio.eShootCue);
+    
     var pos = this.mArcher.getXform().getPosition();
     var velocity = this.mShootController.getVelocity();
     var offset = new vec2.fromValues(1, 0);

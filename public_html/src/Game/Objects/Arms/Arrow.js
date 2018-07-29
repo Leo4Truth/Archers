@@ -16,7 +16,7 @@ Arrow.eAssets = Object.freeze({
     eShockWaveTexture: "./assets/arrows/arrows_d.png",
     eScreamingChickenArrowLeftTexture: "./assets/arrows/screamingChickenLeft.png",
     eScreamingChickenArrowRightTexture: "./assets/arrows/screamingChickenRight.png",
-    eMineLauncherTexture: "./assets/arrows/mine.png"
+    eMineLauncherTexture: "./assets/arrows/arrows_a.png"
 });
 
 function Arrow(

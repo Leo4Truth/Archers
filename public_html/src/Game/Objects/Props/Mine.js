@@ -4,9 +4,12 @@
  * and open the template in the editor.
  */
 
-
 Mine.eAssets = Object.freeze({
     eMineTexture: "assets/props/mine.png"
+});
+
+Mine.eAudio = Object.freeze({
+    eExplode : "assets/sounds/Explosion.mp3"
 });
 
 function Mine(posX, posY, texture, restore, allObj, allObstacle, aDestroyable) {
@@ -64,6 +67,7 @@ Mine.prototype.update = function () {
         }
     }
     if (minarch !== -1) {
+        gEngine.AudioClips.playACue(Mine.eAudio.eExplode);
         this.mArcherSet[minarch].loseHp(this.getRestore());
         this.mAllObjs.removeFromSet(this);
         this.mDestroyable.removeFromSet(this);
