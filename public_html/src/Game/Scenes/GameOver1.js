@@ -42,9 +42,14 @@ GameOver1.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kBackground);
     gEngine.Textures.unloadTexture(this.kP1Win);
 
-    this.mNext = new SceneA(this.mGame, Background.ePlace.eOutskirts, Background.eSky.eCloudy);
+    if (this.mOption === 1) {
+        this.mNext = new MyMenu(this.mGame);
+    }
+    else if (this.mOption === 0) {
+        this.mNext = new SceneA(this.mGame, Background.ePlace.eOutskirts, Background.eSky.eCloudy);
+    }
     gEngine.Core.startScene(this.mNext);
-    this.game.mCurrentScene = nextLevel;
+    this.mGame.mCurrentScene = this.mNext;
 };
 
 GameOver1.prototype.initialize = function () {
@@ -90,16 +95,12 @@ GameOver1.prototype.update = function () {
         this.mRestart.getXform().setSize(32, 8);
         this.mQuit.getXform().setSize(40, 10);
         this.mOption = 1;
-        this.mNext = new MyMenu();
     }
-
-    if (this.mOption === 1 && gEngine.Input.isKeyClicked(gEngine.Input.keys.W)) {
+    else if (this.mOption === 1 && gEngine.Input.isKeyClicked(gEngine.Input.keys.W)) {
         this.mQuit.getXform().setSize(32, 8);
         this.mRestart.getXform().setSize(40, 10);
         this.mOption = 0;
-        this.mNext = new SceneA();
     }
-
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Space)) {
         gEngine.GameLoop.stop();
     }

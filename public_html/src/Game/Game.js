@@ -19,12 +19,23 @@ function Game() {
 
     this.mCurrentScene = null;
 
+    this.mSpaceLimit = null;
+    this.mTurns = null;
+
     this.mCurrentState = Game.eGameState.eGameStart;
     this.mCurrentScene = new MyMenu(this);
     gEngine.Core.initializeEngineCore('GLCanvas', this.mCurrentScene);
 }
 
 Game.prototype.setCurrentPlayer = function (index) {
+    this.mTurns++;
+    this.mPlayers[0].incTurns();
+    this.mPlayers[1].incTurns();
+    if (this.mTurns % 2 === 0) {
+        this.decreaseSpaceLimit(5);
+        console.log(this.mTurns);
+        console.log(this.mSpaceLimit);
+    }
     this.mCurrentPlayer = this.mPlayers[index];
     this.mCurrentPlayer.setState(Player.ePlayerState.eReady);
     this.mCurrentPlayer.resetTimer();
@@ -57,18 +68,34 @@ Game.prototype.getCurrentPlayer = function () {
     return this.mCurrentPlayer;
 };
 
+Game.prototype.getTurns = function () {
+    return this.mTurns;
+};
+
 Game.prototype.initialize = function (aAllObjs, aAllObstacles, aDestroyable, aBackground) {
     this.mPlayers[0] = new Player(this, 0, aAllObjs, aAllObstacles, aDestroyable, aBackground);
     this.mPlayers[1] = new Player(this, 1, aAllObjs, aAllObstacles, aDestroyable, aBackground);
 
+    this.mSpaceLimit = {
+        upLimit: 250,
+        downLimit: -125,
+        leftLimit: -250,
+        rightLimit: 250
+    };
+
+    this.mTurns = 0;
     this.setCurrentPlayer(0);
     this.mCurrentPlayer.resetTimer();
+};
+
+Game.prototype.getSpaceLimit = function () {
+    return this.mSpaceLimit;
 };
 
 Game.prototype.update = function () {
     this.mPlayers[0].update();
     this.mPlayers[1].update();
-    //this.mCurrentPlayer.update();
+
     switch (this.mCurrentState) {
         case Game.eGameState.eGameStart: {
             if (this.mCurrentPlayer.getCurrentState() === Player.ePlayerState.eReady) {
@@ -122,4 +149,10 @@ Game.prototype.update = function () {
 
 Game.prototype.keyControl = function () {
 
+};
+
+Game.prototype.decreaseSpaceLimit = function (delta) {
+    this.mSpaceLimit.upLimit -= 2 * delta;
+    this.mSpaceLimit.leftLimit += delta;
+    this.mSpaceLimit.rightLimit -= delta;
 };

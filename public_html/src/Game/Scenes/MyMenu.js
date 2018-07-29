@@ -127,7 +127,7 @@ MyMenu.prototype.keyControl = function () {
         if (this.option === 2) {
             this.option = 0;
             this.mhelp.getXform().setPosition(0, 100);
-            this.mtips.getXform().setPosition(0, 100);
+            this.mhelp.getXform().setPosition(0, 100);
         }
         else
             gEngine.GameLoop.stop();

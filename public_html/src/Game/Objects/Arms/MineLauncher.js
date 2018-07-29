@@ -1,37 +1,30 @@
 "use strict";
 
-function PuncturingArrow(
+function MineLauncher(
     posX, posY, vX, vY,
     aAllObjs, aObstacle, aDestroyable,
     master
 ) {
     Arrow.call(
         this,
-        posX, posY, vX, vY,
-        Arrow.eAssets.ePuncturingArrowTexture,
+        posX, posY, vX, vY, Arrow.eAssets.eMineLauncherTexture,
         aAllObjs, aObstacle, aDestroyable,
         master
     );
 
-    this.mVx = vX;
-    this.mVy = vY;
+    this.getRigidBody().setMass(0.1);
 
-    this.mHitSet = new GameObjectSet();
-    this.mDamage = 5;
+    this.mBounceCount = 30;
 
     //particles
     this.mGenerateParticles = 1;
     this.mParticles = new ParticleGameObjectSet();
 }
 
-gEngine.Core.inheritPrototype(PuncturingArrow, Arrow);
+gEngine.Core.inheritPrototype(MineLauncher, Arrow);
 
-
-PuncturingArrow.prototype.update = function () {
+MineLauncher.prototype.update = function () {
     Arrow.prototype.update.call(this);
-
-    console.log(this);
-    this.getRigidBody().setVelocity(this.mVx, this.mVy);
 
     if (this.mGenerateParticles === 1) {
         var p = this.createParticle(this.getXform().getXPos(), this.getXform().getYPos());
@@ -40,23 +33,22 @@ PuncturingArrow.prototype.update = function () {
     gEngine.ParticleSystem.update(this.mParticles);
 };
 
-PuncturingArrow.prototype.draw = function (aCamera) {
+MineLauncher.prototype.draw = function (aCamera) {
     this.mParticles.draw(aCamera);
     Arrow.prototype.draw.call(this, aCamera);
 };
 
-PuncturingArrow.prototype.createParticle = function (atX, atY) {
+MineLauncher.prototype.createParticle = function (atX, atY) {
     var life = 30 + Math.random() * 200;
     var p = new ParticleGameObject("assets/particles/Particle2.png", atX, atY, life);
-
-    p.getRenderable().setColor([1, 1, 1, 1]);
+    p.getRenderable().setColor([0, 0, 1, 1]);
 
     // size of the particle
     var r = 3.5 + Math.random() * 2.5;
     p.getXform().setSize(r, r);
 
     // final color
-    var fr = 0.5 + Math.random();
+    var fr = 3.5 + Math.random();
     var fg = 0.4 + 0.1 * Math.random();
     var fb = 0.3 + 0.1 * Math.random();
     p.setFinalColor([fr, fg, fb, 0.6]);
@@ -72,30 +64,45 @@ PuncturingArrow.prototype.createParticle = function (atX, atY) {
     return p;
 };
 
-PuncturingArrow.prototype.effectOnObstacle = function (obj) {
-    if (!this.mHitSet.hasObject(obj)) {
-        this.mHitSet.addToSet(obj);
-        this.mDamage--;
-    }
-};
+MineLauncher.prototype.effectOnObstacle = function (obj) {
+    this.mAllObjs.removeFromSet(this);
 
-PuncturingArrow.prototype.effectOnArcher = function (obj) {
-    if (obj === this.mMaster) {
-        this.mMaster.loseHp(1);
-    }
-    else {
-        obj.loseHp(this.mDamage);
-    }
+    this.plantMine();
+
+    this.mGenerateParticles = 0;
     this.mCurrentState = Arrow.eArrowState.eHit;
 };
 
-PuncturingArrow.prototype.effectOnDestroyable = function (obj) {
+MineLauncher.prototype.effectOnArcher = function () {
+    this.plantMine();
+
+    this.mGenerateParticles = 0;
+    this.mCurrentState = Arrow.eArrowState.eHit;
+};
+
+MineLauncher.prototype.effectOnDestroyable = function (obj) {
     if (obj instanceof LifePotion) {
-        this.mMaster.getArcher().addHp(1);
+        this.mMaster.addHp(1);
     }
     else if (obj instanceof Bow) {
         this.mMaster.getMoreArm(obj.getArmNum(), obj.getArmAmount());
     }
     this.mAllObjs.removeFromSet(obj);
     this.mDestroyable.removeFromSet(obj);
+
+    this.plantMine();
+
+    this.mGenerateParticles = 0;
+    this.mCurrentState = Arrow.eArrowState.eHit;
+};
+
+MineLauncher.prototype.plantMine = function () {
+    var mine;
+    var XPos = this.getXform().getXPos();
+    var YPos = this.getXform().getYPos() + 10;
+    mine = new Mine(
+        XPos, YPos, Mine.eAssets.eMineTexture, 1,
+        this.mAllObjs, this.mObstacle, this.mDestroyable);
+    this.mAllObjs.addToSet(mine);
+    this.mDestroyable.addToSet(mine);
 };

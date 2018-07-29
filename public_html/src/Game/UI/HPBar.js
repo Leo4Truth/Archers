@@ -7,7 +7,8 @@
 
 HpBar.eAssets = Object.freeze({
     eRedHeart: "assets/UI/redHeart.png",
-    eBlueHeart: "assets/UI/blueHeart.png"
+    eBlueHeart: "assets/UI/blueHeart.png",
+    eBackgroundTexture: "assets/UI/HpBarBackground.png"
 });
 
 function HpBar(XPos, YPos, archer) {
@@ -20,6 +21,11 @@ function HpBar(XPos, YPos, archer) {
     this.mSize = 10;
 
     GameObjectSet.call(this);
+
+    this.mBackground = new TextureRenderable(HpBar.eAssets.eBackgroundTexture);
+    this.mBackground.setColor([1, 1, 1, 0]);
+    this.mBackground.getXform().setSize(100, 10);
+    this.mBackground.getXform().setPosition(this.Xpos + 45, this.Ypos);
 
     var i = 0;
     for(i = 0; i < this.mMaxHp; i++)
@@ -37,6 +43,7 @@ HpBar.prototype.update = function () {
 };
 
 HpBar.prototype.draw = function (aCamera) {
+    this.mBackground.draw(aCamera);
     var i;
     for (i = 0; i < this.mHp; i++) {
         this.mHpBar[i].draw(aCamera);

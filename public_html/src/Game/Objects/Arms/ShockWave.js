@@ -1,11 +1,11 @@
-function Shockwave(
+function ShockWave(
     posX, posY, vX, vY,
     aAllObjs, aObstacle, aDestroyable,
     master
 ) {
     Arrow.call(
         this,
-        posX, posY, vX, vY, Arrow.eAssets.eDestroyerTexture,
+        posX, posY, vX, vY, Arrow.eAssets.eShockWaveTexture,
         aAllObjs, aObstacle, aDestroyable,
         master
     );
@@ -16,10 +16,10 @@ function Shockwave(
     this.mParticles = new ParticleGameObjectSet();
 }
 
-gEngine.Core.inheritPrototype(Shockwave, Arrow);
+gEngine.Core.inheritPrototype(ShockWave, Arrow);
 
 
-Shockwave.prototype.update = function () {
+ShockWave.prototype.update = function () {
     Arrow.prototype.update.call(this);
 
     if (this.mGenerateParticles === 1) {
@@ -29,13 +29,13 @@ Shockwave.prototype.update = function () {
     gEngine.ParticleSystem.update(this.mParticles);
 };
 
-Shockwave.prototype.draw = function (aCamera) {
+ShockWave.prototype.draw = function (aCamera) {
     this.mParticles.draw(aCamera);
     Arrow.prototype.draw.call(this, aCamera);
 };
 
 
-Shockwave.prototype.createParticle = function (atX, atY) {
+ShockWave.prototype.createParticle = function (atX, atY) {
     var life = 30 + Math.random() * 200;
     var p = new ParticleGameObject("assets/particles/Particle2.png", atX, atY, life);
     p.getRenderable().setColor([0.898, 0.898, 0.976, 1]);
@@ -61,7 +61,7 @@ Shockwave.prototype.createParticle = function (atX, atY) {
     return p;
 };
 
-Shockwave.prototype.effectOnObstacle = function (obj) {
+ShockWave.prototype.effectOnObstacle = function (obj) {
     for (i = 0; i < this.mObstacle.size(); i++) {
         obj = this.mObstacle.getObjectAt(i);
         if (obj instanceof Archer) {
@@ -74,21 +74,27 @@ Shockwave.prototype.effectOnObstacle = function (obj) {
         }
     }
     this.mGenerateParticles = 0;
+    this.mAllObjs.removeFromSet(this);
     this.mCurrentState = Arrow.eArrowState.eHit;
 };
 
-Shockwave.prototype.effectOnArcher = function (obj) {
+ShockWave.prototype.effectOnArcher = function (obj) {
     obj.loseHp(2);
     if (this.getXform().getXPos() < obj.getXform().getXPos())
         obj.getRigidBody().setVelocity(20, 30);
     else
         obj.getRigidBody().setVelocity(-20, 30);
     this.mGenerateParticles = 0;
+    this.mAllObjs.removeFromSet(this);
     this.mCurrentState = Arrow.eArrowState.eHit;
+
+    //
+    var buff = new Buff(Arrow.eAssets.eShockWaveTexture);
+    obj.mPlayer.addBuff(buff);
 };
 
 
-Shockwave.prototype.calculateDistance = function (posX, posY) {
+ShockWave.prototype.calculateDistance = function (posX, posY) {
     return Math.sqrt(Math.pow(this.getXform().getXPos() - posX, 2)
         + Math.pow(this.getXform().getYPos() - posY, 2));
 };

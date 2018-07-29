@@ -77,8 +77,11 @@ PaperPlane.prototype.effectOnDestroyable = function (obj) {
 
 
 PaperPlane.prototype.transfer = function () {
+    // this.getRigidBody().setInertia(0);
+    // this.getRigidBody().setRestitution(0);
     var pos = this.getXform().getPosition();
-    this.mMaster.getXform().setPosition(pos[0], pos[1]);
+    this.mMaster.getArcher().getXform().setPosition(pos[0], pos[1] + 10);
+    this.mAllObjs.removeFromSet(this);
     this.mCurrentState = Arrow.eArrowState.eHit;
     this.mGenerateParticles = 0;
 };

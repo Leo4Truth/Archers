@@ -5,27 +5,57 @@ function ScreamingChickenArrow(
     aAllObjs, aObstacle, aDestroyable,
     master
 ) {
-    Arrow.call(
-        this,
-        posX, posY, vX, vY, Arrow.eAssets.eScreamingChickenArrowTexture,
-        aAllObjs, aObstacle, aDestroyable,
-        master
-    );
-
+    if (vX < 0) {
+        Arrow.call(
+            this,
+            posX, posY, vX, vY, Arrow.eAssets.eScreamingChickenArrowLeftTexture,
+            aAllObjs, aObstacle, aDestroyable,
+            master
+        );
+        this.mArrow.getXform().setSize(8, 8);
+        this.mArrow.setSpriteSequence(496, 336, 64, 64, 2, 32);
+    }
+    else {
+        Arrow.call(
+            this,
+            posX, posY, vX, vY, Arrow.eAssets.eScreamingChickenArrowRightTexture,
+            aAllObjs, aObstacle, aDestroyable,
+            master
+        );
+        this.mArrow.getXform().setSize(8, 8);
+        this.mArrow.setSpriteSequence(496, 16, 64, 64, 2, 32);
+    }
+    var r = new RigidRectangle(this.getXform(), 8, 8);
+    this.setRigidBody(r);
+    this.getRigidBody().setVelocity(vX, vY);
+    this.getRigidBody().setMass(0.1);
+    
     this.mIsChicken = false;
     this.mScreamingChicken = null;
 
     this.mGenerateParticles = 1;
     this.mParticles = new ParticleGameObjectSet();
+
+    this.mAffected = [];
+
+    this.mDirection = 0;
+//    this.toggleDrawRigidShape(); // Draw RigidShape
 }
 gEngine.Core.inheritPrototype(ScreamingChickenArrow, Arrow);
 
 
 ScreamingChickenArrow.prototype.update = function () {
     Arrow.prototype.update.call(this);
+    this.mArrow.getXform().setRotationInRad(0);
     if (this.mIsChicken) {
-        this.getRigidBody().setVelocity(50, -20);
-        this.mArrow.getXform().setRotationInRad(-Math.PI / 2);
+        if (this.mDirection) {
+            this.getRigidBody().setVelocity(100, -30);
+//            this.mArrow.getXform().setRotationInRad(-Math.PI / 2);
+        }
+        else {
+            this.getRigidBody().setVelocity(-100, -30);
+//            this.mArrow.getXform().setRotationInRad(Math.PI / 2);
+        }
     }
     if (this.mGenerateParticles === 1) {
         var p = this.createParticle(this.getXform().getXPos(), this.getXform().getYPos());
@@ -45,31 +75,16 @@ ScreamingChickenArrow.prototype.draw = function (aCamera) {
     }
 };
 
-ScreamingChickenArrow.prototype.effectOnObstacle = function (obj) {
-    if (!this.mIsChicken) {
-        this.mIsChicken = true;
-    }
-    else {
-        if (obj.getXform().getYPos() < this.getXform().getYPos()) {
-            //this.getXform().incYPosBy(-5);
-        }            
-    }
-};
-
 ScreamingChickenArrow.prototype.createParticle = function (atX, atY) {
     var life = 30 + Math.random() * 200;
-    var p = new ParticleGameObject("assets/particles/Particle2.png", atX, atY, life);
-    p.getRenderable().setColor([0, 0, 1, 1]);
+    var p = new ParticleGameObject("assets/particles/emoji.png", atX, atY, life);
+    p.getRenderable().setColor([0.2, 0.2, 0.2, 0]);
 
     // size of the particle
     var r = 3.5 + Math.random() * 2.5;
     p.getXform().setSize(r, r);
 
-    // final color
-    var fr = 3.5 + Math.random();
-    var fg = 0.4 + 0.1 * Math.random();
-    var fb = 0.3 + 0.1 * Math.random();
-    p.setFinalColor([fr, fg, fb, 0.6]);
+    p.setFinalColor([0.2, 0.2, 0.2, 0]);
 
     // velocity on the particle
     var fx = 10 * Math.random() - 20 * Math.random();
@@ -87,4 +102,59 @@ ScreamingChickenArrow.prototype.isChicken = function () {
 };
 ScreamingChickenArrow.prototype.getScreamingChicken = function () {
     return this.mScreamingChicken;
+};
+
+ScreamingChickenArrow.prototype.effectOnArcher = function (obj) {
+    var i;
+    var hasDamaged = 0;
+    for (i = 0; i < this.mAffected.length; ++i) {
+        if (obj === this.mAffected[i]) {
+            hasDamaged = 1;
+            break;
+        }
+    }
+    if (!hasDamaged) {
+        obj.loseHp(2);
+        this.mAffected.push(obj);
+    }
+
+    if (!this.mIsChicken) {
+        this.mIsChicken = true;
+        if (this.getRigidBody().getVelocity()[0] < 0)
+            this.mDirection = 0;
+        else
+            this.mDirection = 1;
+
+        if (this.mDirection)
+            obj.getRigidBody().setVelocity(30, 50);
+        else
+            obj.getRigidBody().setVelocity(-30, 50);
+    }
+    else {
+        if (this.mDirection)
+            obj.getRigidBody().setVelocity(30, 50);
+        else
+            obj.getRigidBody().setVelocity(-30, 50);
+    }
+};
+
+ScreamingChickenArrow.prototype.effectOnObstacle = function (obj) {
+    if (!this.mIsChicken) {
+        this.mIsChicken = true;
+        if (this.getRigidBody().getVelocity()[0] < 0)
+            this.mDirection = 0;
+        else
+            this.mDirection = 1;
+    }
+};
+
+ScreamingChickenArrow.prototype.effectOnDestroyable = function (obj) {
+    if (obj instanceof LifePotion) {
+        this.mMaster.addHp(1);
+    }
+    else if (obj instanceof Bow) {
+        this.mMaster.getMoreArm(obj.getArmNum(), obj.getArmAmount());
+    }
+    this.mAllObjs.removeFromSet(obj);
+    this.mDestroyable.removeFromSet(obj);
 };

@@ -34,7 +34,7 @@ function Background(place, sky) {
             break;
         }
     }
-    this.mSky.setColor([1, 1, 1, 0]);
+    this.mSky.setColor([1, 1, 1, 0.2]);
     this.mSky.getXform().setPosition(0, 0);
     this.mSky.getXform().setSize(500, 250);
 
@@ -52,7 +52,7 @@ function Background(place, sky) {
             break;
         }
     }
-    this.mPlace.setColor([1, 1, 1, 0]);
+    this.mPlace.setColor([1, 1, 1, 0.2]);
     this.mPlace.getXform().setPosition(0, 0);
     this.mPlace.getXform().setSize(500, 250);
 }
