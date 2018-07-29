@@ -83,13 +83,17 @@ MineLauncher.prototype.effectOnArcher = function () {
 MineLauncher.prototype.effectOnDestroyable = function (obj) {
     if (obj instanceof LifePotion) {
         this.mMaster.addHp(1);
+        this.mAllObjs.removeFromSet(obj);
+        this.mDestroyable.removeFromSet(obj);
     }
     else if (obj instanceof Bow) {
         this.mMaster.getMoreArm(obj.getArmNum(), obj.getArmAmount());
+        this.mAllObjs.removeFromSet(obj);
+        this.mDestroyable.removeFromSet(obj);
     }
-    this.mAllObjs.removeFromSet(obj);
-    this.mDestroyable.removeFromSet(obj);
-
+    else if (obj instanceof Mine){
+        
+    }
     this.plantMine();
 
     this.mGenerateParticles = 0;
