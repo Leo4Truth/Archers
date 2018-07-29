@@ -162,20 +162,20 @@ MyMenu.prototype.update = function() {
 };
 
 MyMenu.prototype.keyControl = function () {
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)) {
-        // test code for scene switching
-        if (this.option === 3) {
-            this.option = 1;
-            this.mhelp.getXform().setPosition(0, 100);
-        }
-        else if(this.option === 4)
-        {
-            this.option = 2;
-            this.mAbout.getXform().setPosition(0, 100);
-        }
-        else
-            gEngine.GameLoop.stop();
-    }
+//    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)) {
+//        // test code for scene switching
+//        if (this.option === 3) {
+//            this.option = 1;
+//            this.mhelp.getXform().setPosition(0, 100);
+//        }
+//        else if(this.option === 4)
+//        {
+//            this.option = 2;
+//            this.mAbout.getXform().setPosition(0, 100);
+//        }
+//        else
+//            gEngine.GameLoop.stop();
+//    }
 
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.W) || gEngine.Input.isKeyClicked(gEngine.Input.keys.Up)) {
         if(this.option === 1)

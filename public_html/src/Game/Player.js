@@ -19,8 +19,8 @@ Player.ePlayerState = Object.freeze({
 
 Player.eAttributes = Object.freeze({
     eOrginPos: [
-        [-20, -70],
-        [40, -70]
+        [-100, -20],
+        [100, -20]
     ],
     eArmoryPos: [
         [-1000, 0],
@@ -164,7 +164,7 @@ Player.prototype.initialize = function () {
         Player.eAttributes.eOrginPos[this.mIndex][1],
         12, 14,
         this.mAllObjs, this.mAllObstacles, this.mDestroyable,
-        this
+        this, this.mIndex
     );
     this.mShootController = new ShootController(
         Player.eAttributes.eOrginPos[this.mIndex][0],

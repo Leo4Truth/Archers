@@ -3,7 +3,7 @@ Arm.eMsgString = Object.freeze([
     "PaperPlane :",
     "Bounce :",
     "Destroyer :",
-    "PuncturingArrow :",
+    "Puncturing :",
     "ShockWave :",
     "ScreamingChick :",
     "MineLauncher :"

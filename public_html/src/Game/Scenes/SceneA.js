@@ -34,12 +34,19 @@ SceneA.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(Mine.eAssets.eMineTexture);
     gEngine.Textures.loadTexture(ShootController.eAssets.eShootDirArrowTexture);
 
-    gEngine.Textures.loadTexture(Archer.eAssets.eShootLeftTexture);
-    gEngine.Textures.loadTexture(Archer.eAssets.eShootRightTexture);
-    gEngine.Textures.loadTexture(Archer.eAssets.eStandLeftTexture);
-    gEngine.Textures.loadTexture(Archer.eAssets.eStandRightTexture);
-    gEngine.Textures.loadTexture(Archer.eAssets.eWalkLeftTexture);
-    gEngine.Textures.loadTexture(Archer.eAssets.eWalkRightTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets_1.eShootLeftTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets_1.eShootRightTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets_1.eStandLeftTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets_1.eStandRightTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets_1.eWalkLeftTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets_1.eWalkRightTexture);
+    
+    gEngine.Textures.loadTexture(Archer.eAssets_2.eShootLeftTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets_2.eShootRightTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets_2.eStandLeftTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets_2.eStandRightTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets_2.eWalkLeftTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets_2.eWalkRightTexture);
 
     gEngine.Textures.loadTexture(Arrow.eAssets.eNormalArrowTexture);
     gEngine.Textures.loadTexture(Arrow.eAssets.ePaperPlaneTexture);
@@ -117,12 +124,19 @@ SceneA.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(Mine.eAssets.eMineTexture);
     gEngine.Textures.unloadTexture(ShootController.eAssets.eShootDirArrowTexture);
 
-    gEngine.Textures.unloadTexture(Archer.eAssets.eShootLeftTexture);
-    gEngine.Textures.unloadTexture(Archer.eAssets.eShootRightTexture);
-    gEngine.Textures.unloadTexture(Archer.eAssets.eStandLeftTexture);
-    gEngine.Textures.unloadTexture(Archer.eAssets.eStandRightTexture);
-    gEngine.Textures.unloadTexture(Archer.eAssets.eWalkLeftTexture);
-    gEngine.Textures.unloadTexture(Archer.eAssets.eWalkRightTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets_1.eShootLeftTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets_1.eShootRightTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets_1.eStandLeftTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets_1.eStandRightTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets_1.eWalkLeftTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets_1.eWalkRightTexture);
+    
+    gEngine.Textures.unloadTexture(Archer.eAssets_2.eShootLeftTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets_2.eShootRightTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets_2.eStandLeftTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets_2.eStandRightTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets_2.eWalkLeftTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets_2.eWalkRightTexture);
 
     gEngine.Textures.unloadTexture(Arrow.eAssets.eNormalArrowTexture);
     gEngine.Textures.unloadTexture(Arrow.eAssets.ePaperPlaneTexture);
@@ -234,20 +248,35 @@ SceneA.prototype.initialize = function () {
     this.mAllObjs.addToSet(player.getArcher());
     this.mAllObstacles.addToSet(player.getArcher());
 
-    this.mLifePotion = new LifePotion(10, 70, this.kLifePotionTexture, 3,
+    var i, tempX, tempY;
+    for(i = 0; i < 8; ++i){
+        tempX = this.random(0, 900);
+        tempY = this.random(0, 170);
+        this.mLifePotion = new LifePotion(tempX-500, tempY-70, this.kLifePotionTexture, 2,
                                     this.mAllObjs, this.mAllObstacles, this.mDestroyable);
-    this.mAllObjs.addToSet(this.mLifePotion);
-    this.mDestroyable.addToSet(this.mLifePotion);
+        this.mAllObjs.addToSet(this.mLifePotion);
+        this.mDestroyable.addToSet(this.mLifePotion);
+    }
 
-    this.mBow = new Bow(0, -90, Arm.eArmNum.ePaperPlane, 10, 50);
+    var tempWeapon, tempAmount;
+    for(i = 0; i < 15; ++i){
+        tempX = this.random(0, 900);
+        tempY = this.random(0, 170);
+        tempWeapon = this.random(1, 7);  
+        tempAmount = this.random(1, 5);
+        this.mBow = new Bow(tempX-500, tempY-70, tempWeapon, tempAmount, 50);
+        this.mAllObjs.addToSet(this.mBow);
+        this.mDestroyable.addToSet(this.mBow);
+    }
+    this.mBow = new Bow(0, -90, Arm.eArmNum.ePuncturingArrow, 2, 50);
     this.mAllObjs.addToSet(this.mBow);
     this.mDestroyable.addToSet(this.mBow);
 
-    this.mBow = new Bow(30, -90, Arm.eArmNum.ePaperPlane, 10, 50);
+    this.mBow = new Bow(30, -90, Arm.eArmNum.ePuncturingArrow, 2, 50);
     this.mAllObjs.addToSet(this.mBow);
     this.mDestroyable.addToSet(this.mBow);
 
-    console.log(this.mAllObjs);
+//    console.log(this.mAllObjs);
 };
 
 SceneA.prototype.update = function () {
@@ -289,16 +318,11 @@ SceneA.prototype.createBounds = function () {
         this.platformAt(x + 80, -100, 20, 0);
     }
 
-    for (x = -250; x <= 150; x += 100) {
-        this.platformAt(x, -20, 20, 0);
-        this.platformAt(x + 40, -40, 20, 0);
-        this.platformAt(x + 80, -30, 20, 0);
-    }
-
-    for (x = -100; x <= 50; x += 50) {
-        this.platformAt(x, -60, 20, 0);
-        this.platformAt(x + 30, -50, 20, 0);
-        this.platformAt(x + 60, -20, 20, 0);
+    var i, j, plus = 50;
+    for(i = 1; i <= 7; ++i, plus += 20){
+        for(j = -450; j < 400; j += plus){
+            this.platformAt(j, -100 + i * 20, 20, 0);            
+        }
     }
 };
 
@@ -337,4 +361,9 @@ SceneA.prototype.platformAt = function (x, y, w, rot) {
     xf.setRotationInDegree(rot);
     this.mAllObjs.addToSet(g);
     this.mAllObstacles.addToSet(g);
+};
+
+SceneA.prototype.random = function(min, max) {
+    parseInt(Math.random()*(max-min+1)+min,10);
+    return Math.floor(Math.random()*(max-min+1)+min);
 };

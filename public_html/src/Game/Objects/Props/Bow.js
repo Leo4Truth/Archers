@@ -29,8 +29,42 @@ function Bow(xpos, ypos, armNum, armAmount, existTurns) {
     this.getRigidBody().setMass(0.1);
     this.getRigidBody().setInertia(0);
     this.getRigidBody().setRestitution(0);
-
-    this.mArmIcon = new TextureRenderable(Arm.eIconAssets.ePaperPlane);
+       
+    switch (armNum){
+        case 0:{
+            this.mArmIcon = new TextureRenderable(Arm.eIconAssets.eNormalArrow);
+            break;
+        }
+        case 1:{
+            this.mArmIcon = new TextureRenderable(Arm.eIconAssets.ePaperPlane);
+            break;
+        }
+        case 2:{
+            this.mArmIcon = new TextureRenderable(Arm.eIconAssets.eBouncingArrow);
+            break;
+        }
+        case 3:{
+            this.mArmIcon = new TextureRenderable(Arm.eIconAssets.eDestroyer);
+            break;
+        }
+        case 4:{
+            this.mArmIcon = new TextureRenderable(Arm.eIconAssets.ePuncturingArrow);
+            break;
+        }
+        case 5:{
+            this.mArmIcon = new TextureRenderable(Arm.eIconAssets.eShockWave);
+            break;
+        }
+        case 6:{
+            this.mArmIcon = new TextureRenderable(Arm.eIconAssets.eScreamingChickenArrow);
+            break;
+        }
+        case 7:{
+            this.mArmIcon = new TextureRenderable(Arm.eIconAssets.eMineLauncher);
+            break;
+        }
+    }
+    
     this.mArmIcon.setColor([1, 1, 1, 0]);
     this.mArmIcon.getXform().setPosition(xpos, ypos);
     this.mArmIcon.getXform().setSize(6, 6);
