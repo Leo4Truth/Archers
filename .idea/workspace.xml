@@ -3,24 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="dc354de6-6a2c-4d54-88a1-1312f5ddad7f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public_html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public_html/src/Game/Buff/Buff.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/Buff/Buff.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public_html/src/Game/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/Game.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/Arrow.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/Arrow.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/Destroyer.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/Destroyer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/MineLauncher.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/MineLauncher.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/PaperPlane.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/PaperPlane.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/PuncturingArrow.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/PuncturingArrow.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/ScreamingChickenArrow.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/ScreamingChickenArrow.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/Shockwave.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/ShockWave.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public_html/src/Game/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/Player.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public_html/src/Game/Scenes/Background.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/Scenes/Background.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public_html/src/Game/Scenes/GameOver1.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/Scenes/GameOver1.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public_html/src/Game/Scenes/GameOver2.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/Scenes/GameOver2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public_html/src/Game/Scenes/MyMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/Scenes/MyMenu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public_html/src/Game/Scenes/SceneA.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/Scenes/SceneA.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public_html/src/Game/UI/Arm.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/UI/Arm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public_html/src/Game/UI/Armory.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/UI/Armory.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public_html/src/Game/UI/HPBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/UI/HPBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/ShockWave.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/ShockWave.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -49,7 +37,7 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="html" value="20" />
-          <entry key="js" value="262" />
+          <entry key="js" value="266" />
           <entry key="png" value="3" />
         </counts>
       </usages-collector>
@@ -57,20 +45,20 @@
         <counts>
           <entry key="HTML" value="20" />
           <entry key="Image" value="3" />
-          <entry key="JavaScript" value="262" />
+          <entry key="JavaScript" value="266" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="html" value="648" />
-          <entry key="js" value="53639" />
+          <entry key="js" value="53813" />
           <entry key="txt" value="821" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="648" />
-          <entry key="JavaScript" value="53639" />
+          <entry key="JavaScript" value="53813" />
           <entry key="PLAIN_TEXT" value="821" />
         </counts>
       </usages-collector>
@@ -80,31 +68,28 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public_html/index.html">
+        <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Arms/Arrow.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="113" column="71" selection-start-line="113" selection-start-column="71" selection-end-line="113" selection-end-column="71" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="76">
+              <caret line="59" column="29" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="29" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Arms/Arrow.js">
+        <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Arms/PaperPlane.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="18" column="24" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="24" />
+            <state relative-caret-position="224">
+              <caret line="83" column="2" lean-forward="true" selection-start-line="83" selection-start-column="2" selection-end-line="83" selection-end-column="2" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Arms/MineLauncher.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="103" column="50" selection-start-line="103" selection-start-column="50" selection-end-line="103" selection-end-column="50" />
+            <state relative-caret-position="53">
+              <caret line="86" lean-forward="true" selection-start-line="86" selection-end-line="86" />
             </state>
           </provider>
         </entry>
@@ -112,8 +97,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Props/Mine.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="64" column="7" selection-start-line="64" selection-start-column="7" selection-end-line="64" selection-end-column="7" />
+            <state relative-caret-position="433">
+              <caret line="68" column="7" selection-start-line="68" selection-start-column="7" selection-end-line="68" selection-end-column="7" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -124,35 +109,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public_html/src/Game/Scenes/SceneA.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-764">
-              <caret line="51" column="83" selection-start-line="51" selection-start-column="83" selection-end-line="51" selection-end-column="83" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public_html/src/Game/UI/Arm.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="23" column="47" selection-start-line="23" selection-start-column="47" selection-end-line="23" selection-end-column="47" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public_html/src/Game/Scenes/MyMenu.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1575">
-              <caret line="53" column="53" lean-forward="true" selection-start-line="53" selection-start-column="53" selection-end-line="53" selection-end-column="53" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public_html/src/Game/UI/Armory.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="71" column="24" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
+            <state relative-caret-position="-783">
+              <caret line="50" column="83" selection-start-line="50" selection-start-column="83" selection-end-line="50" selection-end-column="83" />
             </state>
           </provider>
         </entry>
@@ -160,8 +118,35 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public_html/src/Game/Player.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="513" column="18" selection-start-line="513" selection-start-column="18" selection-end-line="513" selection-end-column="18" />
+            <state relative-caret-position="-208">
+              <caret line="217" column="29" lean-forward="true" selection-start-line="217" selection-start-column="29" selection-end-line="217" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Arms/Destroyer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="110">
+              <caret line="50" column="26" lean-forward="true" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Arms/ShockWave.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="338">
+              <caret line="99" column="2" lean-forward="true" selection-start-line="99" selection-start-column="2" selection-end-line="99" selection-end-column="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Arms/BouncingArrow.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="129">
+              <caret line="65" column="59" selection-start-line="65" selection-start-column="59" selection-end-line="65" selection-end-column="59" />
             </state>
           </provider>
         </entry>
@@ -169,8 +154,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public_html/src/Game/Game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2489">
-              <caret line="131" column="13" lean-forward="true" selection-start-line="131" selection-start-column="13" selection-end-line="131" selection-end-column="13" />
+            <state relative-caret-position="205">
+              <caret line="128" column="26" lean-forward="true" selection-start-line="128" selection-start-column="26" selection-end-line="128" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -256,7 +241,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/public_html/src/Engine/Core/Engine_Physics.js" />
         <option value="$PROJECT_DIR$/public_html/src/Game/Objects/StillObj.js" />
         <option value="$PROJECT_DIR$/public_html/src/Game/Objects/Archer_Male.js" />
         <option value="$PROJECT_DIR$/public_html/src/Engine/Core/Engine_Input.js" />
@@ -287,18 +271,14 @@
         <option value="$PROJECT_DIR$/public_html/src/Game/UI/PlayerMark.js" />
         <option value="$PROJECT_DIR$/public_html/src/Game/Scenes/GameOver1.js" />
         <option value="$PROJECT_DIR$/public_html/src/Game/Scenes/GameOver2.js" />
-        <option value="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/PaperPlane.js" />
         <option value="$PROJECT_DIR$/public_html/src/Game/Objects/Archer.js" />
-        <option value="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/Destroyer.js" />
         <option value="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/ScreamingChickenArrow.js" />
         <option value="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/PuncturingArrow.js" />
         <option value="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/Shockwave.js" />
         <option value="$PROJECT_DIR$/public_html/src/Game/Buff/Buff.js" />
         <option value="$PROJECT_DIR$/public_html/src/Game/UI/HpBar.js" />
         <option value="$PROJECT_DIR$/public_html/src/Game/Scenes/Background.js" />
-        <option value="$PROJECT_DIR$/public_html/src/Game/Game.js" />
         <option value="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/FlameThrower.js" />
-        <option value="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/Arrow.js" />
         <option value="$PROJECT_DIR$/public_html/src/Game/Scenes/MyMenu.js" />
         <option value="$PROJECT_DIR$/public_html/src/Game/UI/Arm.js" />
         <option value="$PROJECT_DIR$/public_html/index.html" />
@@ -307,6 +287,11 @@
         <option value="$PROJECT_DIR$/public_html/src/Game/Player.js" />
         <option value="$PROJECT_DIR$/public_html/src/Game/Objects/Props/Mine.js" />
         <option value="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/MineLauncher.js" />
+        <option value="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/PaperPlane.js" />
+        <option value="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/Arrow.js" />
+        <option value="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/Destroyer.js" />
+        <option value="$PROJECT_DIR$/public_html/src/Game/Objects/Arms/ShockWave.js" />
+        <option value="$PROJECT_DIR$/public_html/src/Game/Game.js" />
       </list>
     </option>
   </component>
@@ -531,7 +516,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="254842000" />
+    <option name="totallyTimeSpent" value="257014000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -556,26 +541,6 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Coverage" order="3" side_tool="true" weight="0.32995737" />
     </layout>
-    <layout-to-restore>
-      <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.2613277" />
-      <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="0" sideWeight="0.49894625" weight="0.32939914" />
-      <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.5015793" side_tool="true" weight="0.26868907" />
-      <window_info anchor="bottom" id="Version Control" order="2" sideWeight="0.49947312" weight="0.32939914" />
-      <window_info anchor="bottom" id="Docker" order="3" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Message" order="4" />
-      <window_info anchor="bottom" id="Find" order="5" weight="0.32939914" />
-      <window_info anchor="bottom" id="Run" order="6" weight="0.32939914" />
-      <window_info anchor="bottom" id="Debug" order="7" sideWeight="0.49842072" weight="0.26868907" />
-      <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="10" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Coverage" order="3" side_tool="true" weight="0.32995737" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -600,20 +565,12 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/public_html/src/Engine/Core/Resources/Engine_TextFileLoader.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-264">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
+        <state relative-caret-position="-264" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public_html/src/Engine/Core/Resources/Engine_Textures.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-792">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
+        <state relative-caret-position="-792" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public_html/src/Engine/Core/Engine_Core.js">
@@ -682,9 +639,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
           <caret line="48" column="24" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="24" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -702,9 +656,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="83">
           <caret line="52" column="2" selection-start-line="52" selection-start-column="2" selection-end-line="52" selection-end-column="2" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -712,21 +663,12 @@
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/public_html/src/Engine/RigidShapes/RigidRectangle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/public_html/src/Engine/Utils/Transform.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4994">
           <caret line="227" column="35" selection-start-line="227" selection-start-column="35" selection-end-line="227" selection-end-column="35" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -770,16 +712,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1064">
           <caret line="33" column="44" selection-start-line="33" selection-start-column="44" selection-end-line="33" selection-end-column="44" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Arms/BouncingArrow.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="35" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -847,20 +779,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Arms/Destroyer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="684">
-          <caret line="36" column="87" selection-start-line="36" selection-start-column="87" selection-end-line="36" selection-end-column="87" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Arms/PaperPlane.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="689">
-          <caret line="82" column="71" selection-start-line="82" selection-start-column="71" selection-end-line="82" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Arms/ScreamingChickenArrow.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="575">
@@ -872,13 +790,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
           <caret line="88" column="48" selection-start-line="88" selection-start-column="48" selection-end-line="88" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Arms/ShockWave.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="727">
-          <caret line="90" column="6" selection-start-line="90" selection-start-column="6" selection-end-line="90" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -923,13 +834,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public_html/src/Game/Game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2489">
-          <caret line="131" column="13" lean-forward="true" selection-start-line="131" selection-start-column="13" selection-end-line="131" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public_html/src/Game/Scenes/MyMenu.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1575">
@@ -961,31 +865,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Arms/Arrow.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="18" column="24" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public_html/src/Game/Scenes/SceneA.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-764">
-          <caret line="51" column="83" selection-start-line="51" selection-start-column="83" selection-end-line="51" selection-end-column="83" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public_html/src/Game/Player.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="513" column="18" selection-start-line="513" selection-start-column="18" selection-end-line="513" selection-end-column="18" />
+        <state relative-caret-position="-783">
+          <caret line="50" column="83" selection-start-line="50" selection-start-column="83" selection-end-line="50" selection-end-column="83" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Props/Mine.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="64" column="7" selection-start-line="64" selection-start-column="7" selection-end-line="64" selection-end-column="7" />
+        <state relative-caret-position="433">
+          <caret line="68" column="7" selection-start-line="68" selection-start-column="7" selection-end-line="68" selection-end-column="7" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
@@ -994,8 +884,57 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Arms/MineLauncher.js">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="53">
+          <caret line="86" lean-forward="true" selection-start-line="86" selection-end-line="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Arms/BouncingArrow.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="65" column="59" selection-start-line="65" selection-start-column="59" selection-end-line="65" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Arms/PaperPlane.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="83" column="2" lean-forward="true" selection-start-line="83" selection-start-column="2" selection-end-line="83" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/src/Game/Player.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-208">
+          <caret line="217" column="29" lean-forward="true" selection-start-line="217" selection-start-column="29" selection-end-line="217" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Arms/Arrow.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="59" column="29" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Arms/Destroyer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="50" column="26" lean-forward="true" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/src/Game/Game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="128" column="26" lean-forward="true" selection-start-line="128" selection-start-column="26" selection-end-line="128" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/src/Game/Objects/Arms/ShockWave.js">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="338">
-          <caret line="103" column="50" selection-start-line="103" selection-start-column="50" selection-end-line="103" selection-end-column="50" />
+          <caret line="99" column="2" lean-forward="true" selection-start-line="99" selection-start-column="2" selection-end-line="99" selection-end-column="2" />
         </state>
       </provider>
     </entry>

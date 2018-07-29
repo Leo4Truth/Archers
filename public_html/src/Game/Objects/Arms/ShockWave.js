@@ -62,30 +62,30 @@ ShockWave.prototype.createParticle = function (atX, atY) {
 };
 
 ShockWave.prototype.effectOnObstacle = function (obj) {
+    this.mAllObjs.removeFromSet(this);
     for (i = 0; i < this.mObstacle.size(); i++) {
         obj = this.mObstacle.getObjectAt(i);
         if (obj instanceof Archer) {
             var distance = this.calculateDistance(obj.getXform().getXPos(), obj.getXform().getYPos());
             if (distance <= 60) {
-                var xSpeed = 20 + (60 - distance) * (obj.getXform().getXPos() - this.getXform().getXPos()) / 20;
-                var ySpeed = 40 + (60 - distance) * (obj.getXform().getYPos() - this.getXform().getYPos()) / 20;
+                var xSpeed = 15 + (60 - distance) * (obj.getXform().getXPos() - this.getXform().getXPos()) / distance;
+                var ySpeed = 30 + (60 - distance) * (obj.getXform().getYPos() - this.getXform().getYPos()) / distance;
                 obj.getRigidBody().setVelocity(xSpeed, ySpeed);
             }
         }
     }
     this.mGenerateParticles = 0;
-    this.mAllObjs.removeFromSet(this);
     this.mCurrentState = Arrow.eArrowState.eHit;
 };
 
 ShockWave.prototype.effectOnArcher = function (obj) {
+    this.mAllObjs.removeFromSet(this);
     obj.loseHp(2);
     if (this.getXform().getXPos() < obj.getXform().getXPos())
         obj.getRigidBody().setVelocity(20, 30);
     else
         obj.getRigidBody().setVelocity(-20, 30);
     this.mGenerateParticles = 0;
-    this.mAllObjs.removeFromSet(this);
     this.mCurrentState = Arrow.eArrowState.eHit;
 
     //

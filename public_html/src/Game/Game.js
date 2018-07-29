@@ -116,6 +116,10 @@ Game.prototype.update = function () {
                     break;
                 }
             }
+            if (this.mPlayers[1].mCurrentState === Player.ePlayerState.eDie) {
+                this.mCurrentState = Game.eGameState.ePlayer1_Win;
+                gEngine.GameLoop.stop();
+            }
             break;
         }
         case Game.eGameState.ePlayer2_Turn: {
@@ -129,6 +133,10 @@ Game.prototype.update = function () {
                     gEngine.GameLoop.stop();
                     break;
                 }
+            }
+            if (this.mPlayers[0].mCurrentState === Player.ePlayerState.eDie) {
+                this.mCurrentState = Game.eGameState.ePlayer2_Win;
+                gEngine.GameLoop.stop();
             }
             break;
         }

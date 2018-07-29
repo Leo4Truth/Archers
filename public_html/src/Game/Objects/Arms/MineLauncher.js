@@ -74,6 +74,8 @@ MineLauncher.prototype.effectOnObstacle = function (obj) {
 };
 
 MineLauncher.prototype.effectOnArcher = function () {
+    this.mAllObjs.removeFromSet(this);
+
     this.plantMine();
 
     this.mGenerateParticles = 0;
@@ -81,6 +83,8 @@ MineLauncher.prototype.effectOnArcher = function () {
 };
 
 MineLauncher.prototype.effectOnDestroyable = function (obj) {
+    this.mAllObjs.removeFromSet(this);
+
     if (obj instanceof LifePotion) {
         this.mMaster.addHp(1);
         this.mAllObjs.removeFromSet(obj);
