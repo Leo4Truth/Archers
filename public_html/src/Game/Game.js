@@ -32,7 +32,13 @@ Game.prototype.setCurrentPlayer = function (index) {
     this.mPlayers[0].incTurns();
     this.mPlayers[1].incTurns();
     if (this.mTurns % 2 === 0) {
+<<<<<<< HEAD
         this.decreaseSpaceLimit(5);
+=======
+        this.decreaseSpaceLimit(10);
+//        console.log(this.mTurns);
+//        console.log(this.mSpaceLimit);
+>>>>>>> 7f794257209e752b649be5ec7b7d2f28386651af
     }
     this.mCurrentPlayer = this.mPlayers[index];
     this.mCurrentPlayer.setState(Player.ePlayerState.eReady);
@@ -106,6 +112,13 @@ Game.prototype.update = function () {
             switch (this.mCurrentPlayer.getCurrentState()) {
                 case Player.ePlayerState.eWait: {
                     this.setCurrentPlayer(1);
+                        var tempX, tempY, tempWeapon, tempAmount;                    
+                        tempX = this.random(-500, 400);
+                        tempWeapon = this.random(1, 7);  
+                        tempAmount = this.random(1, 5);
+                        var mBow = new Bow(tempX, 100, tempWeapon, tempAmount, 50);
+                        this.mCurrentScene.mAllObjs.addToSet(mBow);
+                        this.mCurrentScene.mDestroyable.addToSet(mBow);
                     break;
                 }
                 case Player.ePlayerState.eDie: {
@@ -124,6 +137,13 @@ Game.prototype.update = function () {
             switch (this.mCurrentPlayer.getCurrentState()) {
                 case Player.ePlayerState.eWait: {
                     this.setCurrentPlayer(0);
+                        var tempX, tempY, tempWeapon, tempAmount;                    
+                        tempX = this.random(-500, 400);
+                        tempWeapon = this.random(1, 7);  
+                        tempAmount = this.random(1, 5);
+                        var mBow = new Bow(tempX, 100, tempWeapon, tempAmount, 50);
+                        this.mCurrentScene.mAllObjs.addToSet(mBow);
+                        this.mCurrentScene.mDestroyable.addToSet(mBow);
                     break;
                 }
                 case Player.ePlayerState.eDie: {
@@ -161,4 +181,9 @@ Game.prototype.decreaseSpaceLimit = function (delta) {
     this.mSpaceLimit.upLimit -= 2 * delta;
     this.mSpaceLimit.leftLimit += delta;
     this.mSpaceLimit.rightLimit -= delta;
+};
+
+Game.prototype.random = function(min, max) {
+    parseInt(Math.random()*(max-min+1)+min,10);
+    return Math.floor(Math.random()*(max-min+1)+min);
 };

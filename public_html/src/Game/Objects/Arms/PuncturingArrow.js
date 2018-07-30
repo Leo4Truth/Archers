@@ -17,7 +17,7 @@ function PuncturingArrow(
     this.mVy = vY;
 
     this.mHitSet = new GameObjectSet();
-    this.mDamage = 5;
+    this.mDamage = 4;
 
     //particles
     this.mGenerateParticles = 1;

@@ -70,10 +70,14 @@ Arrow.prototype.update = function () {
 
     if (this.mCurrentState === Arrow.eArrowState.eHit) {
         this.mEffectTimer++;
-        console.log(this.mEffectTimer);
+//        console.log(this.mffectTimer);
         if (this.mEffectTimer === this.mEffectTimeLimit && this.isEffectEnd()) {
             this.mAllObjs.removeFromSet(this);
             this.mCurrentState = Arrow.eArrowState.eEffect;
+<<<<<<< HEAD
+=======
+//            console.log(this);
+>>>>>>> 7f794257209e752b649be5ec7b7d2f28386651af
         }
         return;
     }
@@ -111,6 +115,10 @@ Arrow.prototype.update = function () {
 
         if (obj instanceof Archer) {
             this.mEffectObj.push(obj);
+<<<<<<< HEAD
+=======
+//            console.log(this.mEffectObj);
+>>>>>>> 7f794257209e752b649be5ec7b7d2f28386651af
         }
 
         if (obj !== this &&
@@ -197,7 +205,7 @@ Arrow.prototype.effectOnObstacle = function (obj) {
 
 Arrow.prototype.effectOnArcher = function (obj) {
     this.mAllObjs.removeFromSet(this);
-    obj.loseHp(1);
+    obj.loseHp(2);
     this.mCurrentState = Arrow.eArrowState.eHit;
 };
 

@@ -173,8 +173,8 @@ MyMenu.prototype.keyControl = function () {
             this.option = 2;
             this.mAbout.getXform().setPosition(0, 100);
         }
-        else
-            gEngine.GameLoop.stop();
+//        else
+//            gEngine.GameLoop.stop();
     }
 
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.W) || gEngine.Input.isKeyClicked(gEngine.Input.keys.Up)) {

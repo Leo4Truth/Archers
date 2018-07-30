@@ -109,7 +109,7 @@ MineLauncher.prototype.plantMine = function () {
     var XPos = this.getXform().getXPos();
     var YPos = this.getXform().getYPos() + 10;
     mine = new Mine(
-        XPos, YPos, Mine.eAssets.eMineTexture, 1,
+        XPos, YPos, Mine.eAssets.eMineTexture, 3,
         this.mAllObjs, this.mObstacle, this.mDestroyable);
     this.mAllObjs.addToSet(mine);
     this.mDestroyable.addToSet(mine);

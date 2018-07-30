@@ -111,7 +111,7 @@ Destroyer.prototype.effectOnObstacle = function (obj) {
 
 
 Destroyer.prototype.effectOnArcher = function (obj) {
-    obj.loseHp(5);
+    obj.loseHp(3);
     this.mAllObjs.removeFromSet(this);
     this.mGenerateParticles = 0;
     this.mCurrentState = Arrow.eArrowState.eHit;
