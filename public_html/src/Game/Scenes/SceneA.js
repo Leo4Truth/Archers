@@ -94,7 +94,7 @@ SceneA.prototype.unloadScene = function () {
 
     Bow.unloadAssets();
     LifePotion.unloadAssets();
-    Mine.unloadAssets();j
+    Mine.unloadAssets();
 
     switch (this.mPlace) {
         case Background.ePlace.eEasternCity: {

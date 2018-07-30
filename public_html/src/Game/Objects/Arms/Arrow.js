@@ -21,6 +21,10 @@ Arrow.eAssets = Object.freeze({
     eRegenerationArrowTexture: "./assets/arrows/regenerationArrow.png"
 });
 
+Arrow.eAudio = Object.freeze({
+    eChickenScreaming : "assets/sounds/chicken.mp3"
+});
+
 function Arrow(
     posX, posY, vX, vY, texture,
     aAllObjs, aObstacle, aDestroyable,
@@ -236,6 +240,8 @@ Arrow.loadAssets = function () {
     gEngine.Textures.loadTexture(Arrow.eAssets.eMineLauncherTexture);
     gEngine.Textures.loadTexture(Arrow.eAssets.ePoisonArrowTexture);
     gEngine.Textures.loadTexture(Arrow.eAssets.eRegenerationArrowTexture);
+
+    gEngine.AudioClips.loadAudio(Arrow.eAudio.eChickenScreaming);
 };
 
 Arrow.unloadAssets = function () {
@@ -250,4 +256,6 @@ Arrow.unloadAssets = function () {
     gEngine.Textures.unloadTexture(Arrow.eAssets.eMineLauncherTexture);
     gEngine.Textures.unloadTexture(Arrow.eAssets.ePoisonArrowTexture);
     gEngine.Textures.unloadTexture(Arrow.eAssets.eRegenerationArrowTexture);
+
+    gEngine.AudioClips.unloadAudio(Arrow.eAudio.eChickenScreaming);
 };

@@ -1,9 +1,5 @@
 "use strict";
 
-ScreamingChickenArrow.eAudio = Object.freeze({
-    eChicken : "assets/sounds/chicken.mp3"
-});
-
 function ScreamingChickenArrow(
     posX, posY, vX, vY,
     aAllObjs, aObstacle, aDestroyable,
@@ -54,11 +50,9 @@ ScreamingChickenArrow.prototype.update = function () {
     if (this.mIsChicken) {
         if (this.mDirection) {
             this.getRigidBody().setVelocity(100, -30);
-//            this.mArrow.getXform().setRotationInRad(-Math.PI / 2);
         }
         else {
             this.getRigidBody().setVelocity(-100, -30);
-//            this.mArrow.getXform().setRotationInRad(Math.PI / 2);
         }
     }
     if (this.mGenerateParticles === 1) {
@@ -109,7 +103,7 @@ ScreamingChickenArrow.prototype.getScreamingChicken = function () {
 };
 
 ScreamingChickenArrow.prototype.effectOnArcher = function (obj) {
-    gEngine.AudioClips.playACue(ScreamingChickenArrow.eAudio.eChicken);
+    gEngine.AudioClips.playACue(Arrow.eAudio.eChickenScreaming);
     var i;
     var hasDamaged = 0;
     for (i = 0; i < this.mAffected.length; ++i) {
@@ -145,7 +139,7 @@ ScreamingChickenArrow.prototype.effectOnArcher = function (obj) {
 
 ScreamingChickenArrow.prototype.effectOnObstacle = function (obj) {
     if (!this.mIsChicken) {
-        gEngine.AudioClips.playACue(ScreamingChickenArrow.eAudio.eChicken);
+        gEngine.AudioClips.playACue(Arrow.eAudio.eChickenScreaming);
         this.mIsChicken = true;
         if (this.getRigidBody().getVelocity()[0] < 0)
             this.mDirection = 0;
@@ -155,7 +149,7 @@ ScreamingChickenArrow.prototype.effectOnObstacle = function (obj) {
 };
 
 ScreamingChickenArrow.prototype.effectOnDestroyable = function (obj) {
-    gEngine.AudioClips.playACue(ScreamingChickenArrow.eAudio.eChicken);
+    gEngine.AudioClips.playACue(Arrow.eAudio.eChickenScreaming);
     if (obj instanceof LifePotion) {
         this.mMaster.addHp(1);
     }

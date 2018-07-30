@@ -385,6 +385,7 @@ Player.prototype.draw = function () {
         for (i = 0; i < spaceLimitSet.length; i++)
             spaceLimitSet[i].draw(camera);
 
+        /*
         // for puncturing arrow
         if (this.mArrow && this.mArrow instanceof PuncturingArrow) {
             this.mArrow.draw(camera);
@@ -393,21 +394,9 @@ Player.prototype.draw = function () {
         if (this.mArrow && this.mArrow instanceof ScreamingChickenArrow && this.mArrow.isChicken()) {
             this.mArrow.draw(camera);
         }
-
-        /*
-        var spaceLimit = this.mGame.getSpaceLimit();
-        var spaceLimitRenderable = new Renderable();
-        spaceLimitRenderable.setColor([1, 0, 0, 0]);
-        spaceLimitRenderable.getXform().setPosition(
-            (spaceLimit.rightLimit + spaceLimit.leftLimit) / 2,
-            (spaceLimit.upLimit + spaceLimit.rightLimit) / 2
-        );
-        spaceLimitRenderable.getXform().setSize(
-            spaceLimit.rightLimit - spaceLimit.leftLimit,
-            spaceLimit.upLimit - spaceLimit.rightLimit
-        );
-        spaceLimitRenderable.draw(camera);
         */
+        if (this.mArrow && this.mArrow.getCurrentState() === Arrow.eArrowState.eHit)
+            this.mArrow.draw(camera);
 
         // draw buff for self
         for (i = 0; i < this.mBuffSet.length; i++)
@@ -425,20 +414,6 @@ Player.prototype.draw = function () {
         this.mAllObjs.draw(camera);
         this.mMark.draw(camera);
         this.mShootController.draw(camera);
-
-
-
-
-        /*
-        if (this.mArrow instanceof ScreamingChickenArrow &&
-            this.mArrow.isChicken()) {
-            console.log(
-                this.mArrow.getScreamingChicken().getXform().getXPos(),
-                this.mArrow.getScreamingChicken().getXform().getYPos()
-            );
-            this.mArrow.getScreamingChicken().draw(camera);
-        }
-        */
 
         camera = this.mArmoryCamera;
         camera.setupViewProjection();

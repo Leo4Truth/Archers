@@ -28,7 +28,6 @@ function Game() {
 }
 
 Game.prototype.setCurrentPlayer = function (index) {
-    // console.log(this.mCurrentScene.mAllObjs);
     this.mTurns++;
     this.mPlayers[0].incTurns();
     this.mPlayers[1].incTurns();
@@ -38,7 +37,8 @@ Game.prototype.setCurrentPlayer = function (index) {
     this.mCurrentPlayer = this.mPlayers[index];
     this.mCurrentPlayer.setState(Player.ePlayerState.eReady);
     this.mCurrentPlayer.resetTimer();
-    this.mCurrentPlayer.resetCamera();
+    for (i = 0; i < 5; i++)
+        this.mCurrentPlayer.resetCamera();
 
     var i;
     if (index === 0) {

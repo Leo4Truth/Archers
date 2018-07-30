@@ -68,9 +68,9 @@ ShockWave.prototype.effectOnObstacle = function (obj) {
         if (obj instanceof Archer) {
             var distance = this.calculateDistance(obj.getXform().getXPos(), obj.getXform().getYPos());
             if (distance <= 60) {
-                var xSpeed = 15 + (60 - distance) * (obj.getXform().getXPos() - this.getXform().getXPos()) / distance;
-                var ySpeed = 30 + (60 - distance) * (obj.getXform().getYPos() - this.getXform().getYPos()) / distance;
-                obj.getRigidBody().setVelocity(xSpeed, ySpeed);
+                var vx = 5 + (80 - distance) * (obj.getXform().getXPos() - this.getXform().getXPos()) / distance;
+                var vy = 15 + (80 - distance) * (obj.getXform().getYPos() - this.getXform().getYPos()) / distance;
+                obj.getRigidBody().setVelocity(vx, vy);
             }
         }
     }
@@ -82,15 +82,17 @@ ShockWave.prototype.effectOnArcher = function (obj) {
     this.mAllObjs.removeFromSet(this);
     obj.loseHp(2);
     if (this.getXform().getXPos() < obj.getXform().getXPos())
-        obj.getRigidBody().setVelocity(20, 30);
+        obj.getRigidBody().setVelocity(40, 60);
     else
-        obj.getRigidBody().setVelocity(-20, 30);
+        obj.getRigidBody().setVelocity(-40, 60);
     this.mGenerateParticles = 0;
     this.mCurrentState = Arrow.eArrowState.eHit;
 };
 
 
 ShockWave.prototype.calculateDistance = function (posX, posY) {
-    return Math.sqrt(Math.pow(this.getXform().getXPos() - posX, 2)
-        + Math.pow(this.getXform().getYPos() - posY, 2));
+    return Math.sqrt(
+        Math.pow(this.getXform().getXPos() - posX, 2) +
+        Math.pow(this.getXform().getYPos() - posY, 2)
+    );
 };
