@@ -15,7 +15,7 @@ function MineLauncher(
     this.getRigidBody().setMass(0.1);
 
     this.mBounceCount = 30;
-
+//    this.mMaster = master;
     //particles
     this.mGenerateParticles = 1;
     this.mParticles = new ParticleGameObjectSet();
@@ -85,12 +85,16 @@ MineLauncher.prototype.effectOnDestroyable = function (obj) {
     this.mAllObjs.removeFromSet(this);
 
     if (obj instanceof LifePotion) {
-        this.mMaster.addHp(1);
+        this.mMaster.getArcher().addHp(1);
         this.mAllObjs.removeFromSet(obj);
         this.mDestroyable.removeFromSet(obj);
     }
     else if (obj instanceof Bow) {
         this.mMaster.getMoreArm(obj.getArmNum(), obj.getArmAmount());
+        this.mAllObjs.removeFromSet(obj);
+        this.mDestroyable.removeFromSet(obj);
+    }
+    else if (obj instanceof Mine){
         this.mAllObjs.removeFromSet(obj);
         this.mDestroyable.removeFromSet(obj);
     }
