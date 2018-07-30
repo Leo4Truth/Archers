@@ -339,11 +339,19 @@ Player.prototype.keyControl = function () {
                 }
             }
 
+            /*
             if (
                 gEngine.Input.isKeyPressed(gEngine.Input.keys.A) ||
                 gEngine.Input.isKeyPressed(gEngine.Input.keys.D) ||
                 gEngine.Input.isKeyPressed(gEngine.Input.keys.Space)
             ) {
+                this.resetCamera();
+            }
+            */
+
+            var v = this.mArcher.getRigidBody().getVelocity();
+            if (Math.abs(v[0]) >= 1.0 ||
+                Math.abs(v[1]) >= 1.0) {
                 this.resetCamera();
             }
 
@@ -615,7 +623,7 @@ Player.prototype.cameraKeyControl = function () {
     else if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)) {
         newMainCameraWCCenterX += 20;
     }
-    else if (gEngine.Input.isKeyPressed(gEngine.Input.keys.H)) {
+    else if (gEngine.Input.isKeyPressed(gEngine.Input.keys.F)) {
         this.resetCamera();
         return;
     }
