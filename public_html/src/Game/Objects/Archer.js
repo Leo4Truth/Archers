@@ -371,6 +371,15 @@ Archer.prototype.getMoreArm = function (armNum, armAmount) {
     this.mPlayer.getMoreArm(armNum, armAmount);
 };
 
+Archer.prototype.getCurrentState = function () {
+    return this.eCurrentState;
+};
+
+Archer.prototype.setCurrentState = function (state) {
+    this.eCurrentState = state;
+};
+
+
 Archer.loadAssets = function () {
     gEngine.Textures.loadTexture(Archer.eAssets_1.eStandRightTexture);
     gEngine.Textures.loadTexture(Archer.eAssets_1.eWalkRightTexture);

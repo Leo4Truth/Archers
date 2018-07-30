@@ -279,6 +279,58 @@ Player.prototype.keyControl = function () {
             this.mArmory.keyControl();
             this.mArcher.keyControl();
 
+            if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Left)) {
+                if (this.mMainCamera.isMouseInViewport()) {
+                    var msPosX = this.mMainCamera.mouseWCX();
+                    var msPosY = this.mMainCamera.mouseWCY();
+                    var archX = this.mArcher.getXform().getXPos();
+                    var archY = this.mArcher.getXform().getYPos();
+                    var distance = this.calculateDistance(msPosX, msPosY, archX, archY);
+                    var sin = (msPosY - archY) / distance;
+                    var rad = Math.asin(sin);
+                    if (this.mArcher.getCurrentState() === Archer.eArcherState.eStandLeft
+                        || this.mArcher.getCurrentState() === Archer.eArcherState.eWalkLeft) {
+                        if (msPosX <= archX)
+                            this.mShootController.setRotationInRad(Math.PI - rad);
+                        else {
+                            if (this.mArcher.getCurrentState() === Archer.eArcherState.eStandLeft) {
+                                this.mArcher.setCurrentState(Archer.eArcherState.eStandRight);
+                                this.mArcher.setCurrentFrontDir(Archer.eDirection.eRight);
+                                this.mShootController.setRotationInRad(Math.PI - rad);
+                            }
+                        }
+                    }
+                    else if (this.mArcher.getCurrentState() === Archer.eArcherState.eStandRight
+                        || this.mArcher.getCurrentState() === Archer.eArcherState.eWalkRight) {
+                        if (msPosX >= archX)
+                            this.mShootController.setRotationInRad(rad);
+                        else {
+                            if (this.mArcher.getCurrentState() === Archer.eArcherState.eStandRight) {
+                                this.mArcher.setCurrentState(Archer.eArcherState.eStandLeft);
+                                this.mArcher.setCurrentFrontDir(Archer.eDirection.eLeft);
+                                this.mShootController.setRotationInRad(Math.PI - rad);
+                            }
+                        }
+                    }
+                }
+
+                //Armory mouse choose
+                if (this.mArmoryCamera.isMouseInViewport()) {
+                    var i;
+                    var msPosX = this.mArmoryCamera.mouseWCX() + 1000;
+                    var msPosY = this.mArmoryCamera.mouseWCY();
+                    if (this.mIndex === 1)
+                        msPosY -= 200;
+                    for (i = 0; i < 34; ++i) {
+                        if (Math.abs(msPosX - Armory.eCellOffsets[i][0]) <= 5
+                            && Math.abs(msPosY - Armory.eCellOffsets[i][1]) <= 5) {
+                            this.mArmory.setCurrentArm(i);
+                            break;
+                        }
+                    }
+                }
+            }
+
             if (
                 gEngine.Input.isKeyPressed(gEngine.Input.keys.A) ||
                 gEngine.Input.isKeyPressed(gEngine.Input.keys.D) ||
@@ -668,6 +720,11 @@ Player.prototype.addBuff = function (buff) {
     buff.initialize(this, this.mTurns, 5);
     this.mBuffSet.push(buff);
     console.log(this.mBuffSet);
+};
+
+Player.prototype.calculateDistance = function (posX, posY, aX, aY) {
+    return Math.sqrt(Math.pow(aX - posX, 2)
+        + Math.pow(aY - posY, 2));
 };
 
 Player.loadAssets = function () {

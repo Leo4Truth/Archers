@@ -149,6 +149,14 @@ Armory.prototype.getMoreArm = function (armNum, armAmount) {
     this.mArms[armNum].getMoreArm(armAmount);
 };
 
+Armory.prototype.setCurrentArm = function (num) {
+    if (this.kCurrentArm < this.mArms.length)
+        this.mArms[this.kCurrentArm].setInactive();
+    this.kCurrentArm = num;
+    if (this.kCurrentArm < this.mArms.length)
+        this.mArms[this.kCurrentArm].setActive();
+};
+
 Armory.loadAssets = function () {
     gEngine.Textures.loadTexture(Armory.eAssets.eBackgroundTexture);
     gEngine.Textures.loadTexture(Armory.eAssets.eCellTexture);
