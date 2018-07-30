@@ -44,7 +44,7 @@ RegenerationArrow.prototype.draw = function (aCamera) {
 RegenerationArrow.prototype.createParticle = function(atX, atY) {
     var life = 30 + Math.random() * 200;
     var p = new ParticleGameObject(ParticleSystem.eAssets.eHeart, atX, atY, life);
-//    console.log(p);
+
     p.getRenderable().setColor([1, 1, 1, 1]);
 
     // size of the particle
@@ -97,5 +97,5 @@ RegenerationArrow.prototype.effectOnDestroyable = function (obj) {
 };
 
 RegenerationArrow.prototype.regeneration = function (obj) {
-    obj.mPlayer.addBuff(new RegenerationBuff(2, Buff.eAssets.eRegenerationBuffTexture));
+    obj.mPlayer.addBuff(new RegenerationBuff(3, Buff.eAssets.eRegenerationBuffTexture));
 };

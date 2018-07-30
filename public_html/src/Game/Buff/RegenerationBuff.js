@@ -44,7 +44,7 @@ RegenerationBuff.prototype.draw = function (aCamera) {
 RegenerationBuff.prototype.createParticle = function(atX, atY) {
     var life = 30 + Math.random() * 200;
     var p = new ParticleGameObject(ParticleSystem.eAssets.eHeart, atX, atY, life);
-//    console.log(p);
+
     p.getRenderable().setColor([1, 1, 1, 0.5]);
 
     // size of the particle

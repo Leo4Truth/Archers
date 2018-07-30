@@ -30,7 +30,6 @@ gEngine.Core.inheritPrototype(PuncturingArrow, Arrow);
 PuncturingArrow.prototype.update = function () {
     Arrow.prototype.update.call(this);
 
-//    console.log(this);
     this.getRigidBody().setVelocity(this.mVx, this.mVy);
 
     if (this.mGenerateParticles === 1) {
@@ -75,7 +74,8 @@ PuncturingArrow.prototype.createParticle = function (atX, atY) {
 PuncturingArrow.prototype.effectOnObstacle = function (obj) {
     if (!this.mHitSet.hasObject(obj)) {
         this.mHitSet.addToSet(obj);
-        this.mDamage--;
+        if (this.mDamage >= 2)
+            this.mDamage--;
     }
 };
 
@@ -83,10 +83,10 @@ PuncturingArrow.prototype.effectOnArcher = function (obj) {
     if (obj === this.mMaster) {
         this.mMaster.loseHp(1);
     }
-    else {
+    else if (!this.mHitSet.hasObject(obj)) {
         obj.loseHp(this.mDamage);
+        this.mHitSet.addToSet(obj);
     }
-    this.mCurrentState = Arrow.eArrowState.eHit;
 };
 
 PuncturingArrow.prototype.effectOnDestroyable = function (obj) {
@@ -98,4 +98,10 @@ PuncturingArrow.prototype.effectOnDestroyable = function (obj) {
     }
     this.mAllObjs.removeFromSet(obj);
     this.mDestroyable.removeFromSet(obj);
+
+    if (!this.mHitSet.hasObject(obj)) {
+        this.mHitSet.addToSet(obj);
+        if (this.mDamage >= 2)
+            this.mDamage--;
+    }
 };

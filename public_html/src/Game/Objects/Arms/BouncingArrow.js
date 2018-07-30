@@ -64,6 +64,40 @@ BouncingArrow.prototype.createParticle = function (atX, atY) {
 };
 
 BouncingArrow.prototype.effectOnObstacle = function (obj) {
+    this.bounce(obj);
+};
+
+BouncingArrow.prototype.effectOnDestroyable = function (obj) {
+    this.bounce(obj);
+
+    if (obj instanceof LifePotion) {
+        this.mMaster.getArcher().addHp(1);
+    }
+    else if (obj instanceof Bow) {
+        this.mMaster.getMoreArm(obj.getArmNum(), obj.getArmAmount());
+    }
+    this.mAllObjs.removeFromSet(obj);
+    this.mDestroyable.removeFromSet(obj);
+};
+
+BouncingArrow.prototype.effectOnArcher = function (obj) {
+    this.bounce(obj);
+
+    var v = this.getRigidBody().getVelocity();
+    var speed = Math.sqrt(v[0] * v[0] + v[1] * v[1]);
+    var damage;
+    if (speed < 100)
+        damage = 1;
+    else if (speed >= 100 && speed < 250)
+        damage = 2;
+    else if (speed >= 250 && speed < 400)
+        damage = 3;
+    else
+        damage = 4;
+    obj.loseHp(damage);
+};
+
+BouncingArrow.prototype.bounce = function (obj) {
     var v = this.getRigidBody().getVelocity();
     if (Math.abs(v[0]) > Math.abs(v[1]))
         this.getRigidBody().setVelocity(-v[0] * 1.2, v[1] * 1.2);

@@ -1,12 +1,21 @@
 "use strict";
 
 Background.eAssets = Object.freeze({
-    eEasternCityTexture: "assets/backgrounds/backgroundEasternCity.png",
-    eOutskirtsTexture: "assets/backgrounds/backgroundOutskirts.png",
-    eTownTexture: "assets/backgrounds/backgroundTown.png",
+    eEasternCityTexture: "assets/backgrounds/backgroundEasternCity_1.png",
+    eOutskirtsTexture: "assets/backgrounds/backgroundOutskirts_1.png",
+    eTownTexture: "assets/backgrounds/backgroundTown_1.png",
 
-    eSkyCloudyTexture: "assets/backgrounds/skyCloudy.png",
-    eSkyNightCloudyTexture: "assets/backgrounds/skyNightCloudy.png"
+    eSkyCloudyTexture: "assets/backgrounds/skyCloudy_1.png",
+    eSkyNightCloudyTexture: "assets/backgrounds/skyNightCloudy_1.png"
+});
+
+Background.eTerrainAssets = Object.freeze({
+    ePlatformTexture: "assets/terrains/platform.png",
+    eWallTexture: "assets/terrains/wall.png"
+});
+
+Background.eAudio = Object.freeze({
+    eBgm_1: "assets/sounds/bgm.mp3"
 });
 
 Background.ePlace = Object.freeze({
@@ -33,6 +42,10 @@ function Background(place, sky) {
             this.mSky = new TextureRenderable(Background.eAssets.eSkyNightCloudyTexture);
             break;
         }
+        default: {
+            this.mSky = new TextureRenderable(Background.eAssets.eSkyCloudyTexture);
+            break;
+        }
     }
     this.mSky.setColor([1, 1, 1, 0.2]);
     this.mSky.getXform().setPosition(0, 0);
@@ -51,6 +64,10 @@ function Background(place, sky) {
             this.mPlace = new TextureRenderable(Background.eAssets.eTownTexture);
             break;
         }
+        default: {
+            this.mPlace = new TextureRenderable(Background.eAssets.eEasternCityTexture);
+            break;
+        }
     }
     this.mPlace.setColor([1, 1, 1, 0.2]);
     this.mPlace.getXform().setPosition(0, 0);
@@ -60,4 +77,19 @@ function Background(place, sky) {
 Background.prototype.draw = function (aCamera) {
     this.mSky.draw(aCamera);
     this.mPlace.draw(aCamera);
+};
+
+Background.loadAssets = function () {
+    gEngine.Textures.loadTexture(Background.eTerrainAssets.ePlatformTexture);
+    gEngine.Textures.loadTexture(Background.eTerrainAssets.eWallTexture);
+
+    gEngine.AudioClips.loadAudio(Background.eAudio.eBgm_1);
+};
+
+Background.unloadAssets = function () {
+    gEngine.Textures.unloadTexture(Background.eTerrainAssets.ePlatformTexture);
+    gEngine.Textures.unloadTexture(Background.eTerrainAssets.eWallTexture);
+
+    gEngine.AudioClips.unloadAudio(Background.eAudio.eBgm_1);
+    gEngine.AudioClips.stopBackgroundAudio(this.kBgm);
 };

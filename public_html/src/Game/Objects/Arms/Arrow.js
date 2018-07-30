@@ -138,31 +138,7 @@ Arrow.prototype.update = function () {
             break;
         }
     }
-    /*
-    if (this.getRigidBody().collisionTest(this.mMaster.getRigidBody(), collisionInfo)) {
-        this.mAllObjs.removeFromSet(this);
-        this.mCurrentState = Arrow.eArrowState.eMiss;
-    }
-    */
-    /*
-    var spaceLimit = this.mMaster.getSpaceLimit();
-    if (this.getXform().getYPos() > spaceLimit.upLimit) {
-        this.mAllObjs.removeFromSet(this);
-        this.mCurrentState = Arrow.eArrowState.eMiss;
-    }
-    if (this.getXform().getYPos() < spaceLimit.downLimit) {
-        this.mAllObjs.removeFromSet(this);
-        this.mCurrentState = Arrow.eArrowState.eMiss;
-    }
-    if (this.getXform().getXPos() < spaceLimit.leftLimit) {
-        this.mAllObjs.removeFromSet(this);
-        this.mCurrentState = Arrow.eArrowState.eMiss;
-    }
-    if (this.getXform().getXPos() > spaceLimit.rightLimit) {
-        this.mAllObjs.removeFromSet(this);
-        this.mCurrentState = Arrow.eArrowState.eMiss;
-    }
-    */
+
     if (this.getXform().getYPos() > 250) {
         this.mAllObjs.removeFromSet(this);
         this.mCurrentState = Arrow.eArrowState.eMiss;

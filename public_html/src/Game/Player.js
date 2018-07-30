@@ -19,8 +19,8 @@ Player.ePlayerState = Object.freeze({
 
 Player.eAttributes = Object.freeze({
     eOrginPos: [
-        [-100, -20],
-        [100, -20]
+        [-180, 100],
+        [180, 100]
     ],
     eArmoryPos: [
         [-1000, 0],
@@ -274,7 +274,7 @@ Player.prototype.keyControl = function () {
                     this.mCurrentState = Player.ePlayerState.eShoot;
             }
 
-            this.moveCamera();
+            this.cameraKeyControl();
             this.mShootController.keyControl();
             this.mArmory.keyControl();
             this.mArcher.keyControl();
@@ -314,7 +314,7 @@ Player.prototype.keyControl = function () {
                     }
                 }
 
-                //Armory mouse choose
+                // Armory mouse choose
                 if (this.mArmoryCamera.isMouseInViewport()) {
                     var i;
                     var msPosX = this.mArmoryCamera.mouseWCX() + 1000;
@@ -328,6 +328,14 @@ Player.prototype.keyControl = function () {
                             break;
                         }
                     }
+                }
+
+                // Minimap mouse choose
+                if (this.mMinimapCamera.isMouseInViewport()) {
+                    var i;
+                    var msPosX = this.mMinimapCamera.mouseWCX();
+                    var msPosY = this.mMinimapCamera.mouseWCY();
+                    this.moveCameraTo(msPosX, msPosY);
                 }
             }
 
@@ -385,17 +393,9 @@ Player.prototype.draw = function () {
         for (i = 0; i < spaceLimitSet.length; i++)
             spaceLimitSet[i].draw(camera);
 
-        /*
-        // for puncturing arrow
-        if (this.mArrow && this.mArrow instanceof PuncturingArrow) {
-            this.mArrow.draw(camera);
-        }
-        // for screaming chicken arrow
-        if (this.mArrow && this.mArrow instanceof ScreamingChickenArrow && this.mArrow.isChicken()) {
-            this.mArrow.draw(camera);
-        }
-        */
         if (this.mArrow && this.mArrow.getCurrentState() === Arrow.eArrowState.eHit)
+            this.mArrow.draw(camera);
+        if (this.mArrow && this.mArrow instanceof PuncturingArrow)
             this.mArrow.draw(camera);
 
         // draw buff for self
@@ -599,7 +599,7 @@ Player.prototype.shoot = function () {
     }
 };
 
-Player.prototype.moveCamera = function () {
+Player.prototype.cameraKeyControl = function () {
     var mainCameraWCCenter = this.mMainCamera.getWCCenter();
     var newMainCameraWCCenterX = mainCameraWCCenter[0];
     var newMainCameraWCCenterY = mainCameraWCCenter[1];
@@ -649,6 +649,22 @@ Player.prototype.resetCamera = function () {
     }
 };
 
+Player.prototype.moveCameraTo = function (xpos, ypos) {
+    if (xpos > 160)
+        xpos = 160;
+    if (xpos < -160)
+        xpos = -160;
+    if (ypos > 65)
+        ypos = 65;
+    if (ypos < -65)
+        ypos = -65;
+    var i;
+    for (i = 0; i < 20; i++) {
+        this.mMainCamera.setWCCenter(xpos, ypos);
+        this.mMainCamera.update();
+    }
+};
+
 Player.prototype.traceArrow = function () {
     if (this.mArrow) {
         var cameraCenterX = this.mArrow.getXform().getXPos();
@@ -694,7 +710,6 @@ Player.prototype.incTurns = function () {
 Player.prototype.addBuff = function (buff) {
     buff.initialize(this, this.mTurns, 5);
     this.mBuffSet.push(buff);
-    console.log(this.mBuffSet);
 };
 
 Player.prototype.calculateDistance = function (posX, posY, aX, aY) {

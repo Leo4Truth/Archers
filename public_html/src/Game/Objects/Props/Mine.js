@@ -6,7 +6,7 @@ Mine.eAudio = Object.freeze({
     eExplode : "assets/sounds/Explosion.mp3"
 });
 
-function Mine(posX, posY, texture, restore, allObj, allObstacle, aDestroyable) {
+function Mine(posX, posY, texture, damage, allObj, allObstacle, aDestroyable) {
     this.mMine = new TextureRenderable(texture);
     this.mMine.setColor([1, 1, 1, 0]);
     this.mMine.getXform().setPosition(posX, posY);
@@ -23,7 +23,7 @@ function Mine(posX, posY, texture, restore, allObj, allObstacle, aDestroyable) {
     this.mAllObjs = allObj;
     this.mObstacle = allObstacle;
     this.mDestroyable = aDestroyable;
-    this.mRestore = restore;
+    this.mdamage = damage;
 
     this.mArcherSet = [];
     var i;
@@ -61,7 +61,7 @@ Mine.prototype.update = function () {
     }
     if (minarch !== -1) {
         gEngine.AudioClips.playACue(Mine.eAudio.eExplode);
-        this.mArcherSet[minarch].loseHp(this.getRestore());
+        this.mArcherSet[minarch].loseHp(this.getDamage());
         this.mAllObjs.removeFromSet(this);
         this.mDestroyable.removeFromSet(this);
     }
@@ -70,8 +70,8 @@ Mine.prototype.update = function () {
     //this.mMine.getXform().setRotationInRad(0);
 };
 
-Mine.prototype.getRestore = function () {
-    return this.mRestore;
+Mine.prototype.getDamage = function () {
+    return this.mdamage;
 };
 
 

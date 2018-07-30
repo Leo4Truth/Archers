@@ -4,9 +4,11 @@ LifePotion.eAssets = Object.freeze({
     eLifePotionTexture: "./assets/props/lifePotion.png"
 });
 
-function LifePotion(posX, posY, texture, restore,
-                    allObj, allObstacle, aDestroyable) {
-    this.mLifePotion = new TextureRenderable(texture);
+function LifePotion(
+    posX, posY, restore,
+    allObj, allObstacle, aDestroyable
+) {
+    this.mLifePotion = new TextureRenderable(LifePotion.eAssets.eLifePotionTexture);
     this.mLifePotion.setColor([1, 1, 1, 0]);
     this.mLifePotion.getXform().setPosition(posX, posY);
     this.mLifePotion.getXform().setSize(4, 4);
@@ -83,4 +85,24 @@ LifePotion.loadAssets = function () {
 
 LifePotion.unloadAssets = function () {
     gEngine.Textures.unloadTexture(LifePotion.eAssets.eLifePotionTexture);
+};
+
+LifePotion.randomLifePotion = function (xpos, ypos, allObj, allObstacle, aDestroyable) {
+    var newLifePotion = null;
+    var restoreRand = Math.floor(0, 10);
+
+    if (restoreRand < 4) {
+        newLifePotion = new LifePotion(xpos, ypos, 1, allObj, allObstacle, aDestroyable);
+    }
+    else if (restoreRand >= 4 && restoreRand < 7) {
+        newLifePotion = new LifePotion(xpos, ypos, 2, allObj, allObstacle, aDestroyable);
+    }
+    else if (restoreRand >= 7 && restoreRand < 9) {
+        newLifePotion = new LifePotion(xpos, ypos, 3, allObj, allObstacle, aDestroyable);
+    }
+    else if (restoreRand >= 9 && restoreRand < 10) {
+        newLifePotion = new LifePotion(xpos, ypos, 4, allObj, allObstacle, aDestroyable);
+    }
+
+    return newLifePotion;
 };

@@ -56,23 +56,23 @@ function Armory(XPos, YPos) {
     var newArm = new Arm(this.XPos, this.YPos, 0, 99, Arm.eIconAssets.eNormalArrow);
     newArm.setActive();
     this.addArm(newArm);
-    newArm = new Arm(this.XPos, this.YPos, 1, 10, Arm.eIconAssets.ePaperPlane);
+    newArm = new Arm(this.XPos, this.YPos, 1, 5, Arm.eIconAssets.ePaperPlane);
     this.addArm(newArm);
-    newArm = new Arm(this.XPos, this.YPos, 2, 10, Arm.eIconAssets.eBouncingArrow);
+    newArm = new Arm(this.XPos, this.YPos, 2, 5, Arm.eIconAssets.eBouncingArrow);
     this.addArm(newArm);
-    newArm = new Arm(this.XPos, this.YPos, 3, 10, Arm.eIconAssets.eDestroyer);
+    newArm = new Arm(this.XPos, this.YPos, 3, 2, Arm.eIconAssets.eDestroyer);
     this.addArm(newArm);
-    newArm = new Arm(this.XPos, this.YPos, 4, 10, Arm.eIconAssets.ePuncturingArrow);
+    newArm = new Arm(this.XPos, this.YPos, 4, 1, Arm.eIconAssets.ePuncturingArrow);
     this.addArm(newArm);
-    newArm = new Arm(this.XPos, this.YPos, 5, 10, Arm.eIconAssets.eShockWave);
+    newArm = new Arm(this.XPos, this.YPos, 5, 5, Arm.eIconAssets.eShockWave);
     this.addArm(newArm);
     newArm = new Arm(this.XPos, this.YPos, 6, 10, Arm.eIconAssets.eScreamingChickenArrow);
     this.addArm(newArm);
-    newArm = new Arm(this.XPos, this.YPos, 7, 10, Arm.eIconAssets.eMineLauncher);
+    newArm = new Arm(this.XPos, this.YPos, 7, 3, Arm.eIconAssets.eMineLauncher);
     this.addArm(newArm);
-    newArm = new Arm(this.XPos, this.YPos, 8, 10, Arm.eIconAssets.ePoisonArrow);
+    newArm = new Arm(this.XPos, this.YPos, 8, 3, Arm.eIconAssets.ePoisonArrow);
     this.addArm(newArm);
-    newArm = new Arm(this.XPos, this.YPos, 9, 10, Arm.eIconAssets.eRegenerationArrow);
+    newArm = new Arm(this.XPos, this.YPos, 9, 2, Arm.eIconAssets.eRegenerationArrow);
     this.addArm(newArm);
 }
 

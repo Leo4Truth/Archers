@@ -12,7 +12,7 @@ MyMenu.eAssets = Object.freeze({
 });
 
 function MyMenu(game) {
-    this.game = game;
+    this.mGame = game;
 
     this.mTitle = null;
     this.mButton1 = null;
@@ -57,16 +57,13 @@ MyMenu.prototype.unloadScene = function() {
     gEngine.Textures.unloadTexture(MyMenu.eAssets.MenuButton2Texture);
     gEngine.Textures.unloadTexture(MyMenu.eAssets.MenuButton3Texture);
     gEngine.Textures.unloadTexture(MyMenu.eAssets.MenuMarkTexture);
-    // textures for each car color
 
-    var nextLevel = new SceneA(this.game, Background.ePlace.eEasternCity, Background.eSky.eNightCloudy); // pass CarColor selection to MyGame
+    var skyRandom = Math.floor(Game.random(0, 1.8));
+    var placeRandom = Math.floor(Game.random(0, 2.8));
+
+    var nextLevel = new SceneA(this.mGame, placeRandom, skyRandom);
     gEngine.Core.startScene(nextLevel);
-    this.game.mCurrentScene = nextLevel;
-    //this.game.setState(Game.eGameState.ePlayer1_Turn);
-    
-    
-    
-    
+    this.mGame.mCurrentScene = nextLevel;
 };
 
 MyMenu.prototype.initialize = function() {
@@ -173,8 +170,6 @@ MyMenu.prototype.keyControl = function () {
             this.option = 2;
             this.mAbout.getXform().setPosition(0, 100);
         }
-//        else
-//            gEngine.GameLoop.stop();
     }
 
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.W) || gEngine.Input.isKeyClicked(gEngine.Input.keys.Up)) {
@@ -205,6 +200,7 @@ MyMenu.prototype.keyControl = function () {
 MyMenu.prototype.draw = function() {
     gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
     this.mCamera.setupViewProjection(); // activate drawing camera
+
     // draw all SplashScreen GameObjects
     // draw LevelBackground
     this.mLevelBackground.draw(this.mCamera);

@@ -38,7 +38,7 @@ PaperPlane.prototype.draw = function (aCamera) {
 PaperPlane.prototype.createParticle = function(atX, atY) {
     var life = 30 + Math.random() * 200;
     var p = new ParticleGameObject(ParticleSystem.eAssets.eSnow, atX, atY, life);
-//    console.log(p);
+
     p.getRenderable().setColor([1, 1, 1, 1]);
 
     // size of the particle

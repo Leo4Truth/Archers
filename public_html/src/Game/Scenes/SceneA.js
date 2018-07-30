@@ -6,18 +6,12 @@ function SceneA(game, place, sky) {
     this.mPlace = place;
     this.mSky = sky;
 
-    this.kPlatformTexture = "assets/terrains/platform.png";
-    this.kWallTexture = "assets/terrains/wall.png";
-
-    this.kBgm = "assets/sounds/bgm.mp3";    
-
     //GameObjectSets
     this.mAllObjs = null;   //All GameObject
     this.mAllObstacles = null; // All Obstacles which cant be destroyed
     this.mDestroyable = null; // All objects that can be shot
 
-    this.mLifePotion = null;
-    this.mBow = null;
+    this.mProps = null;
 
     this.mBackground = null;
 
@@ -26,6 +20,8 @@ function SceneA(game, place, sky) {
 gEngine.Core.inheritPrototype(SceneA, Scene);
 
 SceneA.prototype.loadScene = function () {
+    Background.loadAssets();
+
     Player.loadAssets();
     Archer.loadAssets();
     Arrow.loadAssets();
@@ -44,40 +40,16 @@ SceneA.prototype.loadScene = function () {
     LifePotion.loadAssets();
     Mine.loadAssets();
 
-
-    switch (this.mPlace) {
-        case Background.ePlace.eEasternCity: {
-            gEngine.Textures.loadTexture(Background.eAssets.eEasternCityTexture);
-            break;
-        }
-        case Background.ePlace.eOutskirts: {
-            gEngine.Textures.loadTexture(Background.eAssets.eOutskirtsTexture);
-            break;
-        }
-        case Background.ePlace.eTown: {
-            gEngine.Textures.loadTexture(Background.eAssets.eTownTexture);
-            break;
-        }
-    }
-    
-    switch (this.mSky) {
-        case Background.eSky.eCloudy: {
-            gEngine.Textures.loadTexture(Background.eAssets.eSkyCloudyTexture);
-            break;
-        }
-        case Background.eSky.eNightCloudy: {
-            gEngine.Textures.loadTexture(Background.eAssets.eSkyNightCloudyTexture);
-            break;
-        }
-    }
-
-    gEngine.Textures.loadTexture(this.kPlatformTexture);
-    gEngine.Textures.loadTexture(this.kWallTexture);
-
-    gEngine.AudioClips.loadAudio(this.kBgm);
+    gEngine.Textures.loadTexture(Background.eAssets.eEasternCityTexture);
+    gEngine.Textures.loadTexture(Background.eAssets.eOutskirtsTexture);
+    gEngine.Textures.loadTexture(Background.eAssets.eTownTexture);
+    gEngine.Textures.loadTexture(Background.eAssets.eSkyCloudyTexture);
+    gEngine.Textures.loadTexture(Background.eAssets.eSkyNightCloudyTexture);
 };
 
 SceneA.prototype.unloadScene = function () {
+    Background.unloadAssets();
+
     Player.unloadAssets();
     Archer.unloadAssets();
     Arrow.unloadAssets();
@@ -96,37 +68,12 @@ SceneA.prototype.unloadScene = function () {
     LifePotion.unloadAssets();
     Mine.unloadAssets();
 
-    switch (this.mPlace) {
-        case Background.ePlace.eEasternCity: {
-            gEngine.Textures.unloadTexture(Background.eAssets.eEasternCityTexture);
-            break;
-        }
-        case Background.ePlace.eOutskirts: {
-            gEngine.Textures.unloadTexture(Background.eAssets.eOutskirtsTexture);
-            break;
-        }
-        case Background.ePlace.eTown: {
-            gEngine.Textures.unloadTexture(Background.eAssets.eTownTexture);
-            break;
-        }
-    }
+    gEngine.Textures.unloadTexture(Background.eAssets.eSkyCloudyTexture);
+    gEngine.Textures.unloadTexture(Background.eAssets.eSkyNightCloudyTexture);
 
-    switch (this.mSky) {
-        case Background.eSky.eCloudy: {
-            gEngine.Textures.unloadTexture(Background.eAssets.eSkyCloudyTexture);
-            break;
-        }
-        case Background.eSky.eNightCloudy: {
-            gEngine.Textures.unloadTexture(Background.eAssets.eSkyNightCloudyTexture);
-            break;
-        }
-    }
-
-    gEngine.Textures.unloadTexture(this.kPlatformTexture);
-    gEngine.Textures.unloadTexture(this.kWallTexture);
-
-    gEngine.AudioClips.unloadAudio(this.kBgm);
-    gEngine.AudioClips.stopBackgroundAudio(this.kBgm);
+    gEngine.Textures.unloadTexture(Background.eAssets.eTownTexture);
+    gEngine.Textures.unloadTexture(Background.eAssets.eEasternCityTexture);
+    gEngine.Textures.unloadTexture(Background.eAssets.eOutskirtsTexture);
 
     var nextLevel;
     switch (this.mGame.getState()) {
@@ -155,12 +102,15 @@ SceneA.prototype.initialize = function () {
     this.mAllObstacles = new GameObjectSet();
     this.mDestroyable = new GameObjectSet();
 
+    this.mProps = new GameObjectSet();
+
     this.mBackground = new Background(this.mPlace, this.mSky);
 
     this.mGame.initialize(this.mAllObjs, this.mAllObstacles, this.mDestroyable, this.mBackground);
 
     this.createBounds();
 
+    // Players
     var player;
 
     player = this.mGame.getPlayerAt(0);
@@ -171,38 +121,54 @@ SceneA.prototype.initialize = function () {
     this.mAllObjs.addToSet(player.getArcher());
     this.mAllObstacles.addToSet(player.getArcher());
 
+    // Props
     var i, tempX, tempY;
-    for(i = 0; i < 2; ++i){
-        tempX = this.random(0, 900);
-        tempY = this.random(0, 170);
-        this.mLifePotion = new LifePotion(tempX-500, tempY-70, LifePotion.eAssets.eLifePotionTexture, 2,
-                                    this.mAllObjs, this.mAllObstacles, this.mDestroyable);
-        this.mAllObjs.addToSet(this.mLifePotion);
-        this.mDestroyable.addToSet(this.mLifePotion);
+    for (i = 0; i < 2; i++) {
+        tempX = Game.random(0, 480) - 240;
+        tempY = Game.random(110, 170) - 70;
+        var lifePotion = LifePotion.randomLifePotion(
+            tempX, tempY,
+            this.mAllObjs, this.mAllObstacles, this.mDestroyable
+        );
+        this.mAllObjs.addToSet(lifePotion);
+        this.mDestroyable.addToSet(lifePotion);
+        this.mProps.addToSet(lifePotion);
+        lifePotion = LifePotion.randomLifePotion(
+            -tempX, tempY,
+            this.mAllObjs, this.mAllObstacles, this.mDestroyable
+        );
+        this.mAllObjs.addToSet(lifePotion);
+        this.mDestroyable.addToSet(lifePotion);
+        this.mProps.addToSet(lifePotion);
     }
 
-    var tempWeapon, tempAmount;
-    for(i = 0; i < 5; ++i){
-        tempX = this.random(0, 900);
-        tempY = this.random(0, 170);
-        tempWeapon = this.random(1, 7);  
-        tempAmount = this.random(1, 5);
-        this.mBow = new Bow(tempX-500, tempY-70, tempWeapon, tempAmount, 50);
-        this.mAllObjs.addToSet(this.mBow);
-        this.mDestroyable.addToSet(this.mBow);
+    for (i = 0; i < 2; i++) {
+        tempX = Game.random(0, 480) - 240;
+        tempY = Game.random(110, 170) - 70;
+        var newBow = Bow.randomBow(tempX, tempY);
+        this.mAllObjs.addToSet(newBow);
+        this.mDestroyable.addToSet(newBow);
+        this.mProps.addToSet(newBow);
+        newBow = Bow.randomBow(-tempX, tempY);
+        this.mAllObjs.addToSet(newBow);
+        this.mDestroyable.addToSet(newBow);
+        this.mProps.addToSet(newBow);
     }
-    this.mBow = new Bow(0, -90, Arm.eArmNum.ePuncturingArrow, 2, 50);
-    this.mAllObjs.addToSet(this.mBow);
-    this.mDestroyable.addToSet(this.mBow);
 
-    this.mBow = new Bow(30, -90, Arm.eArmNum.ePuncturingArrow, 2, 50);
-    this.mAllObjs.addToSet(this.mBow);
-    this.mDestroyable.addToSet(this.mBow);
+    newBow = new Bow(-200, 100, Arm.eArmNum.ePuncturingArrow, 2, 50);
+    this.mAllObjs.addToSet(newBow);
+    this.mDestroyable.addToSet(newBow);
+    this.mProps.addToSet(newBow);
+
+    newBow = new Bow(200, 100, Arm.eArmNum.ePuncturingArrow, 2, 50);
+    this.mAllObjs.addToSet(newBow);
+    this.mDestroyable.addToSet(newBow);
+    this.mProps.addToSet(newBow);
 };
 
 SceneA.prototype.update = function () {
     if(gEngine.AudioClips.isBackgroundAudioPlaying() === false)
-        gEngine.AudioClips.playBackgroundAudio(this.kBgm);
+        gEngine.AudioClips.playBackgroundAudio(Background.eAudio.eBgm_1);
 
     this.mGame.update();
     this.mAllObjs.update(this.mGame.getCurrentPlayer().getMainCamera());
@@ -228,25 +194,27 @@ SceneA.prototype.draw = function () {
 
 SceneA.prototype.createBounds = function () {
     var x = 15;
-    for (x = -500; x <= 400; x += 100) {
-        this.platformAt(x, -100, 20, 0);
-        this.platformAt(x + 20, -100, 20, 0);
-        this.platformAt(x + 40, -100, 20, 0);
-        this.platformAt(x + 60, -100, 20, 0);
-        this.platformAt(x + 80, -100, 20, 0);
+    for (x = -250; x <= 250; x += 100) {
+        this.platformAt(x, -100, 20, 0, Background.eTerrainAssets.ePlatformTexture);
+        this.platformAt(x + 20, -100, 20, 0, Background.eTerrainAssets.ePlatformTexture);
+        this.platformAt(x + 40, -100, 20, 0, Background.eTerrainAssets.ePlatformTexture);
+        this.platformAt(x + 60, -100, 20, 0, Background.eTerrainAssets.ePlatformTexture);
+        this.platformAt(x + 80, -100, 20, 0, Background.eTerrainAssets.ePlatformTexture);
     }
 
-    var i, j, plus = 50;
-    for(i = 1; i <= 7; ++i, plus += 20){
-        for(j = -450; j < 400; j += plus){
-            this.platformAt(j, -100 + i * 20, 20, 0);            
+    var y, x, rand;
+    for (y = -75; y <= 50; y += 25) {
+        for (x = -250; x <= 250; ) {
+            rand = Game.random(20, (y + 360) / 3);
+            x += rand;
+            this.platformAt(x, y, 20, 0, Background.eTerrainAssets.ePlatformTexture);
         }
     }
 };
 
-SceneA.prototype.wallAt = function (x, y, w) {
+SceneA.prototype.wallAt = function (x, y, w, texture) {
     var h = w * 4;
-    var p = new TextureRenderable(this.kWallTexture);
+    var p = new TextureRenderable(texture);
     var xf = p.getXform();
 
     var g = new GameObject(p);
@@ -262,9 +230,9 @@ SceneA.prototype.wallAt = function (x, y, w) {
     this.mAllObstacles.addToSet(g);
 };
 
-SceneA.prototype.platformAt = function (x, y, w, rot) {
+SceneA.prototype.platformAt = function (x, y, w, rot, texture) {
     var h = w / 8;
-    var p = new TextureRenderable(this.kPlatformTexture);
+    var p = new TextureRenderable(texture);
     var xf = p.getXform();
 
     var g = new GameObject(p);
@@ -279,9 +247,4 @@ SceneA.prototype.platformAt = function (x, y, w, rot) {
     xf.setRotationInDegree(rot);
     this.mAllObjs.addToSet(g);
     this.mAllObstacles.addToSet(g);
-};
-
-SceneA.prototype.random = function(min, max) {
-    parseInt(Math.random()*(max-min+1)+min,10);
-    return Math.floor(Math.random()*(max-min+1)+min);
 };

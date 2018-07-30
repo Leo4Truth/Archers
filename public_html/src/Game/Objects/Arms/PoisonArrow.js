@@ -37,7 +37,7 @@ PoisonArrow.prototype.draw = function (aCamera) {
 PoisonArrow.prototype.createParticle = function(atX, atY) {
     var life = 30 + Math.random() * 200;
     var p = new ParticleGameObject(ParticleSystem.eAssets.eGreen, atX, atY, life);
-//    console.log(p);
+
     p.getRenderable().setColor([1, 1, 1, 1]);
 
     // size of the particle
@@ -90,5 +90,5 @@ PoisonArrow.prototype.effectOnDestroyable = function (obj) {
 };
 
 PoisonArrow.prototype.poison = function (obj) {
-    obj.mPlayer.addBuff(new PoisonBuff(3, Buff.eAssets.ePoisonBuffTexture));
+    obj.mPlayer.addBuff(new PoisonBuff(2, Buff.eAssets.ePoisonBuffTexture));
 };

@@ -8,7 +8,7 @@ Arm.eMsgString = Object.freeze([
     "ScreamingChick :",
     "MineLauncher :",
     "PoisonArrow :",
-    "RegenerationArrow :"
+    "Regeneration :"
 ]);
 
 Arm.eArmNum = Object.freeze({
