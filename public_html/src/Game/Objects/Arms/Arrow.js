@@ -17,7 +17,8 @@ Arrow.eAssets = Object.freeze({
     eScreamingChickenArrowLeftTexture: "./assets/arrows/screamingChickenLeft.png",
     eScreamingChickenArrowRightTexture: "./assets/arrows/screamingChickenRight.png",
     eMineLauncherTexture: "./assets/arrows/arrows_a.png",
-    ePoisonArrowTexture: "./assets/arrows/arrows_b.png"
+    ePoisonArrowTexture: "./assets/arrows/arrows_b.png",
+    eRegenerationArrowTexture: "./assets/arrows/regenerationArrow.png"
 });
 
 function Arrow(
@@ -234,6 +235,7 @@ Arrow.loadAssets = function () {
     gEngine.Textures.loadTexture(Arrow.eAssets.eScreamingChickenArrowRightTexture);
     gEngine.Textures.loadTexture(Arrow.eAssets.eMineLauncherTexture);
     gEngine.Textures.loadTexture(Arrow.eAssets.ePoisonArrowTexture);
+    gEngine.Textures.loadTexture(Arrow.eAssets.eRegenerationArrowTexture);
 };
 
 Arrow.unloadAssets = function () {
@@ -247,4 +249,5 @@ Arrow.unloadAssets = function () {
     gEngine.Textures.unloadTexture(Arrow.eAssets.eScreamingChickenArrowRightTexture);
     gEngine.Textures.unloadTexture(Arrow.eAssets.eMineLauncherTexture);
     gEngine.Textures.unloadTexture(Arrow.eAssets.ePoisonArrowTexture);
+    gEngine.Textures.unloadTexture(Arrow.eAssets.eRegenerationArrowTexture);
 };

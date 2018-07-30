@@ -1,4 +1,4 @@
-function PoisonArrow(
+function RegenerationArrow(
     posX, posY, vX, vY,
     aAllObjs, aObstacle, aDestroyable,
     master
@@ -6,10 +6,16 @@ function PoisonArrow(
     Arrow.call(
         this,
         posX, posY, vX, vY,
-        Arrow.eAssets.ePoisonArrowTexture,
+        Arrow.eAssets.eRegenerationArrowTexture,
         aAllObjs, aObstacle, aDestroyable,
         master
     );
+
+    this.mArrow.setColor([1, 1, 1, 0]);
+    this.mArrow.getXform().setSize(8, 8);
+    this.mArrow.setSpriteSequence(128, 0, 128, 128, 4, 0);
+    this.mArrow.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateSwing);
+    this.mArrow.setAnimationSpeed(10);
 
     //particles
     this.mGenerateParticles = 1;
@@ -17,9 +23,10 @@ function PoisonArrow(
 
     //this.toggleDrawRigidShape(); // Draw RigidShape
 }
-gEngine.Core.inheritPrototype(PoisonArrow, Arrow);
 
-PoisonArrow.prototype.update = function () {
+gEngine.Core.inheritPrototype(RegenerationArrow, Arrow);
+
+RegenerationArrow.prototype.update = function () {
     Arrow.prototype.update.call(this);
 
     if (this.mGenerateParticles === 1) {
@@ -29,14 +36,14 @@ PoisonArrow.prototype.update = function () {
     gEngine.ParticleSystem.update(this.mParticles);
 };
 
-PoisonArrow.prototype.draw = function (aCamera) {
+RegenerationArrow.prototype.draw = function (aCamera) {
     this.mParticles.draw(aCamera);
     Arrow.prototype.draw.call(this, aCamera);
 };
 
-PoisonArrow.prototype.createParticle = function(atX, atY) {
+RegenerationArrow.prototype.createParticle = function(atX, atY) {
     var life = 30 + Math.random() * 200;
-    var p = new ParticleGameObject(ParticleSystem.eAssets.eGreen, atX, atY, life);
+    var p = new ParticleGameObject(ParticleSystem.eAssets.eHeart, atX, atY, life);
 //    console.log(p);
     p.getRenderable().setColor([1, 1, 1, 1]);
 
@@ -61,21 +68,21 @@ PoisonArrow.prototype.createParticle = function(atX, atY) {
     return p;
 };
 
-PoisonArrow.prototype.effectOnObstacle = function (obj) {
+RegenerationArrow.prototype.effectOnObstacle = function (obj) {
     this.mAllObjs.removeFromSet(this);
     this.mCurrentState = Arrow.eArrowState.eHit;
     this.mGenerateParticles = 0;
 };
 
-PoisonArrow.prototype.effectOnArcher = function (obj) {
+RegenerationArrow.prototype.effectOnArcher = function (obj) {
     this.mAllObjs.removeFromSet(this);
-    obj.loseHp(1);
+    obj.addHp(1);
     this.mCurrentState = Arrow.eArrowState.eHit;
-    this.poison(obj);
+    this.regeneration(obj);
     this.mGenerateParticles = 0;
 };
 
-PoisonArrow.prototype.effectOnDestroyable = function (obj) {
+RegenerationArrow.prototype.effectOnDestroyable = function (obj) {
     this.mAllObjs.removeFromSet(this);
     if (obj instanceof LifePotion) {
         this.mMaster.getArcher().addHp(1);
@@ -89,6 +96,6 @@ PoisonArrow.prototype.effectOnDestroyable = function (obj) {
     this.mGenerateParticles = 0;
 };
 
-PoisonArrow.prototype.poison = function (obj) {
-    obj.mPlayer.addBuff(new PoisonBuff(3, Buff.eAssets.ePoisonBuffTexture));
+RegenerationArrow.prototype.regeneration = function (obj) {
+    obj.mPlayer.addBuff(new RegenerationBuff(2, Buff.eAssets.eRegenerationBuffTexture));
 };

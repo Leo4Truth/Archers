@@ -1,7 +1,8 @@
 "use strict";
 
 Buff.eAssets = Object.freeze({
-    ePoisonBuffTexture: "assets/buffs/poisonSpriteSheet.png"
+    ePoisonBuffTexture: "assets/buffs/poisonSpriteSheet.png",
+    eRegenerationBuffTexture: "assets/buffs/regenerationSpriteSheet.png",
 });
 
 function Buff(remainTurns, texture) {
@@ -55,7 +56,7 @@ Buff.prototype.draw = function (aCamera) {
 };
 
 Buff.prototype.effect = function () {
-    this.mPlayer.getArcher().loseHp(1);
+
 };
 
 Buff.prototype.end = function () {
@@ -66,8 +67,10 @@ Buff.prototype.end = function () {
 
 Buff.loadAssets = function () {
     gEngine.Textures.loadTexture(Buff.eAssets.ePoisonBuffTexture);
+    gEngine.Textures.loadTexture(Buff.eAssets.eRegenerationBuffTexture);
 };
 
 Buff.unloadAssets = function () {
     gEngine.Textures.unloadTexture(Buff.eAssets.ePoisonBuffTexture);
+    gEngine.Textures.unloadTexture(Buff.eAssets.eRegenerationBuffTexture);
 };

@@ -542,6 +542,14 @@ Player.prototype.shoot = function () {
             );
             break;
         }
+        case 9: {
+            this.mArrow = new RegenerationArrow(
+                pos[0] + offset[0] * 10, pos[1] + offset[1] * 10,
+                velocity[0], velocity[1],
+                this.mAllObjs, this.mObstacle, this.mDestroyable, this
+            );
+            break;
+        }
         default:{
             this.mArrow = new Arrow(
                 pos[0] + offset[0] * 10, pos[1] + offset[1] * 10,
