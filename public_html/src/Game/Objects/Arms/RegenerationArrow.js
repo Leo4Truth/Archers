@@ -86,14 +86,19 @@ RegenerationArrow.prototype.effectOnDestroyable = function (obj) {
     this.mAllObjs.removeFromSet(this);
     if (obj instanceof LifePotion) {
         this.mMaster.getArcher().addHp(1);
+        this.mAllObjs.removeFromSet(obj);
+        this.mDestroyable.removeFromSet(obj);
     }
     else if (obj instanceof Bow) {
         this.mMaster.getMoreArm(obj.getArmNum(), obj.getArmAmount());
+        this.mAllObjs.removeFromSet(obj);
+        this.mDestroyable.removeFromSet(obj);
     }
-    this.mAllObjs.removeFromSet(obj);
-    this.mDestroyable.removeFromSet(obj);
-    this.mCurrentState = Arrow.eArrowState.eHit;
+    else if (obj instanceof Mine) {
+        obj.explode();
+    }
     this.mGenerateParticles = 0;
+    this.mCurrentState = Arrow.eArrowState.eHit;
 };
 
 RegenerationArrow.prototype.regeneration = function (obj) {

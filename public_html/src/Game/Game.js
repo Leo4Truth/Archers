@@ -42,6 +42,7 @@ Game.prototype.setCurrentPlayer = function (index) {
 
     var i;
     if (index === 0) {
+        console.log(this.mCurrentScene.mAllObjs);
         this.mPlayers[1].setState(Player.ePlayerState.eWait);
         this.mCurrentState = Game.eGameState.ePlayer1_Turn;
     }

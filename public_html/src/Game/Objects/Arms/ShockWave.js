@@ -63,6 +63,7 @@ ShockWave.prototype.createParticle = function (atX, atY) {
 
 ShockWave.prototype.effectOnObstacle = function (obj) {
     this.mAllObjs.removeFromSet(this);
+    var i;
     for (i = 0; i < this.mObstacle.size(); i++) {
         obj = this.mObstacle.getObjectAt(i);
         if (obj instanceof Archer) {
@@ -85,6 +86,32 @@ ShockWave.prototype.effectOnArcher = function (obj) {
         obj.getRigidBody().setVelocity(40, 60);
     else
         obj.getRigidBody().setVelocity(-40, 60);
+    this.mGenerateParticles = 0;
+    this.mCurrentState = Arrow.eArrowState.eHit;
+};
+
+ShockWave.prototype.effectOnDestroyable = function (obj) {
+    this.mAllObjs.removeFromSet(this);
+
+    if (this.getXform().getXPos() < obj.getXform().getXPos())
+        obj.getRigidBody().setVelocity(40, 60);
+    else
+        obj.getRigidBody().setVelocity(-40, 60);
+
+    if (obj instanceof LifePotion) {
+        this.mMaster.getArcher().addHp(1);
+        this.mAllObjs.removeFromSet(obj);
+        this.mDestroyable.removeFromSet(obj);
+    }
+    else if (obj instanceof Bow) {
+        this.mMaster.getMoreArm(obj.getArmNum(), obj.getArmAmount());
+        this.mAllObjs.removeFromSet(obj);
+        this.mDestroyable.removeFromSet(obj);
+    }
+    else if (obj instanceof Mine) {
+        obj.explode();
+    }
+
     this.mGenerateParticles = 0;
     this.mCurrentState = Arrow.eArrowState.eHit;
 };

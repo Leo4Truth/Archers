@@ -63,7 +63,7 @@ function Arrow(
     this.getRigidBody().setMass(0.1);
 
     this.mEffectTimer = 0;
-    this.mEffectTimeLimit = 30;
+    this.mEffectTimeLimit = 120;
     this.mEffectObj = [];
 
     //this.toggleDrawRigidShape(); // Draw RigidShape
@@ -75,7 +75,9 @@ Arrow.prototype.update = function () {
 
     if (this.mCurrentState === Arrow.eArrowState.eHit) {
         this.mEffectTimer++;
-        if (this.mEffectTimer === this.mEffectTimeLimit && this.isEffectEnd()) {
+        console.log(this.isEffectEnd());
+        console.log(this.mEffectTimer);
+        if (this.mEffectTimer >= this.mEffectTimeLimit && this.isEffectEnd()) {
             this.mAllObjs.removeFromSet(this);
             this.mCurrentState = Arrow.eArrowState.eEffect;
         }
@@ -185,12 +187,17 @@ Arrow.prototype.effectOnDestroyable = function (obj) {
     this.mAllObjs.removeFromSet(this);
     if (obj instanceof LifePotion) {
         this.mMaster.getArcher().addHp(1);
+        this.mAllObjs.removeFromSet(obj);
+        this.mDestroyable.removeFromSet(obj);
     }
     else if (obj instanceof Bow) {
         this.mMaster.getMoreArm(obj.getArmNum(), obj.getArmAmount());
+        this.mAllObjs.removeFromSet(obj);
+        this.mDestroyable.removeFromSet(obj);
     }
-    this.mAllObjs.removeFromSet(obj);
-    this.mDestroyable.removeFromSet(obj);
+    else if (obj instanceof Mine) {
+        obj.explode();
+    }
     this.mCurrentState = Arrow.eArrowState.eHit;
 };
 

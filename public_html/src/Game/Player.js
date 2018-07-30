@@ -360,6 +360,14 @@ Player.prototype.keyControl = function () {
         case Player.ePlayerState.eShoot: {
             if (this.mArrow.getCurrentState() === Arrow.eArrowState.eFlying)
                 this.traceArrow();
+            else if (this.mArrow.getCurrentState() === Arrow.eHit) {
+                var v = this.mArcher.getRigidBody().getVelocity();
+                if (Math.abs(v[0]) >= 1.0 ||
+                    Math.abs(v[1]) >= 1.0) {
+                    this.resetCamera();
+                }
+            }
+
             break;
         }
         case Player.ePlayerState.eWait: {
