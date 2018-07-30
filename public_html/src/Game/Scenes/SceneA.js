@@ -50,6 +50,7 @@ SceneA.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(Arrow.eAssets.eScreamingChickenArrowLeftTexture);
     gEngine.Textures.loadTexture(Arrow.eAssets.eScreamingChickenArrowRightTexture);
     gEngine.Textures.loadTexture(Arrow.eAssets.eMineLauncherTexture);
+    gEngine.Textures.loadTexture(Arrow.eAssets.ePoisonArrowTexture);
 
     gEngine.Textures.loadTexture(Armory.eAssets.eBackgroundTexture);
     gEngine.Textures.loadTexture(Armory.eAssets.eCellTexture);
@@ -63,6 +64,9 @@ SceneA.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(Arm.eIconAssets.eShockWave);
     gEngine.Textures.loadTexture(Arm.eIconAssets.eScreamingChickenArrow);
     gEngine.Textures.loadTexture(Arm.eIconAssets.eMineLauncher);
+    gEngine.Textures.loadTexture(Arm.eIconAssets.ePoisonArrow);
+
+    gEngine.Textures.loadTexture(Buff.eAssets.ePoisonBuffTexture);
 
     gEngine.Textures.loadTexture(Bow.eAssets.eBowSetSpriteTexture);
 
@@ -102,6 +106,8 @@ SceneA.prototype.loadScene = function () {
 
     gEngine.Textures.loadTexture("assets/particles/Particle2.png");
     gEngine.Textures.loadTexture("assets/particles/emoji.png");
+    gEngine.Textures.loadTexture("assets/particles/greenParticle.png");
+    gEngine.Textures.loadTexture("assets/particles/boom.png");
 
 
     gEngine.AudioClips.loadAudio(this.kBgm);
@@ -133,6 +139,7 @@ SceneA.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(Arrow.eAssets.eScreamingChickenArrowLeftTexture);
     gEngine.Textures.unloadTexture(Arrow.eAssets.eScreamingChickenArrowRightTexture);
     gEngine.Textures.unloadTexture(Arrow.eAssets.eMineLauncherTexture);
+    gEngine.Textures.unloadTexture(Arrow.eAssets.ePoisonArrowTexture);
 
     gEngine.Textures.unloadTexture(Armory.eAssets.eBackgroundTexture);
     gEngine.Textures.unloadTexture(Armory.eAssets.eCellTexture);
@@ -146,6 +153,9 @@ SceneA.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(Arm.eIconAssets.eShockWave);
     gEngine.Textures.unloadTexture(Arm.eIconAssets.eScreamingChickenArrow);
     gEngine.Textures.unloadTexture(Arm.eIconAssets.eMineLauncher);
+    gEngine.Textures.unloadTexture(Arm.eIconAssets.ePoisonArrow);
+
+    gEngine.Textures.unloadTexture(Buff.eAssets.ePoisonBuffTexture);
 
     gEngine.Textures.unloadTexture(Bow.eAssets.eBowSetSpriteTexture);
 
@@ -185,6 +195,8 @@ SceneA.prototype.unloadScene = function () {
 
     gEngine.Textures.unloadTexture("assets/particles/Particle2.png");
     gEngine.Textures.unloadTexture("assets/particles/emoji.png");
+    gEngine.Textures.unloadTexture("assets/particles/greenParticle.png");
+    gEngine.Textures.unloadTexture("assets/particles/boom.png");
 
     gEngine.AudioClips.unloadAudio(this.kBgm);
     gEngine.AudioClips.unloadAudio(Mine.eAudio.eExplode);

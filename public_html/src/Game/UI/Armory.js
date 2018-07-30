@@ -70,6 +70,8 @@ function Armory(XPos, YPos) {
     this.addArm(newArm);
     newArm = new Arm(this.XPos, this.YPos, 7, 10, Arm.eIconAssets.eMineLauncher);
     this.addArm(newArm);
+    newArm = new Arm(this.XPos, this.YPos, 8, 10, Arm.eIconAssets.ePoisonArrow);
+    this.addArm(newArm);
 }
 
 Armory.prototype.addArm = function(arm) {

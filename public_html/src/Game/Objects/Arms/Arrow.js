@@ -16,7 +16,8 @@ Arrow.eAssets = Object.freeze({
     eShockWaveTexture: "./assets/arrows/arrows_d.png",
     eScreamingChickenArrowLeftTexture: "./assets/arrows/screamingChickenLeft.png",
     eScreamingChickenArrowRightTexture: "./assets/arrows/screamingChickenRight.png",
-    eMineLauncherTexture: "./assets/arrows/arrows_a.png"
+    eMineLauncherTexture: "./assets/arrows/arrows_a.png",
+    ePoisonArrowTexture: "./assets/arrows/arrows_b.png"
 });
 
 function Arrow(
@@ -73,7 +74,6 @@ Arrow.prototype.update = function () {
         if (this.mEffectTimer === this.mEffectTimeLimit && this.isEffectEnd()) {
             this.mAllObjs.removeFromSet(this);
             this.mCurrentState = Arrow.eArrowState.eEffect;
-            console.log(this);
         }
         return;
     }
@@ -111,7 +111,6 @@ Arrow.prototype.update = function () {
 
         if (obj instanceof Archer) {
             this.mEffectObj.push(obj);
-            console.log(this.mEffectObj);
         }
 
         if (obj !== this &&

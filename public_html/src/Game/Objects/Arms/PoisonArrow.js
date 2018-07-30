@@ -1,29 +1,26 @@
-"use strict";
-
-function MineLauncher(
+function PoisonArrow(
     posX, posY, vX, vY,
     aAllObjs, aObstacle, aDestroyable,
     master
 ) {
     Arrow.call(
         this,
-        posX, posY, vX, vY, Arrow.eAssets.eMineLauncherTexture,
+        posX, posY, vX, vY,
+        Arrow.eAssets.ePoisonArrowTexture,
         aAllObjs, aObstacle, aDestroyable,
         master
     );
 
-    this.getRigidBody().setMass(0.1);
-
-    this.mBounceCount = 30;
-
     //particles
     this.mGenerateParticles = 1;
     this.mParticles = new ParticleGameObjectSet();
+
+    //this.toggleDrawRigidShape(); // Draw RigidShape
 }
 
-gEngine.Core.inheritPrototype(MineLauncher, Arrow);
+gEngine.Core.inheritPrototype(PoisonArrow, Arrow);
 
-MineLauncher.prototype.update = function () {
+PoisonArrow.prototype.update = function () {
     Arrow.prototype.update.call(this);
 
     if (this.mGenerateParticles === 1) {
@@ -33,22 +30,23 @@ MineLauncher.prototype.update = function () {
     gEngine.ParticleSystem.update(this.mParticles);
 };
 
-MineLauncher.prototype.draw = function (aCamera) {
+PoisonArrow.prototype.draw = function (aCamera) {
     this.mParticles.draw(aCamera);
     Arrow.prototype.draw.call(this, aCamera);
 };
 
-MineLauncher.prototype.createParticle = function (atX, atY) {
+PoisonArrow.prototype.createParticle = function(atX, atY) {
     var life = 30 + Math.random() * 200;
-    var p = new ParticleGameObject("assets/particles/boom.png", atX, atY, life);
-    p.getRenderable().setColor([1, 1, 1, 0.5]);
+    var p = new ParticleGameObject("assets/particles/greenParticle.png", atX, atY, life);
+//    console.log(p);
+    p.getRenderable().setColor([1, 1, 1, 1]);
 
     // size of the particle
     var r = 3.5 + Math.random() * 2.5;
     p.getXform().setSize(r, r);
 
     // final color
-    var fr = 3.5 + Math.random();
+    var fr = 0.5 + Math.random();
     var fg = 0.4 + 0.1 * Math.random();
     var fb = 0.3 + 0.1 * Math.random();
     p.setFinalColor([fr, fg, fb, 0.6]);
@@ -64,53 +62,35 @@ MineLauncher.prototype.createParticle = function (atX, atY) {
     return p;
 };
 
-MineLauncher.prototype.effectOnObstacle = function (obj) {
+PoisonArrow.prototype.effectOnObstacle = function (obj) {
     this.mAllObjs.removeFromSet(this);
-
-    this.plantMine();
-
-    this.mGenerateParticles = 0;
     this.mCurrentState = Arrow.eArrowState.eHit;
+    this.mGenerateParticles = 0;
 };
 
-MineLauncher.prototype.effectOnArcher = function () {
+PoisonArrow.prototype.effectOnArcher = function (obj) {
     this.mAllObjs.removeFromSet(this);
-
-    this.plantMine();
-
-    this.mGenerateParticles = 0;
+    obj.loseHp(1);
     this.mCurrentState = Arrow.eArrowState.eHit;
+    this.poison(obj);
+    this.mGenerateParticles = 0;
 };
 
-MineLauncher.prototype.effectOnDestroyable = function (obj) {
+PoisonArrow.prototype.effectOnDestroyable = function (obj) {
     this.mAllObjs.removeFromSet(this);
-
     if (obj instanceof LifePotion) {
-        this.mMaster.addHp(1);
-        this.mAllObjs.removeFromSet(obj);
-        this.mDestroyable.removeFromSet(obj);
+        this.mMaster.getArcher().addHp(1);
     }
     else if (obj instanceof Bow) {
         this.mMaster.getMoreArm(obj.getArmNum(), obj.getArmAmount());
-        this.mAllObjs.removeFromSet(obj);
-        this.mDestroyable.removeFromSet(obj);
     }
-    else if (obj instanceof Mine){
-        
-    }
-    this.plantMine();
-
-    this.mGenerateParticles = 0;
+    this.mAllObjs.removeFromSet(obj);
+    this.mDestroyable.removeFromSet(obj);
     this.mCurrentState = Arrow.eArrowState.eHit;
+    this.mGenerateParticles = 0;
 };
 
-MineLauncher.prototype.plantMine = function () {
-    var mine;
-    var XPos = this.getXform().getXPos();
-    var YPos = this.getXform().getYPos() + 10;
-    mine = new Mine(
-        XPos, YPos, Mine.eAssets.eMineTexture, 1,
-        this.mAllObjs, this.mObstacle, this.mDestroyable);
-    this.mAllObjs.addToSet(mine);
-    this.mDestroyable.addToSet(mine);
+PoisonArrow.prototype.poison = function (obj) {
+    console.log("poison");
+    obj.mPlayer.addBuff(new Buff(3, Buff.eAssets.ePoisonBuffTexture));
 };

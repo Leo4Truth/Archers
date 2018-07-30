@@ -357,9 +357,25 @@ Player.prototype.draw = function () {
         spaceLimitRenderable.draw(camera);
         */
 
+        // draw buff for self
+        for (i = 0; i < this.mBuffSet.length; i++)
+            this.mBuffSet[i].draw(camera);
+
+        // draw buff for opponent
+        var opponent;
+        if (this.mIndex === 0)
+            opponent = this.mGame.mPlayers[1];
+        else if (this.mIndex === 1)
+            opponent = this.mGame.mPlayers[0];
+        for (i = 0; i < opponent.mBuffSet.length; i++)
+            opponent.mBuffSet[i].draw(camera);
+
         this.mAllObjs.draw(camera);
         this.mMark.draw(camera);
         this.mShootController.draw(camera);
+
+
+
 
         /*
         if (this.mArrow instanceof ScreamingChickenArrow &&
@@ -392,7 +408,6 @@ Player.prototype.draw = function () {
         this.mSelfMark.setColor([0, 1, 0, 0.5]);
         this.mSelfMark.draw(camera);
 
-        var opponent;
         if (this.mIndex === 0)
             opponent = this.mGame.getPlayerAt(1);
         else if (this.mIndex === 1)
@@ -513,6 +528,14 @@ Player.prototype.shoot = function () {
         }
         case 7: {
             this.mArrow = new MineLauncher(
+                pos[0] + offset[0] * 10, pos[1] + offset[1] * 10,
+                velocity[0], velocity[1],
+                this.mAllObjs, this.mObstacle, this.mDestroyable, this
+            );
+            break;
+        }
+        case 8: {
+            this.mArrow = new PoisonArrow(
                 pos[0] + offset[0] * 10, pos[1] + offset[1] * 10,
                 velocity[0], velocity[1],
                 this.mAllObjs, this.mObstacle, this.mDestroyable, this

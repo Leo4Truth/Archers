@@ -6,7 +6,8 @@ Arm.eMsgString = Object.freeze([
     "PuncturingArrow :",
     "ShockWave :",
     "ScreamingChick :",
-    "MineLauncher :"
+    "MineLauncher :",
+    "PoisonArrow :"
 ]);
 
 Arm.eArmNum = Object.freeze({
@@ -17,18 +18,20 @@ Arm.eArmNum = Object.freeze({
     ePuncturingArrow: 4,
     eShockWave: 5,
     eScreamingChickenArrow: 6,
-    eMineLauncher: 7
+    eMineLauncher: 7,
+    ePoisonArrow: 8
 });
 
 Arm.eIconAssets = Object.freeze({
-    eNormalArrow: "assets/arrows/arrows_f.png",
+    eNormalArrow: "assets/armIcons/normalArrowIcon.png",
     ePaperPlane: "assets/armIcons/paperPlane.png",
-    eBouncingArrow: "assets/arrows/arrows_e.png",
+    eBouncingArrow: "assets/armIcons/bouncingArrowIcon.png",
     eDestroyer: "assets/armIcons/hammerIcon.png",
     ePuncturingArrow: "assets/armIcons/waterArrowIcon.png",
     eShockWave: "assets/armIcons/shockWaveIcon.png",
     eScreamingChickenArrow: "assets/armIcons/screamingChickenArrowIcon.png",
-    eMineLauncher: "assets/armIcons/mineLauncherIcon.png"
+    eMineLauncher: "assets/armIcons/mineLauncherIcon.png",
+    ePoisonArrow: "assets/armIcons/poisonArrowIcon.png"
 });
 
 function Arm(XPos, YPos, order, currentNum, texture) {
