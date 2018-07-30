@@ -126,3 +126,11 @@ ShootController.prototype.getVelocity = function () {
     var rad = this.getXform().getRotationInRad();
     return new vec2.fromValues(speed * Math.cos(rad), speed * Math.sin(rad));
 };
+
+ShootController.loadAssets = function () {
+    gEngine.Textures.loadTexture(ShootController.eAssets.eShootDirArrowTexture);
+};
+
+ShootController.unloadAssets = function () {
+    gEngine.Textures.unloadTexture(ShootController.eAssets.eShootDirArrowTexture);
+};

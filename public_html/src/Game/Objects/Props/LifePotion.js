@@ -1,7 +1,7 @@
 "use strict";
 
 LifePotion.eAssets = Object.freeze({
-    eLifePotionTexture: "./assets/props/lifePostion.png"
+    eLifePotionTexture: "./assets/props/lifePotion.png"
 });
 
 function LifePotion(posX, posY, texture, restore,
@@ -75,4 +75,12 @@ LifePotion.prototype.getRestore = function () {
 LifePotion.prototype.calculateDistance = function (posX, posY, aX, aY) {
     return Math.sqrt(Math.pow(aX - posX, 2)
         + Math.pow(aY - posY, 2));
+};
+
+LifePotion.loadAssets = function () {
+    gEngine.Textures.loadTexture(LifePotion.eAssets.eLifePotionTexture);
+};
+
+LifePotion.unloadAssets = function () {
+    gEngine.Textures.unloadTexture(LifePotion.eAssets.eLifePotionTexture);
 };

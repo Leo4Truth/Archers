@@ -1,9 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 "use strict";
 
 Archer.eAssets_1 = Object.freeze({
@@ -48,9 +42,6 @@ function Archer(
 
     // for jump and double jump
     this.mJumpRemain = 2;
-    this.mTimeCount = 0;
-    this.mCoolDownCount = 0;
-    this.mJumpCoolDown = new Array(2);
 
     this.mAllObjs = aAllObjs;
     this.mObstacle = aObstacle;
@@ -161,16 +152,26 @@ Archer.prototype.update = function (aCamera) {
     this.mWalkRight.updateAnimation();
     this.mShootRight.updateAnimation();
 
+    var i;
+
     // for jump and double jump
-    this.mTimeCount++;
-    if (this.mTimeCount === this.mJumpCoolDown[0]) {
-        this.mJumpRemain++;
-    }
-    if (this.mTimeCount === this.mJumpCoolDown[1]) {
-        this.mJumpRemain++;
+    var v = this.getRigidBody().getVelocity();
+    if (this.mJumpRemain < 2 && Math.abs(v[0]) <= 0.1 && Math.abs(v[1]) <= 0.84) {
+        var pos = this.getXform().getPosition();
+        var size = this.getXform().getSize();
+
+        for (i = 0; i < this.mAllObjs.size(); i++) {
+            var objPos = this.mAllObjs.getObjectAt(i).getXform().getPosition();
+            var objSize = this.mAllObjs.getObjectAt(i).getXform().getSize();
+            if (pos[1] - objPos[1] <= 6.4 &&
+                pos[1] - objPos[1] >= 6.2 &&
+                pos[0] - objPos[0] <= (size[0] + objSize[0]) / 2 + 1.0 &&
+                pos[0] - objPos[0] >= -(size[0] + objSize[0]) / 2 - 1.0) {
+                this.mJumpRemain = 2;
+            }
+        }
     }
 
-    var i;
     var obj;
     var collisionInfo;
     for (i = 0; i < this.mDestroyable.size(); i++) {
@@ -362,14 +363,42 @@ Archer.prototype.jump = function () {
     if (this.mJumpRemain > 0) {
         var velocity = this.getRigidBody().getVelocity();
         this.getRigidBody().setVelocity(velocity[0], 40);
-        this.mJumpCoolDown[this.mCoolDownCount] = 120 + this.mTimeCount;
-        this.mCoolDownCount++;
-        if (this.mCoolDownCount > 1)
-            this.mCoolDownCount = 0;
         this.mJumpRemain--;
     }
 };
 
 Archer.prototype.getMoreArm = function (armNum, armAmount) {
     this.mPlayer.getMoreArm(armNum, armAmount);
+};
+
+Archer.loadAssets = function () {
+    gEngine.Textures.loadTexture(Archer.eAssets_1.eStandRightTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets_1.eWalkRightTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets_1.eShootRightTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets_1.eStandLeftTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets_1.eWalkLeftTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets_1.eShootLeftTexture);
+
+    gEngine.Textures.loadTexture(Archer.eAssets_2.eStandRightTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets_2.eWalkRightTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets_2.eShootRightTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets_2.eStandLeftTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets_2.eWalkLeftTexture);
+    gEngine.Textures.loadTexture(Archer.eAssets_2.eShootLeftTexture);
+};
+
+Archer.unloadAssets = function () {
+    gEngine.Textures.unloadTexture(Archer.eAssets_1.eStandRightTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets_1.eWalkRightTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets_1.eShootRightTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets_1.eStandLeftTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets_1.eWalkLeftTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets_1.eShootLeftTexture);
+
+    gEngine.Textures.unloadTexture(Archer.eAssets_2.eStandRightTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets_2.eWalkRightTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets_2.eShootRightTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets_2.eStandLeftTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets_2.eWalkLeftTexture);
+    gEngine.Textures.unloadTexture(Archer.eAssets_2.eShootLeftTexture);
 };

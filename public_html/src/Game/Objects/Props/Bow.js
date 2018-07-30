@@ -94,3 +94,11 @@ Bow.prototype.getArmNum = function () {
 Bow.prototype.getArmAmount = function () {
     return this.mArmAmount;
 };
+
+Bow.loadAssets = function () {
+    gEngine.Textures.loadTexture(Bow.eAssets.eBowSetSpriteTexture);
+};
+
+Bow.unloadAssets = function () {
+    gEngine.Textures.unloadTexture(Bow.eAssets.eBowSetSpriteTexture);
+};

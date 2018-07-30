@@ -70,14 +70,9 @@ Arrow.prototype.update = function () {
 
     if (this.mCurrentState === Arrow.eArrowState.eHit) {
         this.mEffectTimer++;
-//        console.log(this.mffectTimer);
         if (this.mEffectTimer === this.mEffectTimeLimit && this.isEffectEnd()) {
             this.mAllObjs.removeFromSet(this);
             this.mCurrentState = Arrow.eArrowState.eEffect;
-<<<<<<< HEAD
-=======
-//            console.log(this);
->>>>>>> 7f794257209e752b649be5ec7b7d2f28386651af
         }
         return;
     }
@@ -115,10 +110,6 @@ Arrow.prototype.update = function () {
 
         if (obj instanceof Archer) {
             this.mEffectObj.push(obj);
-<<<<<<< HEAD
-=======
-//            console.log(this.mEffectObj);
->>>>>>> 7f794257209e752b649be5ec7b7d2f28386651af
         }
 
         if (obj !== this &&
@@ -230,4 +221,30 @@ Arrow.prototype.isEffectEnd = function () {
             return false;
     }
     return true;
+};
+
+Arrow.loadAssets = function () {
+    gEngine.Textures.loadTexture(Arrow.eAssets.eNormalArrowTexture);
+    gEngine.Textures.loadTexture(Arrow.eAssets.ePaperPlaneTexture);
+    gEngine.Textures.loadTexture(Arrow.eAssets.eBouncingArrowTexture);
+    gEngine.Textures.loadTexture(Arrow.eAssets.eDestroyerTexture);
+    gEngine.Textures.loadTexture(Arrow.eAssets.ePuncturingArrowTexture);
+    gEngine.Textures.loadTexture(Arrow.eAssets.eShockWaveTexture);
+    gEngine.Textures.loadTexture(Arrow.eAssets.eScreamingChickenArrowLeftTexture);
+    gEngine.Textures.loadTexture(Arrow.eAssets.eScreamingChickenArrowRightTexture);
+    gEngine.Textures.loadTexture(Arrow.eAssets.eMineLauncherTexture);
+    gEngine.Textures.loadTexture(Arrow.eAssets.ePoisonArrowTexture);
+};
+
+Arrow.unloadAssets = function () {
+    gEngine.Textures.unloadTexture(Arrow.eAssets.eNormalArrowTexture);
+    gEngine.Textures.unloadTexture(Arrow.eAssets.ePaperPlaneTexture);
+    gEngine.Textures.unloadTexture(Arrow.eAssets.eBouncingArrowTexture);
+    gEngine.Textures.unloadTexture(Arrow.eAssets.eDestroyerTexture);
+    gEngine.Textures.unloadTexture(Arrow.eAssets.ePuncturingArrowTexture);
+    gEngine.Textures.unloadTexture(Arrow.eAssets.eShockWaveTexture);
+    gEngine.Textures.unloadTexture(Arrow.eAssets.eScreamingChickenArrowLeftTexture);
+    gEngine.Textures.unloadTexture(Arrow.eAssets.eScreamingChickenArrowRightTexture);
+    gEngine.Textures.unloadTexture(Arrow.eAssets.eMineLauncherTexture);
+    gEngine.Textures.unloadTexture(Arrow.eAssets.ePoisonArrowTexture);
 };

@@ -608,7 +608,7 @@ Player.prototype.resetCamera = function () {
     if (cameraCenterY < -65)
         cameraCenterY = -65;
     var i;
-    for (i = 0; i < 20; i++) {
+    for (i = 0; i < 5; i++) {
         this.mMainCamera.setWCCenter(cameraCenterX, cameraCenterY);
         this.mMainCamera.update();
     }
@@ -660,4 +660,16 @@ Player.prototype.addBuff = function (buff) {
     buff.initialize(this, this.mTurns, 5);
     this.mBuffSet.push(buff);
     console.log(this.mBuffSet);
+};
+
+Player.loadAssets = function () {
+    gEngine.Textures.loadTexture(Player.eAssets.eViewFrameTexture);
+
+    gEngine.AudioClips.loadAudio(Player.eAudio.eShootCue);
+};
+
+Player.unloadAssets = function () {
+    gEngine.Textures.unloadTexture(Player.eAssets.eViewFrameTexture);
+
+    gEngine.AudioClips.unloadAudio(Player.eAudio.eShootCue);
 };

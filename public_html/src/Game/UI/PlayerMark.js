@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 PlayerMark.eAssets = Object.freeze({
     eMark1: "assets/UI/P1Mark.png",
@@ -18,4 +18,14 @@ PlayerMark.prototype.update = function (Xpos, Ypos) {
 
 PlayerMark.prototype.draw = function (mCamera) {
     this.mMark.draw(mCamera);
+};
+
+PlayerMark.loadAssets = function () {
+    gEngine.Textures.loadTexture(PlayerMark.eAssets.eMark1);
+    gEngine.Textures.loadTexture(PlayerMark.eAssets.eMark2);
+};
+
+PlayerMark.unloadAssets = function () {
+    gEngine.Textures.unloadTexture(PlayerMark.eAssets.eMark1);
+    gEngine.Textures.unloadTexture(PlayerMark.eAssets.eMark2);
 };

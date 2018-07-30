@@ -1,9 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 Mine.eAssets = Object.freeze({
     eMineTexture: "assets/props/mine.png"
 });
@@ -13,7 +7,6 @@ Mine.eAudio = Object.freeze({
 });
 
 function Mine(posX, posY, texture, restore, allObj, allObstacle, aDestroyable) {
-    console.log("mine");
     this.mMine = new TextureRenderable(texture);
     this.mMine.setColor([1, 1, 1, 0]);
     this.mMine.getXform().setPosition(posX, posY);
@@ -85,4 +78,16 @@ Mine.prototype.getRestore = function () {
 Mine.prototype.calculateDistance = function (posX, posY, aX, aY) {
     return Math.sqrt(Math.pow(aX - posX, 2)
         + Math.pow(aY - posY, 2));
+};
+
+Mine.loadAssets = function () {
+    gEngine.Textures.loadTexture(Mine.eAssets.eMineTexture);
+
+    gEngine.AudioClips.loadAudio(Mine.eAudio.eExplode);
+};
+
+Mine.unloadAssets = function () {
+    gEngine.Textures.unloadTexture(Mine.eAssets.eMineTexture);
+
+    gEngine.AudioClips.unloadAudio(Mine.eAudio.eExplode);
 };

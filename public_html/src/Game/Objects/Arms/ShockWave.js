@@ -10,7 +10,7 @@ function ShockWave(
         master
     );
 
-    this.mEffectTimeLimit = 180;
+    this.mEffectTimeLimit = 120;
 
     this.mGenerateParticles = 1;
     this.mParticles = new ParticleGameObjectSet();
@@ -37,7 +37,7 @@ ShockWave.prototype.draw = function (aCamera) {
 
 ShockWave.prototype.createParticle = function (atX, atY) {
     var life = 30 + Math.random() * 200;
-    var p = new ParticleGameObject("assets/particles/Particle2.png", atX, atY, life);
+    var p = new ParticleGameObject(ParticleSystem.eAssets.eSnow, atX, atY, life);
     p.getRenderable().setColor([0.898, 0.898, 0.976, 1]);
 
     // size of the particle
@@ -87,10 +87,6 @@ ShockWave.prototype.effectOnArcher = function (obj) {
         obj.getRigidBody().setVelocity(-20, 30);
     this.mGenerateParticles = 0;
     this.mCurrentState = Arrow.eArrowState.eHit;
-
-    //
-//    var buff = new Buff(Arrow.eAssets.eShockWaveTexture);
-//    obj.mPlayer.addBuff(buff);
 };
 
 

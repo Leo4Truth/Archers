@@ -147,3 +147,14 @@ Armory.prototype.getMoreArm = function (armNum, armAmount) {
     this.mArms[armNum].getMoreArm(armAmount);
 };
 
+Armory.loadAssets = function () {
+    gEngine.Textures.loadTexture(Armory.eAssets.eBackgroundTexture);
+    gEngine.Textures.loadTexture(Armory.eAssets.eCellTexture);
+    gEngine.Textures.loadTexture(Armory.eAssets.eCheckMarkTexture);
+};
+
+Armory.unloadAssets = function () {
+    gEngine.Textures.unloadTexture(Armory.eAssets.eBackgroundTexture);
+    gEngine.Textures.unloadTexture(Armory.eAssets.eCellTexture);
+    gEngine.Textures.unloadTexture(Armory.eAssets.eCheckMarkTexture);
+};

@@ -37,7 +37,7 @@ PoisonArrow.prototype.draw = function (aCamera) {
 
 PoisonArrow.prototype.createParticle = function(atX, atY) {
     var life = 30 + Math.random() * 200;
-    var p = new ParticleGameObject("assets/particles/greenParticle.png", atX, atY, life);
+    var p = new ParticleGameObject(ParticleSystem.eAssets.eGreen, atX, atY, life);
 //    console.log(p);
     p.getRenderable().setColor([1, 1, 1, 1]);
 

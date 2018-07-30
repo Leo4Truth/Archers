@@ -77,7 +77,7 @@ Destroyer.prototype.draw = function (aCamera) {
 
 Destroyer.prototype.createParticle = function (atX, atY) {
     var life = 30 + Math.random() * 200;
-    var p = new ParticleGameObject("assets/particles/Particle2.png", atX, atY, life);
+    var p = new ParticleGameObject(ParticleSystem.eAssets.eBoom, atX, atY, life);
     p.getRenderable().setColor([0.898, 0.898, 0.976, 1]);
 
     // size of the particle

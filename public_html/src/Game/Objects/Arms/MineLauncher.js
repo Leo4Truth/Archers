@@ -40,7 +40,7 @@ MineLauncher.prototype.draw = function (aCamera) {
 
 MineLauncher.prototype.createParticle = function (atX, atY) {
     var life = 30 + Math.random() * 200;
-    var p = new ParticleGameObject("assets/particles/boom.png", atX, atY, life);
+    var p = new ParticleGameObject(ParticleSystem.eAssets.eBoom, atX, atY, life);
     p.getRenderable().setColor([1, 1, 1, 0.5]);
 
     // size of the particle

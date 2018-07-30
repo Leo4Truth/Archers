@@ -6,8 +6,6 @@ function SceneA(game, place, sky) {
     this.mPlace = place;
     this.mSky = sky;
 
-    this.kLifePotionTexture = "assets/props/lifePotion.png";
-
     this.kPlatformTexture = "assets/terrains/platform.png";
     this.kWallTexture = "assets/terrains/wall.png";
 
@@ -28,59 +26,24 @@ function SceneA(game, place, sky) {
 gEngine.Core.inheritPrototype(SceneA, Scene);
 
 SceneA.prototype.loadScene = function () {
-    gEngine.Textures.loadTexture(Player.eAssets.eViewFrameTexture);
+    Player.loadAssets();
+    Archer.loadAssets();
+    Arrow.loadAssets();
 
-    gEngine.Textures.loadTexture(this.kLifePotionTexture);
-    gEngine.Textures.loadTexture(Mine.eAssets.eMineTexture);
-    gEngine.Textures.loadTexture(ShootController.eAssets.eShootDirArrowTexture);
+    HpBar.loadAssets();
+    ShootController.loadAssets();
+    PlayerMark.loadAssets();
 
-    gEngine.Textures.loadTexture(Archer.eAssets_1.eShootLeftTexture);
-    gEngine.Textures.loadTexture(Archer.eAssets_1.eShootRightTexture);
-    gEngine.Textures.loadTexture(Archer.eAssets_1.eStandLeftTexture);
-    gEngine.Textures.loadTexture(Archer.eAssets_1.eStandRightTexture);
-    gEngine.Textures.loadTexture(Archer.eAssets_1.eWalkLeftTexture);
-    gEngine.Textures.loadTexture(Archer.eAssets_1.eWalkRightTexture);
-    
-    gEngine.Textures.loadTexture(Archer.eAssets_2.eShootLeftTexture);
-    gEngine.Textures.loadTexture(Archer.eAssets_2.eShootRightTexture);
-    gEngine.Textures.loadTexture(Archer.eAssets_2.eStandLeftTexture);
-    gEngine.Textures.loadTexture(Archer.eAssets_2.eStandRightTexture);
-    gEngine.Textures.loadTexture(Archer.eAssets_2.eWalkLeftTexture);
-    gEngine.Textures.loadTexture(Archer.eAssets_2.eWalkRightTexture);
+    Armory.loadAssets();
+    Arm.loadAssets();
 
-    gEngine.Textures.loadTexture(Arrow.eAssets.eNormalArrowTexture);
-    gEngine.Textures.loadTexture(Arrow.eAssets.ePaperPlaneTexture);
-    gEngine.Textures.loadTexture(Arrow.eAssets.eBouncingArrowTexture);
-    gEngine.Textures.loadTexture(Arrow.eAssets.eDestroyerTexture);
-    gEngine.Textures.loadTexture(Arrow.eAssets.ePuncturingArrowTexture);
-    gEngine.Textures.loadTexture(Arrow.eAssets.eShockWaveTexture);
-    gEngine.Textures.loadTexture(Arrow.eAssets.eScreamingChickenArrowLeftTexture);
-    gEngine.Textures.loadTexture(Arrow.eAssets.eScreamingChickenArrowRightTexture);
-    gEngine.Textures.loadTexture(Arrow.eAssets.eMineLauncherTexture);
-    gEngine.Textures.loadTexture(Arrow.eAssets.ePoisonArrowTexture);
+    Buff.loadAssets();
+    ParticleSystem.loadAssets();
 
-    gEngine.Textures.loadTexture(Armory.eAssets.eBackgroundTexture);
-    gEngine.Textures.loadTexture(Armory.eAssets.eCellTexture);
-    gEngine.Textures.loadTexture(Armory.eAssets.eCheckMarkTexture);
+    Bow.loadAssets();
+    LifePotion.loadAssets();
+    Mine.loadAssets();
 
-    gEngine.Textures.loadTexture(Arm.eIconAssets.eNormalArrow);
-    gEngine.Textures.loadTexture(Arm.eIconAssets.ePaperPlane);
-    gEngine.Textures.loadTexture(Arm.eIconAssets.eBouncingArrow);
-    gEngine.Textures.loadTexture(Arm.eIconAssets.eDestroyer);
-    gEngine.Textures.loadTexture(Arm.eIconAssets.ePuncturingArrow);
-    gEngine.Textures.loadTexture(Arm.eIconAssets.eShockWave);
-    gEngine.Textures.loadTexture(Arm.eIconAssets.eScreamingChickenArrow);
-    gEngine.Textures.loadTexture(Arm.eIconAssets.eMineLauncher);
-    gEngine.Textures.loadTexture(Arm.eIconAssets.ePoisonArrow);
-
-    gEngine.Textures.loadTexture(Buff.eAssets.ePoisonBuffTexture);
-
-    gEngine.Textures.loadTexture(Bow.eAssets.eBowSetSpriteTexture);
-
-    gEngine.Textures.loadTexture(HpBar.eAssets.eBackgroundTexture);
-    gEngine.Textures.loadTexture(HpBar.eAssets.eRedHeart);
-    gEngine.Textures.loadTexture(PlayerMark.eAssets.eMark1);
-    gEngine.Textures.loadTexture(PlayerMark.eAssets.eMark2);
 
     switch (this.mPlace) {
         case Background.ePlace.eEasternCity: {
@@ -111,72 +74,27 @@ SceneA.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kPlatformTexture);
     gEngine.Textures.loadTexture(this.kWallTexture);
 
-    gEngine.Textures.loadTexture("assets/particles/Particle2.png");
-    gEngine.Textures.loadTexture("assets/particles/emoji.png");
-    gEngine.Textures.loadTexture("assets/particles/greenParticle.png");
-    gEngine.Textures.loadTexture("assets/particles/boom.png");
-
-
     gEngine.AudioClips.loadAudio(this.kBgm);
-    gEngine.AudioClips.loadAudio(Player.eAudio.eShootCue);
-    gEngine.AudioClips.loadAudio(ScreamingChickenArrow.eAudio.eChicken);
-    gEngine.AudioClips.loadAudio(Mine.eAudio.eExplode);
 };
 
 SceneA.prototype.unloadScene = function () {
-    gEngine.Textures.unloadTexture(Player.eAssets.eViewFrameTexture);
+    Player.unloadAssets();
+    Archer.unloadAssets();
+    Arrow.unloadAssets();
 
-    gEngine.Textures.unloadTexture(this.kLifePotionTexture);
-    gEngine.Textures.unloadTexture(Mine.eAssets.eMineTexture);
-    gEngine.Textures.unloadTexture(ShootController.eAssets.eShootDirArrowTexture);
+    HpBar.unloadAssets();
+    ShootController.unloadAssets();
+    PlayerMark.unloadAssets();
 
-    gEngine.Textures.unloadTexture(Archer.eAssets_1.eShootLeftTexture);
-    gEngine.Textures.unloadTexture(Archer.eAssets_1.eShootRightTexture);
-    gEngine.Textures.unloadTexture(Archer.eAssets_1.eStandLeftTexture);
-    gEngine.Textures.unloadTexture(Archer.eAssets_1.eStandRightTexture);
-    gEngine.Textures.unloadTexture(Archer.eAssets_1.eWalkLeftTexture);
-    gEngine.Textures.unloadTexture(Archer.eAssets_1.eWalkRightTexture);
-    
-    gEngine.Textures.unloadTexture(Archer.eAssets_2.eShootLeftTexture);
-    gEngine.Textures.unloadTexture(Archer.eAssets_2.eShootRightTexture);
-    gEngine.Textures.unloadTexture(Archer.eAssets_2.eStandLeftTexture);
-    gEngine.Textures.unloadTexture(Archer.eAssets_2.eStandRightTexture);
-    gEngine.Textures.unloadTexture(Archer.eAssets_2.eWalkLeftTexture);
-    gEngine.Textures.unloadTexture(Archer.eAssets_2.eWalkRightTexture);
+    Armory.unloadAssets();
+    Arm.unloadAssets();
 
-    gEngine.Textures.unloadTexture(Arrow.eAssets.eNormalArrowTexture);
-    gEngine.Textures.unloadTexture(Arrow.eAssets.ePaperPlaneTexture);
-    gEngine.Textures.unloadTexture(Arrow.eAssets.eBouncingArrowTexture);
-    gEngine.Textures.unloadTexture(Arrow.eAssets.eDestroyerTexture);
-    gEngine.Textures.unloadTexture(Arrow.eAssets.ePuncturingArrowTexture);
-    gEngine.Textures.unloadTexture(Arrow.eAssets.eShockWaveTexture);
-    gEngine.Textures.unloadTexture(Arrow.eAssets.eScreamingChickenArrowLeftTexture);
-    gEngine.Textures.unloadTexture(Arrow.eAssets.eScreamingChickenArrowRightTexture);
-    gEngine.Textures.unloadTexture(Arrow.eAssets.eMineLauncherTexture);
-    gEngine.Textures.unloadTexture(Arrow.eAssets.ePoisonArrowTexture);
+    Buff.unloadAssets();
+    ParticleSystem.unloadAssets();
 
-    gEngine.Textures.unloadTexture(Armory.eAssets.eBackgroundTexture);
-    gEngine.Textures.unloadTexture(Armory.eAssets.eCellTexture);
-    gEngine.Textures.unloadTexture(Armory.eAssets.eCheckMarkTexture);
-
-    gEngine.Textures.unloadTexture(Arm.eIconAssets.eNormalArrow);
-    gEngine.Textures.unloadTexture(Arm.eIconAssets.ePaperPlane);
-    gEngine.Textures.unloadTexture(Arm.eIconAssets.eBouncingArrow);
-    gEngine.Textures.unloadTexture(Arm.eIconAssets.eDestroyer);
-    gEngine.Textures.unloadTexture(Arm.eIconAssets.ePuncturingArrow);
-    gEngine.Textures.unloadTexture(Arm.eIconAssets.eShockWave);
-    gEngine.Textures.unloadTexture(Arm.eIconAssets.eScreamingChickenArrow);
-    gEngine.Textures.unloadTexture(Arm.eIconAssets.eMineLauncher);
-    gEngine.Textures.unloadTexture(Arm.eIconAssets.ePoisonArrow);
-
-    gEngine.Textures.unloadTexture(Buff.eAssets.ePoisonBuffTexture);
-
-    gEngine.Textures.unloadTexture(Bow.eAssets.eBowSetSpriteTexture);
-
-    gEngine.Textures.unloadTexture(HpBar.eAssets.eBackgroundTexture);
-    gEngine.Textures.unloadTexture(HpBar.eAssets.eRedHeart);
-    gEngine.Textures.unloadTexture(PlayerMark.eAssets.eMark1);
-    gEngine.Textures.unloadTexture(PlayerMark.eAssets.eMark2);
+    Bow.unloadAssets();
+    LifePotion.unloadAssets();
+    Mine.unloadAssets();j
 
     switch (this.mPlace) {
         case Background.ePlace.eEasternCity: {
@@ -207,14 +125,7 @@ SceneA.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kPlatformTexture);
     gEngine.Textures.unloadTexture(this.kWallTexture);
 
-    gEngine.Textures.unloadTexture("assets/particles/Particle2.png");
-    gEngine.Textures.unloadTexture("assets/particles/emoji.png");
-    gEngine.Textures.unloadTexture("assets/particles/greenParticle.png");
-    gEngine.Textures.unloadTexture("assets/particles/boom.png");
-
     gEngine.AudioClips.unloadAudio(this.kBgm);
-    gEngine.AudioClips.unloadAudio(Mine.eAudio.eExplode);
-    gEngine.AudioClips.unloadAudio(ScreamingChickenArrow.eAudio.eChicken);
     gEngine.AudioClips.stopBackgroundAudio(this.kBgm);
 
     var nextLevel;
@@ -261,17 +172,17 @@ SceneA.prototype.initialize = function () {
     this.mAllObstacles.addToSet(player.getArcher());
 
     var i, tempX, tempY;
-    for(i = 0; i < 5; ++i){
+    for(i = 0; i < 2; ++i){
         tempX = this.random(0, 900);
         tempY = this.random(0, 170);
-        this.mLifePotion = new LifePotion(tempX-500, tempY-70, this.kLifePotionTexture, 2,
+        this.mLifePotion = new LifePotion(tempX-500, tempY-70, LifePotion.eAssets.eLifePotionTexture, 2,
                                     this.mAllObjs, this.mAllObstacles, this.mDestroyable);
         this.mAllObjs.addToSet(this.mLifePotion);
         this.mDestroyable.addToSet(this.mLifePotion);
     }
 
     var tempWeapon, tempAmount;
-    for(i = 0; i < 10; ++i){
+    for(i = 0; i < 5; ++i){
         tempX = this.random(0, 900);
         tempY = this.random(0, 170);
         tempWeapon = this.random(1, 7);  
@@ -287,18 +198,15 @@ SceneA.prototype.initialize = function () {
     this.mBow = new Bow(30, -90, Arm.eArmNum.ePuncturingArrow, 2, 50);
     this.mAllObjs.addToSet(this.mBow);
     this.mDestroyable.addToSet(this.mBow);
-
-//    console.log(this.mAllObjs);
 };
 
 SceneA.prototype.update = function () {
-    
     if(gEngine.AudioClips.isBackgroundAudioPlaying() === false)
         gEngine.AudioClips.playBackgroundAudio(this.kBgm);
-    
-    //this.mGame.getCurrentPlayer().update();
+
     this.mGame.update();
     this.mAllObjs.update(this.mGame.getCurrentPlayer().getMainCamera());
+
     gEngine.Physics.processCollision(this.mAllObjs, this.mCollisionInfos);
 };
 
@@ -307,16 +215,14 @@ SceneA.prototype.draw = function () {
 
     var player = this.mGame.getCurrentPlayer();
     player.draw();
+
     var opponent;
     if (player.mIndex === 0)
         opponent = this.mGame.getPlayerAt(1);
     else if (player.mIndex === 1)
         opponent = this.mGame.getPlayerAt(0);
-    /*
-    opponent.mHpBarCamera.setupViewProjection();
-    opponent.mHpBar.draw(opponent.mHpBarCamera);
-    */
     opponent.draw();
+
     this.mCollisionInfos = [];
 };
 

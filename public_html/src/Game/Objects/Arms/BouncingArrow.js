@@ -39,7 +39,7 @@ BouncingArrow.prototype.draw = function (aCamera) {
 
 BouncingArrow.prototype.createParticle = function (atX, atY) {
     var life = 30 + Math.random() * 200;
-    var p = new ParticleGameObject("assets/particles/Particle2.png", atX, atY, life);
+    var p = new ParticleGameObject(ParticleSystem.eAssets.eSnow, atX, atY, life);
     p.getRenderable().setColor([0, 0, 1, 1]);
 
     // size of the particle

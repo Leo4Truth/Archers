@@ -81,7 +81,7 @@ ScreamingChickenArrow.prototype.draw = function (aCamera) {
 
 ScreamingChickenArrow.prototype.createParticle = function (atX, atY) {
     var life = 30 + Math.random() * 200;
-    var p = new ParticleGameObject("assets/particles/emoji.png", atX, atY, life);
+    var p = new ParticleGameObject(ParticleSystem.eAssets.eEmoji, atX, atY, life);
     p.getRenderable().setColor([0.2, 0.2, 0.2, 0]);
 
     // size of the particle

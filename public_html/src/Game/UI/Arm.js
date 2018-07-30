@@ -92,3 +92,27 @@ Arm.prototype.setInactive = function () {
     this.isActive = 0;
     this.mMessageBox = null;
 };
+
+Arm.loadAssets = function () {
+    gEngine.Textures.loadTexture(Arm.eIconAssets.eNormalArrow);
+    gEngine.Textures.loadTexture(Arm.eIconAssets.ePaperPlane);
+    gEngine.Textures.loadTexture(Arm.eIconAssets.eBouncingArrow);
+    gEngine.Textures.loadTexture(Arm.eIconAssets.eDestroyer);
+    gEngine.Textures.loadTexture(Arm.eIconAssets.ePuncturingArrow);
+    gEngine.Textures.loadTexture(Arm.eIconAssets.eShockWave);
+    gEngine.Textures.loadTexture(Arm.eIconAssets.eScreamingChickenArrow);
+    gEngine.Textures.loadTexture(Arm.eIconAssets.eMineLauncher);
+    gEngine.Textures.loadTexture(Arm.eIconAssets.ePoisonArrow);
+};
+
+Arm.unloadAssets = function () {
+    gEngine.Textures.unloadTexture(Arm.eIconAssets.eNormalArrow);
+    gEngine.Textures.unloadTexture(Arm.eIconAssets.ePaperPlane);
+    gEngine.Textures.unloadTexture(Arm.eIconAssets.eBouncingArrow);
+    gEngine.Textures.unloadTexture(Arm.eIconAssets.eDestroyer);
+    gEngine.Textures.unloadTexture(Arm.eIconAssets.ePuncturingArrow);
+    gEngine.Textures.unloadTexture(Arm.eIconAssets.eShockWave);
+    gEngine.Textures.unloadTexture(Arm.eIconAssets.eScreamingChickenArrow);
+    gEngine.Textures.unloadTexture(Arm.eIconAssets.eMineLauncher);
+    gEngine.Textures.unloadTexture(Arm.eIconAssets.ePoisonArrow);
+};

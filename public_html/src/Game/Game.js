@@ -28,17 +28,12 @@ function Game() {
 }
 
 Game.prototype.setCurrentPlayer = function (index) {
+    // console.log(this.mCurrentScene.mAllObjs);
     this.mTurns++;
     this.mPlayers[0].incTurns();
     this.mPlayers[1].incTurns();
     if (this.mTurns % 2 === 0) {
-<<<<<<< HEAD
         this.decreaseSpaceLimit(5);
-=======
-        this.decreaseSpaceLimit(10);
-//        console.log(this.mTurns);
-//        console.log(this.mSpaceLimit);
->>>>>>> 7f794257209e752b649be5ec7b7d2f28386651af
     }
     this.mCurrentPlayer = this.mPlayers[index];
     this.mCurrentPlayer.setState(Player.ePlayerState.eReady);

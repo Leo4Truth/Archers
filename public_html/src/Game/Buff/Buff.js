@@ -64,3 +64,10 @@ Buff.prototype.end = function () {
         this.mPlayer.mBuffSet.splice(index, 1);
 };
 
+Buff.loadAssets = function () {
+    gEngine.Textures.loadTexture(Buff.eAssets.ePoisonBuffTexture);
+};
+
+Buff.unloadAssets = function () {
+    gEngine.Textures.unloadTexture(Buff.eAssets.ePoisonBuffTexture);
+};

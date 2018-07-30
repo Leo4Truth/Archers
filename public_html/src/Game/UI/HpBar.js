@@ -1,8 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 "use strict";
 
 HpBar.eAssets = Object.freeze({
@@ -48,4 +43,14 @@ HpBar.prototype.draw = function (aCamera) {
     for (i = 0; i < this.mHp; i++) {
         this.mHpBar[i].draw(aCamera);
     }
+};
+
+HpBar.loadAssets = function () {
+    gEngine.Textures.loadTexture(HpBar.eAssets.eBackgroundTexture);
+    gEngine.Textures.loadTexture(HpBar.eAssets.eRedHeart);
+};
+
+HpBar.unloadAssets = function () {
+    gEngine.Textures.unloadTexture(HpBar.eAssets.eBackgroundTexture);
+    gEngine.Textures.unloadTexture(HpBar.eAssets.eRedHeart);
 };
