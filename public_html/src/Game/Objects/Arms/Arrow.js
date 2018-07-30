@@ -75,8 +75,8 @@ Arrow.prototype.update = function () {
 
     if (this.mCurrentState === Arrow.eArrowState.eHit) {
         this.mEffectTimer++;
-        console.log(this.isEffectEnd());
-        console.log(this.mEffectTimer);
+//        console.log(this.isEffectEnd());
+//        console.log(this.mEffectTimer);
         if (this.mEffectTimer >= this.mEffectTimeLimit && this.isEffectEnd()) {
             this.mAllObjs.removeFromSet(this);
             this.mCurrentState = Arrow.eArrowState.eEffect;
