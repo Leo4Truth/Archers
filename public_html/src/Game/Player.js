@@ -339,7 +339,6 @@ Player.prototype.keyControl = function () {
                 }
             }
 
-            /*
             if (
                 gEngine.Input.isKeyPressed(gEngine.Input.keys.A) ||
                 gEngine.Input.isKeyPressed(gEngine.Input.keys.D) ||
@@ -347,11 +346,9 @@ Player.prototype.keyControl = function () {
             ) {
                 this.resetCamera();
             }
-            */
 
             var v = this.mArcher.getRigidBody().getVelocity();
-            if (Math.abs(v[0]) >= 1.0 ||
-                Math.abs(v[1]) >= 1.0) {
+            if (Math.abs(v[1]) >= 0.5) {
                 this.resetCamera();
             }
 
