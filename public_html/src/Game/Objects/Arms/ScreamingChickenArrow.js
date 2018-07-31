@@ -39,12 +39,20 @@ function ScreamingChickenArrow(
     this.mAffected = [];
 
     this.mDirection = 0;
+
+    this.mSoundTimer = 0;
 //    this.toggleDrawRigidShape(); // Draw RigidShape
 }
 gEngine.Core.inheritPrototype(ScreamingChickenArrow, Arrow);
 
 
 ScreamingChickenArrow.prototype.update = function () {
+    this.mSoundTimer++;
+    if (this.mSoundTimer > 60) {
+        gEngine.AudioClips.playACue(Arrow.eAudio.eChickenScreaming);
+        this.mSoundTimer = 0;
+    }
+
     Arrow.prototype.update.call(this);
     this.mArrow.getXform().setRotationInRad(0);
     if (this.mIsChicken) {

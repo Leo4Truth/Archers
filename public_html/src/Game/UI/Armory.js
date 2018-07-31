@@ -30,7 +30,7 @@ function Armory(XPos, YPos) {
     this.mBackground = new SpriteRenderable(Armory.eAssets.eBackgroundTexture);
     this.mBackground.setColor([1, 1, 1, 0]);
     this.mBackground.getXform().setPosition(XPos, YPos);
-    this.mBackground.getXform().setSize(60, 84);
+    this.mBackground.getXform().setSize(60, 90);
 
     var i;
     for (i = 0; i < 35; i++) {
@@ -38,7 +38,7 @@ function Armory(XPos, YPos) {
         cell.setColor([1, 1, 1, 0]);
         cell.getXform().setPosition(
             XPos + Armory.eCellOffsets[i][0],
-            YPos + Armory.eCellOffsets[i][1]
+            YPos + Armory.eCellOffsets[i][1] + 3
         );
         cell.getXform().setSize(10, 10);
         this.mCells[i] = cell;
@@ -48,31 +48,31 @@ function Armory(XPos, YPos) {
     this.mCheckMark.setColor([1, 1, 1, 0]);
     this.mCheckMark.getXform().setPosition(
         XPos + Armory.eCellOffsets[this.kCurrentArm][0],
-        YPos + Armory.eCellOffsets[this.kCurrentArm][1]
+        YPos + Armory.eCellOffsets[this.kCurrentArm][1] + 3
     );
     this.mCheckMark.getXform().setSize(10, 10);
 
     // Here are all of the weapon
-    var newArm = new Arm(this.XPos, this.YPos, 0, 99, Arm.eIconAssets.eNormalArrow);
+    var newArm = new Arm(this.XPos, this.YPos + 3, 0, 99, Arm.eIconAssets.eNormalArrow);
     newArm.setActive();
     this.addArm(newArm);
-    newArm = new Arm(this.XPos, this.YPos, 1, 5, Arm.eIconAssets.ePaperPlane);
+    newArm = new Arm(this.XPos, this.YPos + 3, 1, 5, Arm.eIconAssets.ePaperPlane);
     this.addArm(newArm);
-    newArm = new Arm(this.XPos, this.YPos, 2, 5, Arm.eIconAssets.eBouncingArrow);
+    newArm = new Arm(this.XPos, this.YPos + 3, 2, 5, Arm.eIconAssets.eBouncingArrow);
     this.addArm(newArm);
-    newArm = new Arm(this.XPos, this.YPos, 3, 2, Arm.eIconAssets.eDestroyer);
+    newArm = new Arm(this.XPos, this.YPos + 3, 3, 2, Arm.eIconAssets.eDestroyer);
     this.addArm(newArm);
-    newArm = new Arm(this.XPos, this.YPos, 4, 1, Arm.eIconAssets.ePuncturingArrow);
+    newArm = new Arm(this.XPos, this.YPos + 3, 4, 1, Arm.eIconAssets.ePuncturingArrow);
     this.addArm(newArm);
-    newArm = new Arm(this.XPos, this.YPos, 5, 5, Arm.eIconAssets.eShockWave);
+    newArm = new Arm(this.XPos, this.YPos + 3, 5, 5, Arm.eIconAssets.eShockWave);
     this.addArm(newArm);
-    newArm = new Arm(this.XPos, this.YPos, 6, 10, Arm.eIconAssets.eScreamingChickenArrow);
+    newArm = new Arm(this.XPos, this.YPos + 3, 6, 10, Arm.eIconAssets.eScreamingChickenArrow);
     this.addArm(newArm);
-    newArm = new Arm(this.XPos, this.YPos, 7, 3, Arm.eIconAssets.eMineLauncher);
+    newArm = new Arm(this.XPos, this.YPos + 3, 7, 3, Arm.eIconAssets.eMineLauncher);
     this.addArm(newArm);
-    newArm = new Arm(this.XPos, this.YPos, 8, 3, Arm.eIconAssets.ePoisonArrow);
+    newArm = new Arm(this.XPos, this.YPos + 3, 8, 3, Arm.eIconAssets.ePoisonArrow);
     this.addArm(newArm);
-    newArm = new Arm(this.XPos, this.YPos, 9, 2, Arm.eIconAssets.eRegenerationArrow);
+    newArm = new Arm(this.XPos, this.YPos + 3, 9, 2, Arm.eIconAssets.eRegenerationArrow);
     this.addArm(newArm);
 }
 
@@ -101,7 +101,7 @@ Armory.prototype.draw = function (aCamera) {
 Armory.prototype.update = function() {
     this.mCheckMark.getXform().setPosition(
         this.XPos + Armory.eCellOffsets[this.kCurrentArm][0],
-        this.YPos + Armory.eCellOffsets[this.kCurrentArm][1]
+        this.YPos + Armory.eCellOffsets[this.kCurrentArm][1] + 3
     );
 };
 

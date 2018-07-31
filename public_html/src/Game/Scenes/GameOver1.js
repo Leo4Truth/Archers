@@ -53,10 +53,11 @@ GameOver1.prototype.unloadScene = function () {
         gEngine.Core.startScene(nextLevel);
         this.mGame.mCurrentScene = nextLevel;
     }
-    else
+    else {
         this.mNext = new MyMenu(this.mGame);
-    gEngine.Core.startScene(this.mNext);
-    this.mGame.mCurrentScene = this.mNext;
+        gEngine.Core.startScene(this.mNext);
+        this.mGame.mCurrentScene = this.mNext;
+    }
 };
 
 GameOver1.prototype.initialize = function () {

@@ -102,6 +102,8 @@ Destroyer.prototype.createParticle = function (atX, atY) {
 };
 
 Destroyer.prototype.effectOnObstacle = function (obj) {
+    gEngine.AudioClips.playACue(Arrow.eAudio.eDestroyerHit);
+
     this.mObstacle.removeFromSet(obj);
     this.mAllObjs.removeFromSet(obj);
     this.mAllObjs.removeFromSet(this);
@@ -111,6 +113,8 @@ Destroyer.prototype.effectOnObstacle = function (obj) {
 
 
 Destroyer.prototype.effectOnArcher = function (obj) {
+    gEngine.AudioClips.playACue(Arrow.eAudio.eDestroyerHit);
+
     obj.loseHp(3);
     this.mAllObjs.removeFromSet(this);
     this.mGenerateParticles = 0;

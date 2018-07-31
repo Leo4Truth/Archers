@@ -85,7 +85,7 @@ Arm.prototype.setActive = function () {
     var tempStr = Arm.eMsgString[this.mOrder];
     this.mMessageBox = new FontRenderable(tempStr.concat(this.mCurrentNum.toString()));
     this.mMessageBox.setColor([1, 0, 0, 1]);
-    this.mMessageBox.getXform().setPosition(this.XPos - 24, this.YPos - 36);
+    this.mMessageBox.getXform().setPosition(this.XPos - 24, this.YPos - 44);
     this.mMessageBox.getXform().setSize(0, 0);
     this.mMessageBox.setTextHeight(5);
 };

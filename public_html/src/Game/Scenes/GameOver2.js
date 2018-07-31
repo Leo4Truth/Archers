@@ -49,16 +49,15 @@ GameOver2.prototype.unloadScene = function () {
         var skyRandom = Math.floor(Game.random(0, 1.8));
         var placeRandom = Math.floor(Game.random(0, 2.8));
 
-        console.log(placeRandom);
-
         var nextLevel = new SceneA(this.mGame, placeRandom, skyRandom);
         gEngine.Core.startScene(nextLevel);
         this.mGame.mCurrentScene = nextLevel;
     }
-    else
+    else {
         this.mNext = new MyMenu(this.mGame);
-    gEngine.Core.startScene(this.mNext);
-    this.mGame.mCurrentScene = this.mNext;
+        gEngine.Core.startScene(this.mNext);
+        this.mGame.mCurrentScene = this.mNext;
+    }
 };
 
 GameOver2.prototype.initialize = function () {

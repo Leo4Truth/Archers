@@ -1,14 +1,19 @@
 "use strict";
 
 PlayerMark.eAssets = Object.freeze({
-    eMark1: "assets/UI/P1Mark.png",
-    eMark2: "assets/UI/P2Mark.png"
+    eMark1: "assets/UI/P1Mark_deeper.png",
+    eMark2: "assets/UI/P2Mark_deeper.png"
 });
 
-function PlayerMark(Player) {
-    this.kMark = "assets/UI/P" + Player.toString() + "Mark.png";
+function PlayerMark(player) {
+    this.mMark = null;
+    this.mPlayer = player;
 
-    this.mMark = new TextureRenderable(this.kMark);
+    if (this.mPlayer.mIndex === 0)
+        this.mMark = new TextureRenderable(PlayerMark.eAssets.eMark1);
+    else if (this.mPlayer.mIndex === 1)
+        this.mMark = new TextureRenderable(PlayerMark.eAssets.eMark2);
+
     this.mMark.getXform().setSize(4, 4);
 }
 

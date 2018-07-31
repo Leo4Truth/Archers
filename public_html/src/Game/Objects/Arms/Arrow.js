@@ -22,7 +22,9 @@ Arrow.eAssets = Object.freeze({
 });
 
 Arrow.eAudio = Object.freeze({
-    eChickenScreaming : "assets/sounds/chicken.mp3"
+    eChickenScreaming : "assets/sounds/chicken.mp3",
+    eDestroyerHit: "assets/sounds/hammer.mp3",
+    ePuncturing: "assets/sounds/arrowsound.mp3"
 });
 
 function Arrow(
@@ -75,8 +77,6 @@ Arrow.prototype.update = function () {
 
     if (this.mCurrentState === Arrow.eArrowState.eHit) {
         this.mEffectTimer++;
-        console.log(this.isEffectEnd());
-        console.log(this.mEffectTimer);
         if (this.mEffectTimer >= this.mEffectTimeLimit && this.isEffectEnd()) {
             this.mAllObjs.removeFromSet(this);
             this.mCurrentState = Arrow.eArrowState.eEffect;
@@ -225,6 +225,8 @@ Arrow.loadAssets = function () {
     gEngine.Textures.loadTexture(Arrow.eAssets.eRegenerationArrowTexture);
 
     gEngine.AudioClips.loadAudio(Arrow.eAudio.eChickenScreaming);
+    gEngine.AudioClips.loadAudio(Arrow.eAudio.eDestroyerHit);
+    gEngine.AudioClips.loadAudio(Arrow.eAudio.ePuncturing);
 };
 
 Arrow.unloadAssets = function () {
@@ -241,4 +243,6 @@ Arrow.unloadAssets = function () {
     gEngine.Textures.unloadTexture(Arrow.eAssets.eRegenerationArrowTexture);
 
     gEngine.AudioClips.unloadAudio(Arrow.eAudio.eChickenScreaming);
+    gEngine.AudioClips.unloadAudio(Arrow.eAudio.eDestroyerHit);
+    gEngine.AudioClips.unloadAudio(Arrow.eAudio.ePuncturing);
 };

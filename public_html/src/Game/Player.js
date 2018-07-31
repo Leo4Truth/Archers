@@ -138,7 +138,7 @@ Player.prototype.initialize = function () {
             Player.eAttributes.eArmoryPos[this.mIndex][1]
         ),
         60,
-        [1200, 40, 400, 560]
+        [1200, 0, 400, 600]
     );
     this.mHpBarCamera = new Camera(
         vec2.fromValues(
@@ -166,12 +166,24 @@ Player.prototype.initialize = function () {
         this.mAllObjs, this.mAllObstacles, this.mDestroyable,
         this, this.mIndex
     );
-    this.mShootController = new ShootController(
-        Player.eAttributes.eOrginPos[this.mIndex][0],
-        Player.eAttributes.eOrginPos[this.mIndex][1],
-        vec2.fromValues(1, 0),
-        ShootController.eAssets.eShootDirArrowTexture
-    );
+
+    if (this.mIndex === 0) {
+        this.mShootController = new ShootController(
+            Player.eAttributes.eOrginPos[this.mIndex][0],
+            Player.eAttributes.eOrginPos[this.mIndex][1],
+            vec2.fromValues(1, 0),
+            ShootController.eAssets.eBlueShootDirArrowTexture
+        );
+    }
+    else if (this.mIndex === 1) {
+        this.mShootController = new ShootController(
+            Player.eAttributes.eOrginPos[this.mIndex][0],
+            Player.eAttributes.eOrginPos[this.mIndex][1],
+            vec2.fromValues(1, 0),
+            ShootController.eAssets.eRedShootDirArrowTexture
+        );
+    }
+
 
     this.mArmory = new Armory(
         Player.eAttributes.eArmoryPos[this.mIndex][0],
@@ -182,11 +194,13 @@ Player.prototype.initialize = function () {
         Player.eAttributes.eHpBarPos[this.mIndex][1],
         this.mArcher
     );
-    this.mTimer = new Timer();
+    this.mTimer = new Timer(this);
+    /*
     this.mTimer.mTextbox.getXform().setPosition(1100, 1100);
     this.mTimer.mTextbox.getXform().setSize(5, 5);
+    */
 
-    this.mMark = new PlayerMark(this.mIndex + 1);
+    this.mMark = new PlayerMark(this);
 
     this.mBuffSet = [];
 
@@ -259,7 +273,8 @@ Player.prototype.update = function () {
 Player.prototype.keyControl = function () {
     switch (this.mCurrentState) {
         case Player.ePlayerState.eReady: {
-            if (this.mTime > 1200) {
+
+            if (this.mTime > 1440) {
                 this.resetTimer();
                 this.setState(Player.ePlayerState.eWait);
                 this.mArcher.setToStand();
@@ -323,7 +338,7 @@ Player.prototype.keyControl = function () {
                         msPosY -= 200;
                     for (i = 0; i < 34; ++i) {
                         if (Math.abs(msPosX - Armory.eCellOffsets[i][0]) <= 5
-                            && Math.abs(msPosY - Armory.eCellOffsets[i][1]) <= 5) {
+                            && Math.abs(msPosY - Armory.eCellOffsets[i][1] - 3) <= 5) {
                             this.mArmory.setCurrentArm(i);
                             break;
                         }
@@ -428,6 +443,13 @@ Player.prototype.draw = function () {
         this.mMark.draw(camera);
         this.mShootController.draw(camera);
 
+        // draw this.mTimer
+        if (this.mCurrentState === Player.ePlayerState.eReady) {
+            //this.mTimer.mTimerCountDown.draw(camera);
+            this.mTimer.mBackground.draw(camera);
+            this.mTimer.mTextbox.draw(camera);
+        }
+
         camera = this.mArmoryCamera;
         camera.setupViewProjection();
         this.mArmory.draw(camera);
@@ -480,8 +502,9 @@ Player.prototype.draw = function () {
     // always display HP and PlayerMark
     this.mHpBarCamera.setupViewProjection();
     this.mHpBar.draw(this.mHpBarCamera);
-
+    /*
     if (this.mCurrentState === Player.ePlayerState.eReady) {
+
         camera = new Camera(
             [1101, 1099],
             10,
@@ -490,6 +513,7 @@ Player.prototype.draw = function () {
         camera.setupViewProjection();
         this.mTimer.mTextbox.draw(camera);
     }
+    */
 };
 
 Player.prototype.setState = function (state) {

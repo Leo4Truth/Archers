@@ -163,11 +163,24 @@ Archer.prototype.update = function (aCamera) {
         for (i = 0; i < this.mAllObjs.size(); i++) {
             var objPos = this.mAllObjs.getObjectAt(i).getXform().getPosition();
             var objSize = this.mAllObjs.getObjectAt(i).getXform().getSize();
-            if (pos[1] - objPos[1] <= 6.4 &&
-                pos[1] - objPos[1] >= 6.2 &&
-                pos[0] - objPos[0] <= (size[0] + objSize[0]) / 2 + 1.0 &&
-                pos[0] - objPos[0] >= -(size[0] + objSize[0]) / 2 - 1.0) {
-                this.mJumpRemain = 2;
+
+            var obj = this.mAllObjs.getObjectAt(i);
+
+            if (obj instanceof Archer) {
+                if (pos[1] - objPos[1] <= 10.0 &&
+                    pos[1] - objPos[1] >= 9.8 &&
+                    pos[0] - objPos[0] <= (size[0] + objSize[0]) / 2 + 1.0 &&
+                    pos[0] - objPos[0] >= -(size[0] + objSize[0]) / 2 - 1.0) {
+                    this.mJumpRemain = 2;
+                }
+            }
+            else {
+                if (pos[1] - objPos[1] <= 6.4 &&
+                    pos[1] - objPos[1] >= 6.2 &&
+                    pos[0] - objPos[0] <= (size[0] + objSize[0]) / 2 + 1.0 &&
+                    pos[0] - objPos[0] >= -(size[0] + objSize[0]) / 2 - 1.0) {
+                    this.mJumpRemain = 2;
+                }
             }
         }
     }

@@ -22,6 +22,10 @@ function Game() {
     this.mSpaceLimit = null;
     this.mTurns = null;
 
+
+    // ugly code here
+    Timer.loadAssets();
+
     this.mCurrentState = Game.eGameState.eGameStart;
     this.mCurrentScene = new MyMenu(this);
     gEngine.Core.initializeEngineCore('GLCanvas', this.mCurrentScene);

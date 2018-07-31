@@ -19,6 +19,8 @@ function PuncturingArrow(
     this.mHitSet = new GameObjectSet();
     this.mDamage = 4;
 
+    this.mSoundTimer = 0;
+
     //particles
     this.mGenerateParticles = 1;
     this.mParticles = new ParticleGameObjectSet();
@@ -29,6 +31,12 @@ gEngine.Core.inheritPrototype(PuncturingArrow, Arrow);
 
 PuncturingArrow.prototype.update = function () {
     Arrow.prototype.update.call(this);
+
+    this.mSoundTimer++;
+    if (this.mSoundTimer > 30) {
+        gEngine.AudioClips.playACue(Arrow.eAudio.ePuncturing);
+        this.mSoundTimer = 0;
+    }
 
     this.getRigidBody().setVelocity(this.mVx, this.mVy);
 

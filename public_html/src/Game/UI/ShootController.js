@@ -6,7 +6,8 @@ ShootController.eDirection = Object.freeze({
 });
 
 ShootController.eAssets = Object.freeze({
-    eShootDirArrowTexture: "./assets/UI/UI_arrow.png"
+    eBlueShootDirArrowTexture: "./assets/UI/UI_arrow_blue.png",
+    eRedShootDirArrowTexture: "./assets/UI/UI_arrow_red.png"
 });
 
 function ShootController(posX, posY, frontDir, texture) {
@@ -128,9 +129,11 @@ ShootController.prototype.getVelocity = function () {
 };
 
 ShootController.loadAssets = function () {
-    gEngine.Textures.loadTexture(ShootController.eAssets.eShootDirArrowTexture);
+    gEngine.Textures.loadTexture(ShootController.eAssets.eRedShootDirArrowTexture);
+    gEngine.Textures.loadTexture(ShootController.eAssets.eBlueShootDirArrowTexture);
 };
 
 ShootController.unloadAssets = function () {
-    gEngine.Textures.unloadTexture(ShootController.eAssets.eShootDirArrowTexture);
+    gEngine.Textures.unloadTexture(ShootController.eAssets.eRedShootDirArrowTexture);
+    gEngine.Textures.unloadTexture(ShootController.eAssets.eBlueShootDirArrowTexture);
 };

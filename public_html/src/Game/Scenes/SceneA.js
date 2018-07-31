@@ -20,6 +20,8 @@ function SceneA(game, place, sky) {
 gEngine.Core.inheritPrototype(SceneA, Scene);
 
 SceneA.prototype.loadScene = function () {
+    // Beautiful but doesn't work
+    // Timer.loadAssets();
     Background.loadAssets();
 
     Player.loadAssets();
@@ -48,6 +50,8 @@ SceneA.prototype.loadScene = function () {
 };
 
 SceneA.prototype.unloadScene = function () {
+    // Beautiful but doesn't work
+    // Timer.unloadAssets();
     Background.unloadAssets();
 
     Player.unloadAssets();
@@ -57,6 +61,7 @@ SceneA.prototype.unloadScene = function () {
     HpBar.unloadAssets();
     ShootController.unloadAssets();
     PlayerMark.unloadAssets();
+    Timer.loadAssets();
 
     Armory.unloadAssets();
     Arm.unloadAssets();
