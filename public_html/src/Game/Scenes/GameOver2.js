@@ -48,8 +48,8 @@ GameOver2.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kBackground);
     gEngine.Textures.unloadTexture(this.kP2Win);
 
-    gEngine.AudioClips.unloadAudio(this.kBgm);
     gEngine.AudioClips.stopBackgroundAudio();
+    gEngine.AudioClips.unloadAudio(this.kBgm);
 
     if (this.mOption === 0) {
         var skyRandom = Game.random(0, 2.99);

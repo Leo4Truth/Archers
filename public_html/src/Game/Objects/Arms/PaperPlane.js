@@ -67,6 +67,7 @@ PaperPlane.prototype.effectOnObstacle = function (obj) {
     this.transfer();
     this.mCurrentState = Arrow.eArrowState.eHit;
     this.mGenerateParticles = 0;
+    //this.mMaster.setState(Player.ePlayerState.eReady);
 };
 
 PaperPlane.prototype.effectOnArcher = function (obj) {
@@ -74,6 +75,7 @@ PaperPlane.prototype.effectOnArcher = function (obj) {
     this.transfer();
     this.mCurrentState = Arrow.eArrowState.eHit;
     this.mGenerateParticles = 0;
+    //this.mMaster.setState(Player.ePlayerState.eReady);
 };
 
 PaperPlane.prototype.effectOnDestroyable = function (obj) {
@@ -81,6 +83,7 @@ PaperPlane.prototype.effectOnDestroyable = function (obj) {
     this.transfer();
     this.mCurrentState = Arrow.eArrowState.eHit;
     this.mGenerateParticles = 0;
+    //this.mMaster.setState(Player.ePlayerState.eReady);
 };
 
 
