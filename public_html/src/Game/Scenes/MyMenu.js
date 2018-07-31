@@ -25,6 +25,9 @@ function MyMenu(game) {
     this.option = 0;
     this.mLevelBackground = null;
     this.mCamera = null;
+    
+    this.msPosX;
+    this.msPosY;
 
     // Coordinate Systems (Copied from MyGame for simplicity, can change this)
     this.kWCWidth = 200;
@@ -171,12 +174,41 @@ MyMenu.prototype.keyControl = function () {
             this.mAbout.getXform().setPosition(0, 100);
         }
     }
-
+    
+    if (this.mCamera.isMouseInViewport()) {
+        this.msPosX = this.mCamera.mouseWCX();
+        this.msPosY = this.mCamera.mouseWCY();
+        if (gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)){
+            if (this.option === 3) {
+                this.option = 1;
+                this.mhelp.getXform().setPosition(0, 100);
+            }
+            else if(this.option === 4)
+            {
+                this.option = 2;
+                this.mAbout.getXform().setPosition(0, 100);
+            }
+            else if (this.option === 1) {
+                this.option = 3;
+            }
+            else if (this.option === 2) {
+                this.option = 4;
+            }
+            else if (this.option === 0) {
+                gEngine.GameLoop.stop();
+            }
+        }
+    }
+    
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.W) || gEngine.Input.isKeyClicked(gEngine.Input.keys.Up)) {
         if(this.option === 1)
             this.option = 0;
         else if(this.option === 2)
             this.option = 1;
+    }
+    else if(this.option !== 3 && this.option !== 4 && this.mCamera.isMouseInViewport() && this.msPosX >= -40 && this.msPosX <= 40
+            && this.msPosY >= -10 && this.msPosY <= 10){
+        this.option = 0;
     }
     else if (gEngine.Input.isKeyClicked(gEngine.Input.keys.S) || gEngine.Input.isKeyClicked(gEngine.Input.keys.Down)) {
         if(this.option === 0)
@@ -184,14 +216,21 @@ MyMenu.prototype.keyControl = function () {
         else if(this.option === 1)
             this.option = 2;
     }
+    else if(this.option !== 3 && this.option !== 4 && this.mCamera.isMouseInViewport() && this.msPosX >= -40 && this.msPosX <= 40
+            && this.msPosY >= -35 && this.msPosY <= -15){
+        this.option = 1;
+    }
+    else if(this.option !== 3 && this.option !== 4 && this.mCamera.isMouseInViewport() && this.msPosX >= -40 && this.msPosX <= 40
+            && this.msPosY >= -60 && this.msPosY <= -40){
+        this.option = 2;
+    }
     else if ((gEngine.Input.isKeyClicked(gEngine.Input.keys.Space) || gEngine.Input.isKeyClicked(gEngine.Input.keys.Enter)) && this.option === 1) {
         this.option = 3;
     }
-    
+        
     if((gEngine.Input.isKeyPressed(gEngine.Input.keys.Space) || gEngine.Input.isKeyClicked(gEngine.Input.keys.Enter))&& this.option === 2) {
         this.option = 4;
     }
-
     if ((gEngine.Input.isKeyPressed(gEngine.Input.keys.Space) || gEngine.Input.isKeyClicked(gEngine.Input.keys.Enter))&& this.option === 0) {
         gEngine.GameLoop.stop();
     }
