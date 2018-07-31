@@ -186,7 +186,7 @@ Arrow.prototype.effectOnArcher = function (obj) {
 Arrow.prototype.effectOnDestroyable = function (obj) {
     this.mAllObjs.removeFromSet(this);
     if (obj instanceof LifePotion) {
-        this.mMaster.getArcher().addHp(1);
+        this.mMaster.getArcher().addHp(obj.getRestore());
         this.mAllObjs.removeFromSet(obj);
         this.mDestroyable.removeFromSet(obj);
     }

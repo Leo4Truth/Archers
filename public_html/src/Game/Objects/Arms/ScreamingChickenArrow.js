@@ -151,7 +151,7 @@ ScreamingChickenArrow.prototype.effectOnObstacle = function (obj) {
 ScreamingChickenArrow.prototype.effectOnDestroyable = function (obj) {
     gEngine.AudioClips.playACue(Arrow.eAudio.eChickenScreaming);
     if (obj instanceof LifePotion) {
-        this.mMaster.addHp(1);
+        this.mMaster.getArcher().addHp(obj.getRestore());
         this.mAllObjs.removeFromSet(obj);
         this.mDestroyable.removeFromSet(obj);
     }

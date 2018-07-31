@@ -91,7 +91,7 @@ PuncturingArrow.prototype.effectOnArcher = function (obj) {
 
 PuncturingArrow.prototype.effectOnDestroyable = function (obj) {
     if (obj instanceof LifePotion) {
-        this.mMaster.getArcher().addHp(1);
+        this.mMaster.getArcher().addHp(obj.getRestore());
         this.mAllObjs.removeFromSet(obj);
         this.mDestroyable.removeFromSet(obj);
     }

@@ -99,7 +99,7 @@ ShockWave.prototype.effectOnDestroyable = function (obj) {
         obj.getRigidBody().setVelocity(-40, 60);
 
     if (obj instanceof LifePotion) {
-        this.mMaster.getArcher().addHp(1);
+        this.mMaster.getArcher().addHp(obj.getRestore());
         this.mAllObjs.removeFromSet(obj);
         this.mDestroyable.removeFromSet(obj);
     }
