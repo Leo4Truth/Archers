@@ -1,13 +1,13 @@
 function RegenerationArrow(
     posX, posY, vX, vY,
-    aAllObjs, aObstacle, aDestroyable,
+    aAllObjs, aObstacle, aDestroyable, aProps,
     master
 ) {
     Arrow.call(
         this,
         posX, posY, vX, vY,
         Arrow.eAssets.eRegenerationArrowTexture,
-        aAllObjs, aObstacle, aDestroyable,
+        aAllObjs, aObstacle, aDestroyable, aProps,
         master
     );
 

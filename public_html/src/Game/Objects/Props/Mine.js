@@ -6,7 +6,7 @@ Mine.eAudio = Object.freeze({
     eExplode : "assets/sounds/Explosion.mp3"
 });
 
-function Mine(posX, posY, texture, damage, allObj, allObstacle, aDestroyable) {
+function Mine(posX, posY, texture, damage, allObj, allObstacle, aDestroyable, allProp) {
     this.mMine = new TextureRenderable(texture);
     this.mMine.setColor([1, 1, 1, 0]);
     this.mMine.getXform().setPosition(posX, posY);
@@ -24,6 +24,7 @@ function Mine(posX, posY, texture, damage, allObj, allObstacle, aDestroyable) {
     this.mAllObjs = allObj;
     this.mObstacle = allObstacle;
     this.mDestroyable = aDestroyable;
+    this.mProps = allProp;
     this.mdamage = damage;
 
     this.mArcherSet = [];
@@ -119,6 +120,7 @@ Mine.prototype.explode = function () {
             else if (obj instanceof Bow || obj instanceof LifePotion) {
                 this.mAllObjs.removeFromSet(obj);
                 this.mDestroyable.removeFromSet(obj);
+                this.mProps.removeFromSet(obj);
             }
             else if (obj instanceof Mine) {
                 obj.explode();
@@ -137,6 +139,7 @@ Mine.prototype.explode = function () {
             else if (obj instanceof Bow || obj instanceof LifePotion) {
                 this.mAllObjs.removeFromSet(obj);
                 this.mDestroyable.removeFromSet(obj);
+                this.mProps.removeFromSet(obj);
             }
             else if (obj instanceof Mine) {
                 obj.explode();

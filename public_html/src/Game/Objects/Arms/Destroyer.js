@@ -1,6 +1,6 @@
 function Destroyer(
     posX, posY, vX, vY,
-    aAllObjs, aObstacle, aDestroyable,
+    aAllObjs, aObstacle, aDestroyable, aProps,
     master
 ) {
     /*
@@ -18,6 +18,7 @@ function Destroyer(
     this.mMaster = master;
     this.mObstacle = aObstacle;
     this.mDestroyable = aDestroyable;
+    this.mProps =  aProps;
 
     this.kVelocity = [vX, vY];
     this.kSpeed = Math.sqrt(this.kVelocity[0] * this.kVelocity[0] + this.kVelocity[1] * this.kVelocity[1]);

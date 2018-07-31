@@ -2,14 +2,14 @@
 
 function ScreamingChickenArrow(
     posX, posY, vX, vY,
-    aAllObjs, aObstacle, aDestroyable,
+    aAllObjs, aObstacle, aDestroyable, aProps,
     master
 ) {
     if (vX < 0) {
         Arrow.call(
             this,
             posX, posY, vX, vY, Arrow.eAssets.eScreamingChickenArrowLeftTexture,
-            aAllObjs, aObstacle, aDestroyable,
+            aAllObjs, aObstacle, aDestroyable, aProps,
             master
         );
         this.mArrow.getXform().setSize(8, 8);
@@ -19,7 +19,7 @@ function ScreamingChickenArrow(
         Arrow.call(
             this,
             posX, posY, vX, vY, Arrow.eAssets.eScreamingChickenArrowRightTexture,
-            aAllObjs, aObstacle, aDestroyable,
+            aAllObjs, aObstacle, aDestroyable, aProps,
             master
         );
         this.mArrow.getXform().setSize(8, 8);

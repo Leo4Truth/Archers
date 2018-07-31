@@ -1,13 +1,13 @@
 function PaperPlane(
     posX, posY, vX, vY,
-    aAllObjs, aObstacle, aDestroyable,
+    aAllObjs, aObstacle, aDestroyable, aProps,
     master
 ) {
     Arrow.call(
         this,
         posX, posY, vX, vY,
         Arrow.eAssets.ePaperPlaneTexture,
-        aAllObjs, aObstacle, aDestroyable,
+        aAllObjs, aObstacle, aDestroyable, aProps,
         master
     );
 
