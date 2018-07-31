@@ -1,13 +1,13 @@
 "use strict";
 
 Background.eAssets = Object.freeze({
-    eEasternCityTexture: "assets/backgrounds/backgroundEasternCity_1.png",
-    eOutskirtsTexture: "assets/backgrounds/backgroundOutskirts_1.png",
-    eTownTexture: "assets/backgrounds/backgroundTown_1.png",
+    eEasternCityTexture: "assets/backgrounds/backgroundEasternCity.png",
+    eOutskirtsTexture: "assets/backgrounds/backgroundOutskirts.png",
+    eTownTexture: "assets/backgrounds/backgroundTown.png",
 
-    eSkyCloudyTexture: "assets/backgrounds/skyCloudy_1.png",
-    eSkyNightCloudyTexture: "assets/backgrounds/skyNightCloudy_1.png",
-    eSkyDuskTexture: "assets/backgrounds/skyDusk_1.png"
+    eSkyCloudyTexture: "assets/backgrounds/skyCloudy.png",
+    eSkyNightCloudyTexture: "assets/backgrounds/skyNightCloudy.png",
+    eSkyDuskTexture: "assets/backgrounds/skyDusk.png"
 });
 
 Background.eTerrainAssets = Object.freeze({
