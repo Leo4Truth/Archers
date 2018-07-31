@@ -31,6 +31,7 @@ function Game() {
 }
 
 Game.prototype.setCurrentPlayer = function (index) {
+    console.log(this.mCurrentScene.mProps);
     this.mTurns++;
     this.mPlayers[0].incTurns();
     this.mPlayers[1].incTurns();
@@ -74,9 +75,9 @@ Game.prototype.getTurns = function () {
     return this.mTurns;
 };
 
-Game.prototype.initialize = function (aAllObjs, aAllObstacles, aDestroyable, aBackground) {
-    this.mPlayers[0] = new Player(this, 0, aAllObjs, aAllObstacles, aDestroyable, aBackground);
-    this.mPlayers[1] = new Player(this, 1, aAllObjs, aAllObstacles, aDestroyable, aBackground);
+Game.prototype.initialize = function (aAllObjs, aAllObstacles, aDestroyable, aProps, aBackground) {
+    this.mPlayers[0] = new Player(this, 0, aAllObjs, aAllObstacles, aDestroyable, aProps, aBackground);
+    this.mPlayers[1] = new Player(this, 1, aAllObjs, aAllObstacles, aDestroyable, aProps, aBackground);
 
     this.mSpaceLimit = {
         upLimit: 250,

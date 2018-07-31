@@ -34,7 +34,7 @@ Archer.eDirection = Object.freeze({
 
 function Archer(
     atX, atY, atW, atH,
-    aAllObjs, aObstacle, aDestroyable,
+    aAllObjs, aObstacle, aDestroyable, aProps,
     player, index
 ) {
     this.mPlayer = player;
@@ -46,6 +46,7 @@ function Archer(
     this.mAllObjs = aAllObjs;
     this.mObstacle = aObstacle;
     this.mDestroyable = aDestroyable;
+    this.mProps = aProps;
 
     this.mIndex = index;
     // Animation Members
@@ -193,9 +194,11 @@ Archer.prototype.update = function (aCamera) {
         if (this.getRigidBody().collisionTest(obj.getRigidBody(), collisionInfo)) {
             if (obj instanceof LifePotion) {
                 this.addHp(obj.getRestore());
+                this.mProps.removeFromSet(obj);
             }
             else if (obj instanceof Bow) {
                 this.getMoreArm(obj.getArmNum(), obj.getArmAmount());
+                this.mProps.removeFromSet(obj);
             }
             this.mDestroyable.removeFromSet(obj);
             this.mAllObjs.removeFromSet(obj);

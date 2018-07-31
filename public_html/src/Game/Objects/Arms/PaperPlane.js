@@ -83,6 +83,7 @@ PaperPlane.prototype.effectOnDestroyable = function (obj) {
     this.transfer();
     this.mCurrentState = Arrow.eArrowState.eHit;
     this.mGenerateParticles = 0;
+    this.mProps.removeFromSet(obj);
     //this.mMaster.setState(Player.ePlayerState.eReady);
 };
 

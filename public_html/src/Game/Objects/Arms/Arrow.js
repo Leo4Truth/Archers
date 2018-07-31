@@ -30,7 +30,7 @@ Arrow.eAudio = Object.freeze({
 
 function Arrow(
     posX, posY, vX, vY, texture,
-    aAllObjs, aObstacle, aDestroyable,
+    aAllObjs, aObstacle, aDestroyable, aProps,
     master
 ) {
     this.mCurrentState = Arrow.eArrowState.eFlying;
@@ -39,6 +39,7 @@ function Arrow(
     this.mMaster = master;
     this.mObstacle = aObstacle;
     this.mDestroyable = aDestroyable;
+    this.mProps = aProps;
 
     this.kVelocity = [vX, vY];
     this.kSpeed = Math.sqrt(this.kVelocity[0] * this.kVelocity[0] + this.kVelocity[1] * this.kVelocity[1]);
@@ -190,11 +191,13 @@ Arrow.prototype.effectOnDestroyable = function (obj) {
         this.mMaster.getArcher().addHp(obj.getRestore());
         this.mAllObjs.removeFromSet(obj);
         this.mDestroyable.removeFromSet(obj);
+        this.mProps.removeFromSet(obj);
     }
     else if (obj instanceof Bow) {
         this.mMaster.getMoreArm(obj.getArmNum(), obj.getArmAmount());
         this.mAllObjs.removeFromSet(obj);
         this.mDestroyable.removeFromSet(obj);
+        this.mProps.removeFromSet(obj);
     }
     else if (obj instanceof Mine) {
         obj.explode();

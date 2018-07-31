@@ -32,7 +32,7 @@ Player.eAttributes = Object.freeze({
     ]
 });
 
-function Player(game, index, aAllObjs, aAllObstacles, aDestroyable, aBackground) {
+function Player(game, index, aAllObjs, aAllObstacles, aDestroyable, aProps, aBackground) {
     this.mMainCamera = null;
     this.mArmoryCamera = null;
     this.mHpBarCamera = null;
@@ -56,6 +56,7 @@ function Player(game, index, aAllObjs, aAllObstacles, aDestroyable, aBackground)
     this.mAllObjs = aAllObjs;
     this.mObstacle = aAllObstacles;
     this.mDestroyable = aDestroyable;
+    this.mProps = aProps;
 
     this.mGame = game;
     this.mIndex = index;
@@ -163,7 +164,7 @@ Player.prototype.initialize = function () {
         Player.eAttributes.eOrginPos[this.mIndex][0],
         Player.eAttributes.eOrginPos[this.mIndex][1],
         12, 14,
-        this.mAllObjs, this.mAllObstacles, this.mDestroyable,
+        this.mAllObjs, this.mAllObstacles, this.mDestroyable, this.mProps,
         this, this.mIndex
     );
 
@@ -538,7 +539,7 @@ Player.prototype.shoot = function () {
                 pos[0] + offset[0] * 10, pos[1] + offset[1] * 10,
                 velocity[0], velocity[1],
                 Arrow.eAssets.eNormalArrowTexture,
-                this.mAllObjs, this.mObstacle, this.mDestroyable, this
+                this.mAllObjs, this.mObstacle, this.mDestroyable, this.mProps, this
             );
             break;
         }
@@ -546,7 +547,7 @@ Player.prototype.shoot = function () {
             this.mArrow = new PaperPlane(
                 pos[0] + offset[0] * 10, pos[1] + offset[1] * 10,
                 velocity[0], velocity[1],
-                this.mAllObjs, this.mObstacle, this.mDestroyable, this
+                this.mAllObjs, this.mObstacle, this.mDestroyable, this.mProps, this
             );
             break;
         }
@@ -554,7 +555,7 @@ Player.prototype.shoot = function () {
             this.mArrow = new BouncingArrow(
                 pos[0] + offset[0] * 10, pos[1] + offset[1] * 10,
                 velocity[0], velocity[1],
-                this.mAllObjs, this.mObstacle, this.mDestroyable, this
+                this.mAllObjs, this.mObstacle, this.mDestroyable, this.mProps, this
             );
             break;
         }
@@ -562,7 +563,7 @@ Player.prototype.shoot = function () {
             this.mArrow = new Destroyer(
                 pos[0] + offset[0] * 10, pos[1] + offset[1] * 10,
                 velocity[0], velocity[1],
-                this.mAllObjs, this.mObstacle, this.mDestroyable, this
+                this.mAllObjs, this.mObstacle, this.mDestroyable, this.mProps, this
             );
             break;
         }
@@ -570,7 +571,7 @@ Player.prototype.shoot = function () {
             this.mArrow = new PuncturingArrow(
                 pos[0] + offset[0] * 10, pos[1] + offset[1] * 10,
                 velocity[0], velocity[1],
-                this.mAllObjs, this.mObstacle, this.mDestroyable, this
+                this.mAllObjs, this.mObstacle, this.mDestroyable, this.mProps, this
             );
             break;
         }
@@ -578,7 +579,7 @@ Player.prototype.shoot = function () {
             this.mArrow = new ShockWave(
                 pos[0] + offset[0] * 10, pos[1] + offset[1] * 10,
                 velocity[0], velocity[1],
-                this.mAllObjs, this.mObstacle, this.mDestroyable, this
+                this.mAllObjs, this.mObstacle, this.mDestroyable, this.mProps, this
             );
             break;
         }
@@ -586,7 +587,7 @@ Player.prototype.shoot = function () {
             this.mArrow = new ScreamingChickenArrow(
                 pos[0] + offset[0] * 10, pos[1] + offset[1] * 10,
                 velocity[0], velocity[1],
-                this.mAllObjs, this.mObstacle, this.mDestroyable, this
+                this.mAllObjs, this.mObstacle, this.mDestroyable, this.mProps, this
             );
             break;
         }
@@ -594,7 +595,7 @@ Player.prototype.shoot = function () {
             this.mArrow = new MineLauncher(
                 pos[0] + offset[0] * 10, pos[1] + offset[1] * 10,
                 velocity[0], velocity[1],
-                this.mAllObjs, this.mObstacle, this.mDestroyable, this
+                this.mAllObjs, this.mObstacle, this.mDestroyable, this.mProps, this
             );
             break;
         }
@@ -602,7 +603,7 @@ Player.prototype.shoot = function () {
             this.mArrow = new PoisonArrow(
                 pos[0] + offset[0] * 10, pos[1] + offset[1] * 10,
                 velocity[0], velocity[1],
-                this.mAllObjs, this.mObstacle, this.mDestroyable, this
+                this.mAllObjs, this.mObstacle, this.mDestroyable, this.mProps, this
             );
             break;
         }
@@ -618,7 +619,7 @@ Player.prototype.shoot = function () {
             this.mArrow = new Arrow(
                 pos[0] + offset[0] * 10, pos[1] + offset[1] * 10,
                 velocity[0], velocity[1],
-                this.mAllObjs, this.mObstacle, this.mDestroyable, this
+                this.mAllObjs, this.mObstacle, this.mDestroyable, this.mProps, this
             );
             break;
         }

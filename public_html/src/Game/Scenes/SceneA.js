@@ -120,7 +120,7 @@ SceneA.prototype.initialize = function () {
 
     this.mBackground = new Background(this.mPlace, this.mSky);
 
-    this.mGame.initialize(this.mAllObjs, this.mAllObstacles, this.mDestroyable, this.mBackground);
+    this.mGame.initialize(this.mAllObjs, this.mAllObstacles, this.mDestroyable, this.mProps, this.mBackground);
 
     this.createBounds();
 
@@ -156,7 +156,7 @@ SceneA.prototype.initialize = function () {
         this.mProps.addToSet(lifePotion);
     }
 
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < 4; i++) {
         tempX = Game.random(0, 480) - 240;
         tempY = Game.random(110, 170) - 70;
         var newBow = Bow.randomBow(tempX, tempY);
@@ -169,15 +169,17 @@ SceneA.prototype.initialize = function () {
         this.mProps.addToSet(newBow);
     }
 
-    newBow = new Bow(-200, 100, Arm.eArmNum.ePuncturingArrow, 2, 50);
+    /*
+    newBow = new Bow(-200, 100, Arm.eArmNum.ePuncturingArrow, 1, 50);
     this.mAllObjs.addToSet(newBow);
     this.mDestroyable.addToSet(newBow);
     this.mProps.addToSet(newBow);
 
-    newBow = new Bow(200, 100, Arm.eArmNum.ePuncturingArrow, 2, 50);
+    newBow = new Bow(200, 100, Arm.eArmNum.ePuncturingArrow, 1, 50);
     this.mAllObjs.addToSet(newBow);
     this.mDestroyable.addToSet(newBow);
     this.mProps.addToSet(newBow);
+    */
 };
 
 SceneA.prototype.update = function () {

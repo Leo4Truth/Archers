@@ -162,11 +162,13 @@ ScreamingChickenArrow.prototype.effectOnDestroyable = function (obj) {
         this.mMaster.getArcher().addHp(obj.getRestore());
         this.mAllObjs.removeFromSet(obj);
         this.mDestroyable.removeFromSet(obj);
+        this.mProps.removeFromSet(obj);
     }
     else if (obj instanceof Bow) {
         this.mMaster.getMoreArm(obj.getArmNum(), obj.getArmAmount());
         this.mAllObjs.removeFromSet(obj);
         this.mDestroyable.removeFromSet(obj);
+        this.mProps.removeFromSet(obj);
     }
     else if (obj instanceof Mine) {
         obj.explode();
