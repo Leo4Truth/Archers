@@ -130,7 +130,6 @@ function Archer(
 gEngine.Core.inheritPrototype(Archer, GameObject);
 
 Archer.prototype.update = function (aCamera) {
-    console.log(this.getCurrentState());
     GameObject.prototype.update.call(this);
 
     var xform = this.getRenderable().getXform();
