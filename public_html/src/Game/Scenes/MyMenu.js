@@ -29,6 +29,8 @@ function MyMenu(game) {
     this.msPosX;
     this.msPosY;
 
+    this.kBgm = "assets/sounds/bgm_1.mp3";
+
     // Coordinate Systems (Copied from MyGame for simplicity, can change this)
     this.kWCWidth = 200;
     this.kViewportWidth = 1600;
@@ -48,6 +50,8 @@ MyMenu.prototype.loadScene = function(sceneParams) {
     gEngine.Textures.loadTexture(MyMenu.eAssets.MenuButton2Texture);
     gEngine.Textures.loadTexture(MyMenu.eAssets.MenuButton3Texture);
     gEngine.Textures.loadTexture(MyMenu.eAssets.MenuMarkTexture);
+
+    gEngine.AudioClips.loadAudio(this.kBgm);
 };
 
 MyMenu.prototype.unloadScene = function() {
@@ -61,10 +65,14 @@ MyMenu.prototype.unloadScene = function() {
     gEngine.Textures.unloadTexture(MyMenu.eAssets.MenuButton3Texture);
     gEngine.Textures.unloadTexture(MyMenu.eAssets.MenuMarkTexture);
 
-    var skyRandom = Math.floor(Game.random(0, 1.8));
-    var placeRandom = Math.floor(Game.random(0, 2.8));
+    gEngine.AudioClips.unloadAudio(this.kBgm);
+    gEngine.AudioClips.stopBackgroundAudio();
 
-    var nextLevel = new SceneA(this.mGame, placeRandom, skyRandom);
+    var skyRandom = Game.random(0, 2.99);
+    var placeRandom = Game.random(0, 2.99);
+    var bgmRandom = Game.random(0, 5.99);
+
+    var nextLevel = new SceneA(this.mGame, placeRandom, skyRandom, bgmRandom);
     gEngine.Core.startScene(nextLevel);
     this.mGame.mCurrentScene = nextLevel;
 };
@@ -115,6 +123,9 @@ MyMenu.prototype.initialize = function() {
 };
 
 MyMenu.prototype.update = function() {
+    if (gEngine.AudioClips.isBackgroundAudioPlaying() === false)
+        gEngine.AudioClips.playBackgroundAudio(this.kBgm);
+
     this.keyControl();
 
     var delta = -3;

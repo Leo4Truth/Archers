@@ -30,37 +30,45 @@ function Bow(xpos, ypos, armNum, armAmount, existTurns) {
     this.getRigidBody().setInertia(0);
     this.getRigidBody().setRestitution(0);
        
-    switch (armNum){
-        case 0:{
+    switch (armNum) {
+        case Arm.eArmNum.eNormalArrow:{
             this.mArmIcon = new TextureRenderable(Arm.eIconAssets.eNormalArrow);
             break;
         }
-        case 1:{
+        case Arm.eArmNum.ePaperPlane:{
             this.mArmIcon = new TextureRenderable(Arm.eIconAssets.ePaperPlane);
             break;
         }
-        case 2:{
+        case Arm.eArmNum.eBouncingArrow:{
             this.mArmIcon = new TextureRenderable(Arm.eIconAssets.eBouncingArrow);
             break;
         }
-        case 3:{
+        case Arm.eArmNum.eDestroyer:{
             this.mArmIcon = new TextureRenderable(Arm.eIconAssets.eDestroyer);
             break;
         }
-        case 4:{
+        case Arm.eArmNum.ePuncturingArrow:{
             this.mArmIcon = new TextureRenderable(Arm.eIconAssets.ePuncturingArrow);
             break;
         }
-        case 5:{
+        case Arm.eArmNum.eShockWave:{
             this.mArmIcon = new TextureRenderable(Arm.eIconAssets.eShockWave);
             break;
         }
-        case 6:{
+        case Arm.eArmNum.eScreamingChickenArrow:{
             this.mArmIcon = new TextureRenderable(Arm.eIconAssets.eScreamingChickenArrow);
             break;
         }
-        case 7:{
+        case Arm.eArmNum.eMineLauncher:{
             this.mArmIcon = new TextureRenderable(Arm.eIconAssets.eMineLauncher);
+            break;
+        }
+        case Arm.eArmNum.ePoisonArrow:{
+            this.mArmIcon = new TextureRenderable(Arm.eIconAssets.ePoisonArrow);
+            break;
+        }
+        case Arm.eArmNum.eRegenerationArrow:{
+            this.mArmIcon = new TextureRenderable(Arm.eIconAssets.eRegenerationArrow);
             break;
         }
         default: {

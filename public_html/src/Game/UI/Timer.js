@@ -65,7 +65,7 @@ function Timer(player) {
 }
 Timer.prototype.setZero = function () {
     this.mTime = 0;
-    this.mTimeShow = 24;
+    this.mTimeShow = 18;
 };
 
 Timer.prototype.TimeUpdate = function (time) {

@@ -1,12 +1,14 @@
 "use strict";
 
-function SceneA(game, place, sky) {
+function SceneA(game, place, sky, bgm) {
     this.mGame = game;
 
     this.mPlace = place;
     this.mSky = sky;
+    this.mBgm = bgm;
+    this.mIsBgmPlay = true;
 
-    //GameObjectSets
+        //GameObjectSets
     this.mAllObjs = null;   //All GameObject
     this.mAllObstacles = null; // All Obstacles which cant be destroyed
     this.mDestroyable = null; // All objects that can be shot
@@ -22,7 +24,7 @@ gEngine.Core.inheritPrototype(SceneA, Scene);
 SceneA.prototype.loadScene = function () {
     // Beautiful but doesn't work
     // Timer.loadAssets();
-    Background.loadAssets();
+    Background.loadAssets(this.mPlace, this.mSky, this.mBgm);
 
     Player.loadAssets();
     Archer.loadAssets();
@@ -42,17 +44,21 @@ SceneA.prototype.loadScene = function () {
     LifePotion.loadAssets();
     Mine.loadAssets();
 
+    /*
     gEngine.Textures.loadTexture(Background.eAssets.eEasternCityTexture);
     gEngine.Textures.loadTexture(Background.eAssets.eOutskirtsTexture);
     gEngine.Textures.loadTexture(Background.eAssets.eTownTexture);
+
     gEngine.Textures.loadTexture(Background.eAssets.eSkyCloudyTexture);
     gEngine.Textures.loadTexture(Background.eAssets.eSkyNightCloudyTexture);
+    gEngine.Textures.loadTexture(Background.eAssets.eSkyDuskTexture);
+    */
 };
 
 SceneA.prototype.unloadScene = function () {
     // Beautiful but doesn't work
     // Timer.unloadAssets();
-    Background.unloadAssets();
+    Background.loadAssets(this.mPlace, this.mSky, this.mBgm);
 
     Player.unloadAssets();
     Archer.unloadAssets();
@@ -73,12 +79,15 @@ SceneA.prototype.unloadScene = function () {
     LifePotion.unloadAssets();
     Mine.unloadAssets();
 
+    /*
     gEngine.Textures.unloadTexture(Background.eAssets.eSkyCloudyTexture);
     gEngine.Textures.unloadTexture(Background.eAssets.eSkyNightCloudyTexture);
+    gEngine.Textures.unloadTexture(Background.eAssets.eSkyDuskTexture);
 
     gEngine.Textures.unloadTexture(Background.eAssets.eTownTexture);
     gEngine.Textures.unloadTexture(Background.eAssets.eEasternCityTexture);
     gEngine.Textures.unloadTexture(Background.eAssets.eOutskirtsTexture);
+    */
 
     var nextLevel;
     switch (this.mGame.getState()) {
@@ -172,13 +181,139 @@ SceneA.prototype.initialize = function () {
 };
 
 SceneA.prototype.update = function () {
-    if(gEngine.AudioClips.isBackgroundAudioPlaying() === false)
-        gEngine.AudioClips.playBackgroundAudio(Background.eAudio.eBgm_1);
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.V)) {
+        if (gEngine.AudioClips.isBackgroundAudioPlaying() === true) {
+            gEngine.AudioClips.stopBackgroundAudio();
+            this.mIsBgmPlay = false;
+        }
+        else if (gEngine.AudioClips.isBackgroundAudioPlaying() === false) {
+            this.mIsBgmPlay = true;
+        }
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B)) {
+        if (gEngine.AudioClips.isBackgroundAudioPlaying() === true)
+            gEngine.AudioClips.stopBackgroundAudio();
+        this.mBgm++;
+        this.mBgm %= 6;
+        /*
+        switch (this.mBgm) {
+            case Background.eBgm.eBgm_1: {
+                gEngine.AudioClips.unloadAudio(Background.eAudio.eBgm_1);
+                break;
+            }
+            case Background.eBgm.eBgm_2: {
+                gEngine.AudioClips.unloadAudio(Background.eAudio.eBgm_2);
+                break;
+            }
+            case Background.eBgm.eBgm_3: {
+                gEngine.AudioClips.unloadAudio(Background.eAudio.eBgm_3);
+                break;
+            }
+            case Background.eBgm.eBgm_4: {
+                gEngine.AudioClips.unloadAudio(Background.eAudio.eBgm_4);
+                break;
+            }
+            case Background.eBgm.eBgm_5: {
+                gEngine.AudioClips.unloadAudio(Background.eAudio.eBgm_5);
+                break;
+            }
+            case Background.eBgm.eBgm_6: {
+                gEngine.AudioClips.unloadAudio(Background.eAudio.eBgm_6);
+                break;
+            }
+            default: {
+                gEngine.AudioClips.unloadAudio(Background.eAudio.eBgm_1);
+                break;
+            }
+        }
+
+        this.mBgm++;
+        this.mBgm %= 6;
+
+        switch (this.mBgm) {
+            case Background.eBgm.eBgm_1: {
+                gEngine.AudioClips.loadAudio(Background.eAudio.eBgm_1);
+                break;
+            }
+            case Background.eBgm.eBgm_2: {
+                gEngine.AudioClips.loadAudio(Background.eAudio.eBgm_2);
+                break;
+            }
+            case Background.eBgm.eBgm_3: {
+                gEngine.AudioClips.loadAudio(Background.eAudio.eBgm_3);
+                break;
+            }
+            case Background.eBgm.eBgm_4: {
+                gEngine.AudioClips.loadAudio(Background.eAudio.eBgm_4);
+                break;
+            }
+            case Background.eBgm.eBgm_5: {
+                gEngine.AudioClips.loadAudio(Background.eAudio.eBgm_5);
+                break;
+            }
+            case Background.eBgm.eBgm_6: {
+                gEngine.AudioClips.loadAudio(Background.eAudio.eBgm_6);
+                break;
+            }
+            default: {
+                gEngine.AudioClips.loadAudio(Background.eAudio.eBgm_1);
+                break;
+            }
+        }
+        */
+    }
+    if (this.mIsBgmPlay === true && gEngine.AudioClips.isBackgroundAudioPlaying() === false) {
+        var bgm;
+        switch (this.mBgm) {
+            case Background.eBgm.eBgm_1: {
+                bgm = Background.eAudio.eBgm_1;
+                break;
+            }
+            case Background.eBgm.eBgm_2: {
+                bgm = Background.eAudio.eBgm_2;
+                break;
+            }
+            case Background.eBgm.eBgm_3: {
+                bgm = Background.eAudio.eBgm_3;
+                break;
+            }
+            case Background.eBgm.eBgm_4: {
+                bgm = Background.eAudio.eBgm_4;
+                break;
+            }
+            case Background.eBgm.eBgm_5: {
+                bgm = Background.eAudio.eBgm_5;
+                break;
+            }
+            case Background.eBgm.eBgm_6: {
+                bgm = Background.eAudio.eBgm_6;
+                break;
+            }
+            default: {
+                bgm = Background.eAudio.eBgm_1;
+                break;
+            }
+        }
+        gEngine.AudioClips.playBackgroundAudio(bgm);
+    }
 
     this.mGame.update();
     this.mAllObjs.update(this.mGame.getCurrentPlayer().getMainCamera());
 
     gEngine.Physics.processCollision(this.mAllObjs, this.mCollisionInfos);
+
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.N)) {
+        if (gEngine.AudioClips.isBackgroundAudioPlaying() === true)
+            gEngine.AudioClips.stopBackgroundAudio();
+        this.mGame.setState(Game.eGameState.ePlayer1_Win);
+        gEngine.GameLoop.stop();
+    }
+    else if (gEngine.Input.isKeyClicked(gEngine.Input.keys.M)) {
+        if (gEngine.AudioClips.isBackgroundAudioPlaying() === true)
+            gEngine.AudioClips.stopBackgroundAudio();
+        this.mGame.setState(Game.eGameState.ePlayer2_Win);
+        gEngine.GameLoop.stop();
+    }
 };
 
 SceneA.prototype.draw = function () {

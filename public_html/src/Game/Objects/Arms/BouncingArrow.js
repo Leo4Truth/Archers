@@ -103,6 +103,7 @@ BouncingArrow.prototype.effectOnArcher = function (obj) {
 };
 
 BouncingArrow.prototype.bounce = function (obj) {
+    gEngine.AudioClips.playACue(Arrow.eAudio.eBouncingHit);
     var v = this.getRigidBody().getVelocity();
     if (Math.abs(v[0]) > Math.abs(v[1]))
         this.getRigidBody().setVelocity(-v[0] * 1.2, v[1] * 1.2);

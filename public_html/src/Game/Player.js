@@ -274,7 +274,7 @@ Player.prototype.keyControl = function () {
     switch (this.mCurrentState) {
         case Player.ePlayerState.eReady: {
 
-            if (this.mTime > 1440) {
+            if (this.mTime > 1080) {
                 this.resetTimer();
                 this.setState(Player.ePlayerState.eWait);
                 this.mArcher.setToStand();
