@@ -31,7 +31,6 @@ function Game() {
 }
 
 Game.prototype.setCurrentPlayer = function (index) {
-    console.log(this.mCurrentScene.mProps);
     this.mTurns++;
     this.mPlayers[0].incTurns();
     this.mPlayers[1].incTurns();
@@ -112,7 +111,7 @@ Game.prototype.update = function () {
                 case Player.ePlayerState.eWait: {
                     this.setCurrentPlayer(1);
 
-                    if (this.mCurrentScene.mProps.size() < 12) {
+                    if (this.mCurrentScene.mProps.size() < 10) {
                         var xpos = Math.floor(Game.random(0, 480)) - 240;
                         var ypos = Math.floor(Game.random(40, 200));
                         var propRand = Math.floor(Game.random(0, 5));
@@ -154,7 +153,7 @@ Game.prototype.update = function () {
                 case Player.ePlayerState.eWait: {
                     this.setCurrentPlayer(0);
 
-                    if (this.mCurrentScene.mProps.size() < 12) {
+                    if (this.mCurrentScene.mProps.size() < 10) {
                         var xpos = Math.floor(Game.random(-240, 240));
                         var ypos = Math.floor(Game.random(40, 200));
                         var propRand = Math.floor(Game.random(0, 5));

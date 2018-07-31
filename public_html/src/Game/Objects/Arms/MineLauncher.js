@@ -85,7 +85,6 @@ MineLauncher.prototype.effectOnDestroyable = function (obj) {
     this.mAllObjs.removeFromSet(this);
 
     if (obj instanceof LifePotion) {
-        console.log("hit lifePotion");
         this.mMaster.getArcher().addHp(obj.getRestore());
         this.mAllObjs.removeFromSet(obj);
         this.mDestroyable.removeFromSet(obj);
